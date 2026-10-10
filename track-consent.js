@@ -7,7 +7,7 @@
  */
 (function () {
   'use strict';
-  var CLARITY_ID = ''; // TODO: Clarity project id for ra-minecraft (empty = Clarity never loads)
+  var CLARITY_ID = 'yvooeforl7'; // Clarity projektas ra-minecraft (Strict masking); kraunamas TIK po „Leisti"
   var KEY = 'ra_mc_consent';
 
   function read() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
@@ -28,7 +28,7 @@
     el.setAttribute('role', 'dialog');
     el.setAttribute('aria-label', 'Slapukų sutikimas');
     el.innerHTML =
-      '<p>Norime matyti, kur puslapis tėvams neaiškus, ir jį gerinti. „Leisti" įjungia Microsoft Clarity (anoniminius šilumos žemėlapius ir sesijų įrašus). Be sutikimo renkame tik anoniminę statistiką be slapukų.</p>' +
+      '<p>„Leisti" įjungia Microsoft Clarity (anoniminius šilumos žemėlapius), kad matytume, kur puslapis neaiškus. Be sutikimo: tik anoniminė statistika be slapukų.</p>' +
       '<div class="consent-actions">' +
       '<button type="button" class="btn btn-yellow" data-c="all">Leisti</button>' +
       '<button type="button" class="btn btn-ghost" data-c="necessary">Tik būtini</button>' +

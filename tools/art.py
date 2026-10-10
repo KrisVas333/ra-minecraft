@@ -428,6 +428,14 @@ ICONS = {
 "o.oo.yy..o",
 "oooooooooo",
 ],
+"cloud": [
+"........oooo......",
+"......oooooooo....",
+"..oooooooooooooo..",
+"oooooooooooooooooo",
+"oooooooooooooooooo",
+"..oooooooooooooo..",
+],
 "question": [
 "...oooo...",
 "..o....o..",
