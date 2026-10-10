@@ -12,7 +12,7 @@
 <link rel="canonical" href="https://krisvas333.github.io/ra-minecraft/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Žaidimų kūrėjai · būrelis 1–4 klasei su Minecraft Education ir DI">
-<meta property="og:description" content="Ekranas, prie kurio vaikas kuria, o ne tik žiūri. 45 min per savaitę popietėmis po pamokų, Tech Zity, Vilnius. Įrašykite vaiką į laukiančiųjų sąrašą.">
+<meta property="og:description" content="Ekranas, prie kurio vaikas kuria, o jūs matote, ko išmoko. 45 min per savaitę popietėmis po pamokų, Tech Zity, Vilnius. Pirmoji pamoka nemokama.">
 <meta property="og:image" content="https://krisvas333.github.io/ra-minecraft/og.png">
 <meta property="og:locale" content="lt_LT">
 <meta name="twitter:card" content="summary_large_image">
@@ -183,11 +183,11 @@ video{max-width:100%}
 @media (max-width:859px){.band .ph{display:none}}
 
 /* ============ trust numbers ============ */
-.trust .nums{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.trust .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .trust .num b{font-family:var(--body);font-weight:700;letter-spacing:-.02em;font-size:clamp(2rem,4.5vw,3rem);display:block;line-height:1}
 .trust .num span{color:var(--tx-2);font-size:.95rem}
 .trust .src{margin-top:16px;font-size:.85rem;color:var(--tx-2)}
-@media (min-width:760px){.trust .nums{grid-template-columns:repeat(4,1fr)}}
+@media (min-width:760px){.trust .nums{grid-template-columns:repeat(5,1fr)}}
 
 /* ============ pixel ground divider ============ */
 .ground{height:14px;background:
@@ -235,8 +235,34 @@ video{max-width:100%}
 .band-row h3{font-size:.98rem;color:var(--yellow);display:flex;align-items:center;gap:10px}
 .band-row h3 img{width:22px;height:22px}
 .band-row p{font-size:.97rem;color:var(--tx-2)}
-[data-band="12"] .b34,[data-band="34"] .b12{display:none}
 @media (min-width:760px){.band-grid{grid-template-columns:repeat(3,1fr)}}
+
+/* ============ MC Edu + team + grades ============ */
+.mce-grid{display:grid;gap:10px}
+.mce-item{background:var(--glass);border:1px solid var(--glass-line);border-radius:16px;padding:0 18px}
+.mce-item summary{cursor:pointer;font-weight:700;font-size:1.05rem;padding:14px 0;list-style:none;display:flex;justify-content:space-between;gap:12px;min-height:52px;align-items:center}
+.mce-item summary::-webkit-details-marker{display:none}
+.mce-item p{padding:0 0 16px;color:var(--tx-2);font-size:1rem}
+.mce-item summary::after{content:"";width:12px;height:12px;flex:none;background:linear-gradient(#fff,#fff) center/12px 3px no-repeat,linear-gradient(#fff,#fff) center/3px 12px no-repeat;transition:transform .2s var(--ease)}
+.mce-item[open] summary::after{transform:rotate(45deg)}
+@media (min-width:760px){.mce-grid{grid-template-columns:repeat(3,1fr)}.mce-item summary::after{display:none}.mce-item summary{cursor:default}}
+.team{background:var(--night)}
+.team-grid{display:grid;gap:18px}
+.skills{list-style:none;padding:0;display:grid;gap:10px;align-self:center}
+.skills-inline{display:none}
+.skills li{display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:start;background:var(--night-2);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px 14px;font-size:1rem}
+.skills img{width:20px;height:20px;margin-top:4px}
+@media (min-width:860px){.team-grid{grid-template-columns:1.1fr .9fr;align-items:center}}
+.grades{margin-top:34px}
+.grades-h{font-size:1.25rem;margin-bottom:4px}
+.grades-note{color:var(--tx-2);font-size:.95rem;margin-bottom:12px}
+.grade-rows{list-style:none;padding:0;display:grid;gap:6px}
+.grade-rows li{display:grid;grid-template-columns:150px 1fr;gap:12px;background:var(--night-2);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px 14px;font-size:.97rem}
+.grade-rows b{color:var(--yellow);font-size:.9rem}
+.grade-rows span{display:none;color:var(--tx-2)}
+[data-g="1"] .g1,[data-g="2"] .g2,[data-g="3"] .g3,[data-g="4"] .g4{display:block}
+.switch button[aria-selected="true"]{background:var(--yellow);color:var(--navy)}
+@media (max-width:520px){.grade-rows li{grid-template-columns:1fr;gap:2px}}
 
 /* ============ outcomes ============ */
 .outcomes{display:grid;gap:14px}
@@ -375,11 +401,15 @@ body:has(.consent:not(.is-gone)) .sticky{transform:translateY(110%)}
   .hero .game{margin-top:14px;padding:10px 10px 8px}.game p{display:none}.game h2{margin-bottom:8px}.slot{min-height:30px}.gate{height:40px}.hero .chips .chip:nth-child(2){display:none}
   .facts{display:none}
   .band{padding-top:16px}.band .play{font-size:1rem}.band .play .tri{width:46px;height:46px}.band .play .tri::after{left:18px;top:13px;border-left:14px solid var(--navy);border-top:9px solid transparent;border-bottom:9px solid transparent}
-  .trust{padding-block:22px 0}.trust .nums{grid-template-columns:repeat(4,1fr);gap:6px}.trust .num b{font-size:1.3rem}.trust .num span{font-size:.72rem;display:block;line-height:1.2}.trust .src{display:none}
+  .trust{padding-block:22px 0}.trust .nums{grid-template-columns:repeat(5,1fr);gap:4px}.trust .num b{font-size:1.05rem}.trust .num span{font-size:.66rem;display:block;line-height:1.2}.trust .src{display:none}
   .pillars{gap:8px}.pillar{display:grid;grid-template-columns:30px 1fr;gap:10px;padding:12px 14px;align-items:start}.pillar img{width:26px;height:26px;margin:3px 0 0;grid-row:1/3}.pillar h3{font-size:1rem;margin-bottom:0}.pillar p{display:none}.pillar{align-items:center}
   .cycle{margin-bottom:14px;gap:6px}.blk{font-size:.74rem;padding:6px 3px}.blk i{font-size:1.1rem}.cycle-note{margin:-6px 0 14px;font-size:.88rem}
   .lesson .panel{display:none}.steps{gap:6px}.steps:not(.is-all) .step:nth-child(n+4){display:none}.steps:not(.is-all)+.more{display:inline-flex;margin-top:10px;min-height:48px;font-size:.95rem;width:100%}.step{padding:8px 12px;grid-template-columns:50px 1fr;gap:10px}.step h3{font-size:.95rem}.step p{font-size:.86rem}.step .min{font-size:.92rem}
-  .switch,.band-grid{display:none}
+  .grades{margin-top:22px}.grade-rows li{padding:8px 12px;font-size:.9rem}.grades-note{display:none}
+  .team{padding-block:26px}.team .lead{font-size:1rem}.skills{display:none}.skills-inline{display:block;color:var(--tx-2);font-size:.92rem;margin-top:8px}
+  .mce-item p{font-size:.92rem}
+  #pillars,#rezultatai,.faq details.dt{display:none}
+  section{padding-block:28px}.cycle-note{display:none}.slot{min-height:28px}
   .outcomes{gap:8px}.out{padding:14px 16px}.out .when{font-size:1.1rem;margin-bottom:6px}.out ul{gap:6px}.out li small{display:none}.out li b{font-size:1.2rem}.out li span{font-size:.95rem}
   #zaidimai{display:none}
   .safe-grid{gap:8px}.safe-item{padding:12px;gap:10px}.safe-item p{font-size:.86rem}
@@ -418,7 +448,7 @@ body:has(.consent:not(.is-gone)) .sticky{transform:translateY(110%)}
       <span class="tag"><img class="px" src="assets/ico-block-navy.svg" alt="" width="16" height="16">1–4 klasė · 7–10 metų</span>
       <h1 id="h1"><span class="h1-word">Iš</span> <span class="h1-word">žaidėjo</span> <span class="h1-word">į</span> <span class="h1-word">žaidimų</span> <span class="h1-word">kūrėją</span></h1>
       <p class="sub">Vaikai 7–10 m. kuria mokomuosius žaidimus Minecraft Education pasaulyje ir su DI. Gyvai, grupėje, su mentoriumi.</p>
-      <p class="price"><span class="chip chip-price"><img class="px" src="assets/ico-euro.svg" alt="">≈ 12 € už pamoką · planuojama 49 €/mėn.</span></p>
+      <p class="price"><span class="chip chip-price"><img class="px" src="assets/ico-euro.svg" alt="">Pirmoji pamoka nemokama · 39 €/mėn.</span><!-- ⚠️ kaina ir nemokama pirma pamoka: Kris + Džiugas patvirtinti (tyrimo rekomendacija 2026-10-11) --></p>
       <div class="chips" aria-label="Formatas">
         <span class="chip"><img class="px" src="assets/ico-clock.svg" alt="">45 min · 1× per savaitę</span>
         <span class="chip"><img class="px" src="assets/ico-pin.svg" alt="">Tech Zity, Vilnius ir mokyklos</span>
@@ -454,8 +484,8 @@ body:has(.consent:not(.is-gone)) .sticky{transform:translateY(110%)}
     <ul>
       <li><img class="px" src="assets/ico-group.svg" alt=""><div><b>1–4 klasė</b><span>dvi grupės: 1–2 ir 3–4 kl.</span></div></li>
       <li><img class="px" src="assets/ico-clock.svg" alt=""><div><b>Popietėmis po pamokų</b><span>45 min, 1 kartą per savaitę, dieną renkatės formoje</span></div></li>
-      <li><img class="px" src="assets/ico-tablet.svg" alt=""><div><b>Įranga mūsų</b><span>planšetės, licencijos, pasauliai</span></div></li>
-      <li><img class="px" src="assets/ico-euro.svg" alt=""><div><b>Planuojama 49 €/mėn.</b><span>≈ 12 € už pamoką · tikslią kainą pranešime prieš registraciją</span></div></li>
+      <li><img class="px" src="assets/ico-tablet.svg" alt=""><div><b>Įranga vietoje</b><span>planšetės, programa, pasauliai; vaikui nereikia savo paskyros</span></div></li>
+      <li><img class="px" src="assets/ico-euro.svg" alt=""><div><b>39 €/mėn. · pirmoji pamoka nemokama</b><span>≈ 9,75 € už pamoką · tikslią kainą pranešime prieš registraciją</span></div></li>
       <!-- ⚠️ kaina: siūlymas iš brief'o §8, laukia Kris'o/Džiugo sprendimo -->
     </ul>
   </div>
@@ -482,22 +512,23 @@ body:has(.consent:not(.is-gone)) .sticky{transform:translateY(110%)}
 <section class="trust" aria-label="Robotikos akademija skaičiais">
   <div class="wrap">
     <div class="nums">
+      <div class="num"><b>13 metų</b><span>Lietuvoje, nuo 2013</span></div>
       <div class="num"><b>110+</b><span>mentorių</span></div>
       <div class="num"><b>12 000+</b><span>vaikų per metus</span></div>
       <div class="num"><b>650+</b><span>lokacijų Lietuvoje</span></div>
-      <div class="num"><b>9 iš 10</b><span>tėvų rekomenduoja</span></div>
+      <div class="num"><b>9 iš 10</b><span>klientų rekomenduoja</span></div>
     </div>
-    <p class="src">Robotikos akademija: Nr. 1 vaikų technologinio ugdymo organizacija Lietuvoje, STEM.org akredituota. Skaičiai iš <a href="https://robotikosakademija.lt/" rel="noopener">robotikosakademija.lt</a>.</p>
+    <p class="src">Robotikos akademija: vaikų technologinio ugdymo organizacija, įregistruota 2013 m., STEM.org akredituota. Skaičiai iš <a href="https://robotikosakademija.lt/" rel="noopener">robotikosakademija.lt</a>; „9 iš 10" = RA klientų apklausa.</p>
   </div>
 </section>
 
 <div class="ground" role="presentation"></div>
 
 <!-- ============ PILLARS ============ -->
-<section aria-labelledby="h-pillars">
+<section aria-labelledby="h-pillars" id="pillars">
   <div class="wrap">
     <div class="sec-head">
-      <h2 class="pixel" id="h-pillars">Ekranas, prie kurio kuriama</h2>
+      <h2 class="plain" id="h-pillars">Ekranas, prie kurio vaikas kuria, o jūs kas savaitę matote, ko išmoko</h2>
       <p>Vaikas jau moka statyti. Čia jis išmoksta kurti žaidimus, kurie moko kitus.</p>
     </div>
     <div class="pillars">
@@ -513,17 +544,51 @@ body:has(.consent:not(.is-gone)) .sticky{transform:translateY(110%)}
       </article>
       <article class="pillar">
         <img class="px" src="assets/ico-chip.svg" alt="" loading="lazy">
-        <h3>Dirbtinis intelektas saugiai</h3>
-        <p>Kartą per ciklą vaikai sugalvoja žaidimą žodžiais, DI padeda jį sukurti, vaikai testuoja ir taiso. DI įrankius valdo tik mentorius, vaikai paskyrų neturi.</p>
+        <h3>Ne vartoja DI, o jam vadovauja</h3>
+        <p>Vaikas sugalvoja žaidimą žodžiais. DI padeda jį sukurti. Vaikas išbando ir pataiso. DI klysta, ir čia vaikas išmoksta tai pastebėti. DI įrankius valdo tik mentorius, vaikai paskyrų neturi.</p>
       </article>
     </div>
+  </div>
+</section>
+
+
+<!-- ============ MINECRAFT EDUCATION: KAS TAI ============ -->
+<section class="mce" id="minecraft-education" aria-labelledby="h-mce">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="pixel" id="h-mce">Minecraft Education: kas tai</h2>
+      <p>Trumpai tėvams: kuo skiriasi nuo žaidimo namie ir kuo naudinga.</p>
+    </div>
+    <div class="mce-grid">
+      <details class="mce-item" open><summary>Kas tai?</summary><p>Atskira Minecraft versija mokykloms ir būreliams. Microsoft duomenimis, joje daugiau nei 600 pamokų, kodavimo įrankis Code Builder ir mokytojo valdymas.</p></details>
+      <details class="mce-item" open><summary>Kuo skiriasi nuo žaidimo namie?</summary><p>Prisijungiama tik organizacijos paskyra, vaikas neturi savo asmeninės paskyros. Į pasaulį patenka tik grupė su mentoriumi pagal kodą. Mentorius gali sustabdyti, perkelti ar surinkti visus vaikus vienu mygtuku.</p></details>
+      <details class="mce-item" open><summary>Kuo naudinga?</summary><p>Vaikas ne „žaidžia", o atlieka misiją: skaičiuoja, planuoja, rašo, programuoja ir dirba komandoje. Atvirai: tyrimai apie Minecraft mokymąsi dar nėra tvirti, todėl nežadame pažymių pokyčio. Žadame tai, ką matysite: po pamokos gausite nuotrauką ir sakinį, ko vaikas išmoko.</p></details>
+    </div>
+    <!-- ⚠️ „tik grupė pagal kodą": patvirtinti su Augustu (RA nuomininkas), brief (c) [^2] -->
+  </div>
+</section>
+
+<!-- ============ SAVO EKRANAS, BENDRA MISIJA ============ -->
+<section class="team" aria-labelledby="h-team">
+  <div class="wrap team-grid">
+    <div>
+      <h2 class="pixel" id="h-team">Savo ekranas. Bendra misija.</h2>
+      <p class="lead" style="margin-top:10px">Kiekvienas vaikas valdo savo planšetę, todėl niekas neužgožia kito. Bet visi stato viename pasaulyje ir turi skirtingus vaidmenis: inžinierius, chemikas, biologas, išgyvenimo specialistas. Be kito komandos nario bazė neišgyvens.</p>
+      <p class="skills-inline">Išmoksta gyvenimui: susitarti dėl taisyklių · paskirstyti darbus · suplanuoti atsargas · paaiškinti kitam savo darbą.</p>
+    </div>
+    <ul class="skills" aria-label="Ką išmoksta gyvenimui">
+      <li><img class="px" src="assets/ico-check.svg" alt="" loading="lazy"><span>susitarti dėl taisyklių</span></li>
+      <li><img class="px" src="assets/ico-check.svg" alt="" loading="lazy"><span>paskirstyti darbus komandoje</span></li>
+      <li><img class="px" src="assets/ico-check.svg" alt="" loading="lazy"><span>suplanuoti atsargas: kiek deguonies reikia kelionei</span></li>
+      <li><img class="px" src="assets/ico-check.svg" alt="" loading="lazy"><span>paaiškinti kitam savo darbą</span></li>
+    </ul>
   </div>
 </section>
 
 <div class="ground ground-night" role="presentation"></div>
 
 <!-- ============ ONE LESSON + CYCLE + GRADES ============ -->
-<section class="lesson" id="pamoka" aria-labelledby="h-lesson" data-band="12">
+<section class="lesson" id="pamoka" aria-labelledby="h-lesson">
   <div class="wrap">
     <div class="sec-head">
       <h2 class="pixel" id="h-lesson">Viena pamoka, minutė po minutės</h2>
@@ -558,26 +623,22 @@ body:has(.consent:not(.is-gone)) .sticky{transform:translateY(110%)}
       </aside>
     </div>
 
-    <div class="switch" role="group" aria-label="Klasė">
-      <button type="button" data-set="12" aria-pressed="true">1–2 klasė</button>
-      <button type="button" data-set="34" aria-pressed="false">3–4 klasė</button>
-    </div>
-    <div class="band-grid">
-      <div class="band-row">
-        <h3><img class="px" src="assets/ico-block.svg" alt="" loading="lazy">Minecraft Education</h3>
-        <p class="b12">Blokų statymas pagal užduotį, skaičiavimas blokais, „teisingo kelio" žaidimai. Be sudėtingų grandinių.</p>
-        <p class="b34">Redstone (Minecraft elektros grandinės), Code Builder (kodo blokeliai, kuriais agentas stato už vaiką), komandinis darbas viename pasaulyje.</p>
+    <div class="grades" id="klases" data-g="1">
+      <h3 class="grades-h">Ką vaikas gauna kiekvienoje klasėje</h3>
+      <p class="grades-note">Programos tikslai, ne įrodyti rezultatai. Pasirinkite klasę.</p>
+      <div class="switch" role="tablist" aria-label="Klasė">
+        <button type="button" role="tab" data-g="1" aria-selected="true">1 kl.</button>
+        <button type="button" role="tab" data-g="2" aria-selected="false">2 kl.</button>
+        <button type="button" role="tab" data-g="3" aria-selected="false">3 kl.</button>
+        <button type="button" role="tab" data-g="4" aria-selected="false">4 kl.</button>
       </div>
-      <div class="band-row">
-        <h3><img class="px" src="assets/ico-chip.svg" alt="" loading="lazy">Žaidimas su DI</h3>
-        <p class="b12">Klasė kartu sugalvoja žaidimą ir užrašo jį kortelėse (promptas: užduotis DI žodžiais), mentorius suveda, žaidimas atsidaro planšetėse.</p>
-        <p class="b34">Grupės po tris rašo užduotį DI, testuoja žaidimą, randa klaidą ir taiso. Taip išmoksta, kad DI klysta ir kad reikia aiškiai paaiškinti.</p>
-      </div>
-      <div class="band-row">
-        <h3><img class="px" src="assets/ico-book.svg" alt="" loading="lazy">Skaitymas, matematika, gamta</h3>
-        <p class="b12">Žodžiai ir skiemenys ant blokų · sudėtis ir atimtis iki 20, vėliau iki 100, formos · gyvūnai ir jų namai.</p>
-        <p class="b34">Instrukcijos ir taisyklės kitiems žaidėjams · daugyba, plotas, perimetras, tūris · ekosistemos, maisto grandinė, Marso vanduo ir energija.</p>
-      </div>
+      <ul class="grade-rows">
+        <li><b>Skaitymas, rašymas</b><span class="g1">žodžiai ant blokų, ženklai pasaulyje</span><span class="g2">2 sakiniai knygoje „ką pastačiau"</span><span class="g3">instrukcijos kitiems žaidėjams</span><span class="g4">žaidimo taisyklių tekstas, pristatymas tėvams</span></li>
+        <li><b>Matematika</b><span class="g1">skaičiavimas blokais iki 20, formos</span><span class="g2">sudėtis ir atimtis iki 100, eilės × stulpeliai</span><span class="g3">daugyba kaip stačiakampis, plotas, perimetras</span><span class="g4">tūris, matavimai, ciklai kodo blokeliuose</span></li>
+        <li><b>Gamta, mokslas</b><span class="g1">gyvūnai ir jų namai</span><span class="g2">augalai: vanduo, žemė, šviesa</span><span class="g3">atsinaujinanti energija Marse</span><span class="g4">chemija: ledas į vandenilį ir deguonį</span></li>
+        <li><b>Komanda</b><span class="g1">laukti eilės, statyti greta</span><span class="g2">pasiskirstyti darbus</span><span class="g3">profesijos komandoje: inžinieriai, chemikai, biologai</span><span class="g4">vesti komandą, paaiškinti savo žaidimą</span></li>
+        <li><b>Gyvenimo įgūdis</b><span class="g1">susitarti dėl taisyklių</span><span class="g2">maistas: auginti, kepti pagal receptą</span><span class="g3">atsargų planavimas: kiek deguonies reikia kelionei</span><span class="g4">pinigai: mainai, bankai, mokesčiai</span></li>
+      </ul>
     </div>
   </div>
 </section>
@@ -585,7 +646,7 @@ body:has(.consent:not(.is-gone)) .sticky{transform:translateY(110%)}
 <div class="ground" role="presentation"></div>
 
 <!-- ============ OUTCOMES ============ -->
-<section aria-labelledby="h-out">
+<section aria-labelledby="h-out" id="rezultatai">
   <div class="wrap">
     <div class="sec-head">
       <h2 class="pixel" id="h-out">Ką vaikas parsineš</h2>
@@ -640,7 +701,7 @@ body:has(.consent:not(.is-gone)) .sticky{transform:translateY(110%)}
       <p>Taisyklės, kurių laikomės kiekvienoje pamokoje.</p>
     </div>
     <div class="safe-grid">
-      <div class="safe-item"><img class="px" src="assets/ico-shield.svg" alt="" loading="lazy"><div><h3>Vaikas neturi asmeninės paskyros</h3><p>Naudojamos Robotikos akademijos organizacijos paskyros be vaiko vardo. Po pamokos mentorius atjungia visus įrenginius.</p></div></div>
+      <div class="safe-item"><img class="px" src="assets/ico-shield.svg" alt="" loading="lazy"><div><h3>Vaikas neturi asmeninės paskyros</h3><p>Minecraft Education prieigą vaikams suteikiame per būrelį: organizacijos paskyros be vaiko vardo. Po pamokos mentorius atjungia visus įrenginius.</p></div></div>
       <div class="safe-item"><img class="px" src="assets/ico-chip.svg" alt="" loading="lazy"><div><h3>DI valdo tik mentorius</h3><p>Vaikai neturi ChatGPT ar kitų DI paskyrų. Jokio vaiko vardo, nuotraukos ar balso į DI įrankius.</p></div></div>
       <div class="safe-item"><img class="px" src="assets/ico-group.svg" alt="" loading="lazy"><div><h3>Pasaulyje tik grupė ir mentorius</h3><p>Pamokos pasaulis skirtas tik būrelio grupei. Pašaliniai žaidėjai į jį nepatenka, susirašinėjimo su nepažįstamais nėra.</p></div></div>
       <!-- ⚠️ formuluotė: patikrinti MS dokumentacijoje prieš reklamą (brief §11) -->
@@ -652,7 +713,7 @@ body:has(.consent:not(.is-gone)) .sticky{transform:translateY(110%)}
         <h3 style="font-size:1.35rem;margin-bottom:10px">Kas kuria ir veda</h3>
         <p>Programą kuria Robotikos akademijos edukatoriai kartu su patyrusiais Lietuvos Minecraft Education pamokų kūrėjais. Pasauliai, užduotys ir paaiškinamieji video paruošti iš anksto, todėl pamokos laikas skiriamas kūrimui, ne derinimui.</p>
         <!-- ⚠️ partnerio (Trys Kubai) vardo leidimas ir turinio teisės nepatvirtinti (brief §2, §18) -->
-        <p>Veda Robotikos akademijos mentoriai, praėję atskirus Minecraft Education mokymus. Mentorius vaikšto tarp komandų ir klausia „kodėl?", o ne pasakoja nuo ekrano. Pamokų istorijos iš Robotikos akademijos visatos, kurią vaikai jau pažįsta iš robotikos būrelių.</p>
+        <p>Veda Robotikos akademijos mentoriai, praėję atskirus Minecraft Education mokymus. Mentorius vaikšto tarp komandų ir klausia „kodėl?", o ne pasakoja nuo ekrano. Pamokų istorijos iš Robotikos akademijos visatos, kurią vaikai jau pažįsta iš robotikos būrelių. Minecraft Marso stovyklą vedame nuo 2025 m.</p>
       </div>
       <div class="ph">
         <img class="px" src="assets/game-mentorius.svg" alt="Piešinys: mentorius iš nugaros prie stalo su trimis planšetėmis" width="240" height="160" loading="lazy">
@@ -673,12 +734,12 @@ body:has(.consent:not(.is-gone)) .sticky{transform:translateY(110%)}
     </div>
     <details><summary>Vaikas ir taip per daug žaidžia Minecraft.</summary><p>Čia vaikas ne žaidžia, o kuria žaidimą su užduotimi: skaičiuoja, skaito, aiškina kitiems. 45 min per savaitę, su mentoriumi, o namo parsinešate, ko išmoko. Namie vaikas dažniausiai stato vienas, čia komanda ir paruošti pasauliai su mokymosi užduotimis.</p></details>
     <details><summary>Ar tikrai išmoks matematikos ir skaitymo?</summary><p>Matematiką ir skaitymą vaikas taiko kiekvienoje užduotyje. Pažymių pokyčio nežadame: tyrimai apie Minecraft mokymąsi dar nėra tvirti, todėl sakome tiesiai, ką vaikas darys, o ne ką „garantuojame".</p></details>
-    <details><summary>Mano vaikas niekada nežaidė Minecraft. Arba atvirkščiai, jis ekspertas.</summary><p>Abu tinka. Pirmoji pamoka moko valdymo, o mentorius turi pradžiamokslį kiekvienam įrenginiui. Ekspertai gauna sunkesnes užduotis (grandinės, kodas) ir padeda kitiems. Paaiškinti kitam irgi yra įgūdis.</p></details>
-    <details><summary>Kas tas žaidimų kūrimas su DI? Ar vaikas naudos ChatGPT?</summary><p>Vaikas sugalvoja žaidimą žodžiais, DI padeda jį sukurti, vaikas išbando ir taiso. DI įrankius valdo tik mentorius per savo ekraną. Vaikai neturi paskyrų ir jokių savo duomenų į DI nesuveda.</p></details>
+    <details class="dt"><summary>Mano vaikas niekada nežaidė Minecraft. Arba atvirkščiai, jis ekspertas.</summary><p>Abu tinka. Pirmoji pamoka moko valdymo, o mentorius turi pradžiamokslį kiekvienam įrenginiui. Ekspertai gauna sunkesnes užduotis (grandinės, kodas) ir padeda kitiems. Paaiškinti kitam irgi yra įgūdis.</p></details>
+    <details class="dt"><summary>Kas tas žaidimų kūrimas su DI? Ar vaikas naudos ChatGPT?</summary><p>Vaikas sugalvoja žaidimą žodžiais, DI padeda jį sukurti, vaikas išbando ir taiso. DI įrankius valdo tik mentorius per savo ekraną. Vaikai neturi paskyrų ir jokių savo duomenų į DI nesuveda.</p></details>
     <details><summary>Mano vaikas drovus. Ar jis ten pritaps?</summary><p>Dirbame komandomis po 2–3, mentorius pats suskirsto. Pirmą pamoką vaikas gali tik stebėti ir prisijungti, kai pats norės. Mažos grupės, iki 10 vaikų, kiekvienas turi savo įrenginį.</p></details>
-    <details><summary>Kiek kainuoja?</summary><p>Planuojama 49 € per mėnesį, tai apie 12 € už pamoką. Jei programai bus taikomas NVŠ krepšelis, kaina mažės. Tikslią kainą parašysime kiekvienam iš laukiančiųjų sąrašo prieš registraciją. Formoje galite pažymėti, kokia kaina jums tiktų: tai mums padeda spręsti.</p></details>
+    <details><summary>Kiek kainuoja?</summary><p>Pirmoji pamoka nemokama, toliau 39 € per mėnesį, tai apie 9,75 € už pamoką. Jei programai bus taikomas NVŠ krepšelis, kaina mažės. Tikslią kainą parašysime kiekvienam iš laukiančiųjų sąrašo prieš registraciją. Formoje galite pažymėti, kokia kaina jums tiktų: tai mums padeda spręsti.</p></details>
     <details><summary>Kada ir kur vyksta?</summary><p>Popietėmis po pamokų, 45 min, Tech Zity, Vilniuje. Formoje pažymite, kurios dienos jums tinka, ir dieną bei laiką derinsime pagal daugumą. Mokyklų grupės ir kiti miestai atsiras pagal paklausą, todėl įsirašykite ir iš kitur.</p></details>
-    <details><summary>O jei vaikui nepatiks arba apsigalvosiu?</summary><p>Laukiančiųjų sąrašas niekuo neįpareigoja. Prieš mokėdami gausite visą informaciją ir galėsite apsigalvoti. Pirmai grupei planuojame atvirą pamoką tėvams.</p></details>
+    <details><summary>O jei vaikui nepatiks arba apsigalvosiu?</summary><p>Laukiančiųjų sąrašas niekuo neįpareigoja, o pirmoji pamoka nemokama: vaikas išbando, jūs pamatote. Prieš mokėdami gausite visą informaciją ir galėsite apsigalvoti.</p></details>
   </div>
 </section>
 
@@ -723,9 +784,9 @@ body:has(.consent:not(.is-gone)) .sticky{transform:translateY(110%)}
         <div class="field">
           <span class="lbl">Kokia mėnesio kaina jums tiktų? <small>(nebūtina, padeda mums spręsti)</small></span>
           <div class="opts" role="radiogroup" aria-label="Kaina">
-            <label class="opt"><input type="radio" name="price_pref" value="iki 35 €"><span>iki 35 €</span></label>
-            <label class="opt"><input type="radio" name="price_pref" value="35–49 €"><span>35–49 €</span></label>
-            <label class="opt"><input type="radio" name="price_pref" value="49 € tinka"><span>49 € tinka</span></label>
+            <label class="opt"><input type="radio" name="price_pref" value="iki 30 €"><span>iki 30 €</span></label>
+            <label class="opt"><input type="radio" name="price_pref" value="30–39 €"><span>30–39 €</span></label>
+            <label class="opt"><input type="radio" name="price_pref" value="39 € tinka"><span>39 € tinka</span></label>
           </div>
         </div>
         <div class="fnav"><button type="button" class="btn btn-yellow" data-next>Toliau</button></div>
@@ -819,7 +880,7 @@ body:has(.consent:not(.is-gone)) .sticky{transform:translateY(110%)}
     <div class="cols">
       <div>
         <h4>Robotikos akademija</h4>
-        <p>Nr. 1 vaikų technologinio ugdymo organizacija Lietuvoje. 110+ mentorių, 650+ lokacijų.</p>
+        <p>Vaikų technologinio ugdymo organizacija nuo 2013 m. 110+ mentorių, 650+ lokacijų.</p>
         <p style="margin-top:8px"><a href="https://robotikosakademija.lt/" rel="noopener">robotikosakademija.lt</a></p>
       </div>
       <div>
@@ -867,15 +928,16 @@ body:has(.consent:not(.is-gone)) .sticky{transform:translateY(110%)}
   /* ---- CTA sekimas ---- */
   $$('[data-cta]').forEach(function(a){ a.addEventListener('click',function(){ track('cta',{id:a.getAttribute('data-cta'),src:SRC}); }); });
 
-  /* ---- klasių jungiklis ---- */
-  var band=$('#pamoka');
-  $$('.switch button',band).forEach(function(b){
+  /* ---- klasių skirtukai 1–4 ---- */
+  var grades=$('#klases');
+  $$('.switch button',grades).forEach(function(b){
     b.addEventListener('click',function(){
-      band.setAttribute('data-band',b.getAttribute('data-set'));
-      $$('.switch button',band).forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
-      track('engage',{band:b.getAttribute('data-set')});
+      grades.setAttribute('data-g',b.getAttribute('data-g'));
+      $$('.switch button',grades).forEach(function(x){x.setAttribute('aria-selected',x===b?'true':'false')});
+      track('engage',{grade:b.getAttribute('data-g')});
     });
   });
+  if(innerWidth<760) $$('.mce-item').forEach(function(d){ d.removeAttribute('open'); });
 
   /* ---- mini žaidimas: Daugybos tvirtovė (4×6) ---- */
   var game=$('#game'), fort=$('#fort'), gcount=$('#g-count'), filled=0, played=false;
