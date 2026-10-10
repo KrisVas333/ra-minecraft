@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /komandai/
+Disallow: /lankstinukas/
+Sitemap: https://krisvas333.github.io/ra-minecraft/sitemap.xml

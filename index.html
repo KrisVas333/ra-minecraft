@@ -1,0 +1,874 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Žaidimų kūrėjai · Robotikos akademijos būrelis 1–4 klasei su Minecraft Education ir DI</title>
+<meta name="description" content="Vaikai 7–10 m. kuria mokomuosius žaidimus apie skaitymą, matematiką ir gamtą Minecraft Education pasaulyje ir su dirbtiniu intelektu. 45 min per savaitę, gyvai, su Robotikos akademijos mentoriumi. Tech Zity, Vilnius. Laukiančiųjų sąrašas.">
+<meta name="theme-color" content="#3F6EDC">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://krisvas333.github.io/ra-minecraft/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Žaidimų kūrėjai · būrelis 1–4 klasei su Minecraft Education ir DI">
+<meta property="og:description" content="Ekranas, prie kurio vaikas kuria, o ne tik žiūri. 45 min per savaitę, Tech Zity, Vilnius. Įrašykite vaiką į laukiančiųjų sąrašą.">
+<meta property="og:image" content="https://krisvas333.github.io/ra-minecraft/og.png">
+<meta property="og:locale" content="lt_LT">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Poppins:wght@400;600;700&display=swap">
+<!-- Sekimas (taisyklė 16): track.js = anoniminiai įvykiai be slapukų; Clarity tik po „Leisti" (track-consent.js) -->
+<script defer src="https://krisvas333.github.io/neuron-ar/track.js" data-brand="ra" data-artifact="minecraft" data-kind="landing"></script>
+<script defer src="track-consent.js"></script>
+<style>
+/* ============ tokens: RA DNA (mėlynas gradientas, geltonas CTA) + savas vokselių pasaulis ============ */
+:root{
+  --sky-1:#5B6CE0; --sky-2:#3F6EDC; --sky-3:#2F86E8;
+  --navy:#152039; --night:#0E1730; --night-2:#141F3F;
+  --yellow:#FEC404; --yellow-2:#E0AB00;
+  --grass:#6CC644; --grass-2:#3B7F27; --dirt:#A0703F; --dirt-2:#5E3F24; --stone:#B3B3B3; --diamond:#6FEFF5; --water:#4FB2F7;
+  --ink:#152039; --paper:#FFFFFF; --paper-2:#F3F6FF;
+  --tx:#FFFFFF; --tx-2:#DCE6FF;          /* antrinis tekstas: atspalvis iš mėlynos, ne pilka */
+  --glass:rgba(255,255,255,.13); --glass-line:rgba(255,255,255,.26);
+  --card-dark:rgba(12,24,64,.42);
+  --display:'Pixelify Sans',ui-monospace,monospace; --body:Poppins,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --wrap:1120px;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{font-family:var(--body);font-size:17px;line-height:1.6;color:var(--tx);background:var(--sky-2);
+  background-image:linear-gradient(180deg,var(--sky-1) 0,var(--sky-2) 32%,var(--sky-3) 100%);background-attachment:scroll;overflow-x:hidden}
+::selection{background:var(--yellow);color:var(--navy)}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:3px;border-radius:6px}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+.px,.island{image-rendering:pixelated;image-rendering:crisp-edges}
+.wrap{width:min(var(--wrap),100% - 32px);margin-inline:auto}
+h1,h2,h3{line-height:1.15;text-wrap:balance}
+h1,h2.pixel{font-family:var(--display);font-weight:700;letter-spacing:.01em}
+h1{font-size:clamp(2.3rem,6.2vw,4.4rem);line-height:1.05}
+h2.pixel{font-size:clamp(1.75rem,4vw,2.7rem)}
+h2.plain,h3{font-weight:700}
+h2.plain{font-size:clamp(1.6rem,3.4vw,2.3rem)}
+h3{font-size:1.2rem}
+p.lead{font-size:clamp(1.1rem,2vw,1.3rem);color:var(--tx-2);max-width:60ch}
+.muted{color:var(--tx-2)}
+section{padding-block:clamp(52px,7vw,88px)}
+.sec-head{max-width:42ch;margin-bottom:clamp(28px,4vw,44px)}
+.sec-head p{color:var(--tx-2);margin-top:10px;font-size:1.05rem}
+
+/* ============ buttons (RA pill) ============ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:14px 30px;border-radius:999px;border:0;
+  font:600 1rem/1.2 var(--body);text-decoration:none;cursor:pointer;transition:transform .15s var(--ease),background .2s,box-shadow .2s;white-space:nowrap}
+.btn:active{transform:translateY(2px)}
+.btn-yellow{background:var(--yellow);color:var(--navy);box-shadow:0 6px 0 0 var(--yellow-2)}
+.btn-yellow:hover{background:#FFD23A}
+.btn-yellow:active{box-shadow:0 2px 0 0 var(--yellow-2)}
+.btn-white{background:#fff;color:var(--navy)}
+.btn-ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.55)}
+.btn-ghost:hover{border-color:#fff}
+.btn[disabled]{opacity:.55;cursor:wait}
+
+/* ============ promo + header ============ */
+.promo{background:var(--navy);color:#fff;font-size:.86rem;text-align:center;padding:9px 14px;line-height:1.4;overflow-wrap:anywhere}
+.promo b{color:var(--yellow)}
+header.top{position:sticky;top:0;z-index:40;background:rgba(21,32,57,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.nav{display:flex;align-items:center;gap:18px;min-height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;line-height:1.05}
+.brand .mark{width:30px;height:30px}
+.brand small{display:block;font-weight:400;font-size:.78rem;color:var(--tx-2)}
+.nav .tel{margin-left:auto;text-decoration:none;font-weight:600;font-size:.95rem;display:none}
+.nav .btn{min-height:44px;padding:10px 20px;font-size:.92rem}
+@media (min-width:760px){.nav .tel{display:inline-flex}}
+
+/* ============ hero ============ */
+.hero{padding-block:clamp(28px,5vw,72px) clamp(48px,7vw,96px);position:relative}
+.hero .grid{display:grid;gap:28px;align-items:center}
+.hero .tag{display:inline-flex;gap:8px;align-items:center;background:var(--yellow);color:var(--navy);font-weight:700;font-size:.9rem;padding:6px 14px;border-radius:999px;margin-bottom:18px}
+.hero .sub{font-size:clamp(1.05rem,2vw,1.25rem);color:var(--tx-2);max-width:54ch;margin-top:16px}
+.hero .sub b{color:#fff}
+.hero .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--glass-line);background:var(--glass);border-radius:999px;padding:7px 14px;font-size:.92rem;font-weight:600}
+.chip img{width:18px;height:18px}
+.hero .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.hero .cta .btn{flex:1 1 240px}
+.hero .scene{position:relative;display:grid;place-items:center}
+.hero .island{width:min(100%,520px)}
+.hero .scene .sun{position:absolute;right:8%;top:4%;width:44px;height:44px;background:var(--yellow);box-shadow:0 0 0 8px rgba(254,196,4,.18)}
+.h1-word{display:inline-block}
+.hero .note{margin-top:14px;font-size:.9rem;color:var(--tx-2)}
+@media (min-width:860px){
+  .hero .grid{grid-template-columns:1.05fr .95fr;gap:40px}
+  .hero .scene{order:2}
+}
+@media (max-width:859px){
+  .hero{padding-top:14px}
+  .hero .grid{gap:14px}
+  .hero .scene{order:-1}
+  .hero .island{width:min(52vw,210px)}
+  .hero .copy{display:flex;flex-direction:column}
+  .hero .chips{order:5;margin-top:18px}
+  .hero .cta{margin-top:22px}
+  .hero .sub{font-size:1.02rem;margin-top:12px}
+  .hero .tag{margin-bottom:12px}
+}
+
+/* ============ facts strip ============ */
+.facts{padding-block:0}
+.facts ul{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;background:var(--card-dark);border:1px solid var(--glass-line);border-radius:20px;padding:18px}
+.facts li{display:flex;gap:12px;align-items:flex-start;padding:8px 10px}
+.facts img{width:28px;height:28px;flex:none;margin-top:2px}
+.facts b{display:block;font-size:1.05rem}
+.facts span{font-size:.88rem;color:var(--tx-2)}
+
+/* ============ trust numbers ============ */
+.trust .nums{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.trust .num b{font-family:var(--body);font-weight:700;letter-spacing:-.02em;font-size:clamp(2rem,4.5vw,3rem);display:block;line-height:1}
+.trust .num span{color:var(--tx-2);font-size:.95rem}
+.trust .src{margin-top:16px;font-size:.85rem;color:var(--tx-2)}
+@media (min-width:760px){.trust .nums{grid-template-columns:repeat(4,1fr)}}
+
+/* ============ pixel ground divider ============ */
+.ground{height:14px;background:
+  linear-gradient(90deg,var(--grass) 0 50%,#5DB33A 50% 100%) 0 0/16px 6px repeat-x,
+  linear-gradient(90deg,var(--dirt) 0 50%,#8C6136 50% 100%) 0 6px/16px 8px repeat-x}
+.ground.ground-night{background:
+  linear-gradient(90deg,var(--stone) 0 50%,#9A9A9A 50% 100%) 0 0/16px 6px repeat-x,
+  linear-gradient(90deg,#6F6F6F 0 50%,#5E5E5E 50% 100%) 0 6px/16px 8px repeat-x}
+
+/* ============ three pillars ============ */
+.pillars{display:grid;gap:16px}
+.pillar{background:var(--glass);border:1px solid var(--glass-line);border-radius:20px;padding:24px}
+.pillar img{width:40px;height:40px;margin-bottom:14px}
+.pillar h3{margin-bottom:8px}
+.pillar p{color:var(--tx-2);font-size:1rem}
+@media (min-width:760px){.pillars{grid-template-columns:repeat(3,1fr)}}
+
+/* ============ cycle: 4 blocks ============ */
+.cycle{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;max-width:760px}
+.blk{min-width:0;overflow-wrap:anywhere;aspect-ratio:1;border-radius:10px;display:grid;place-content:center;text-align:center;font-weight:700;padding:8px;line-height:1.2;color:var(--navy);
+  position:relative;box-shadow:inset 0 -8px 0 rgba(0,0,0,.18),inset 0 4px 0 rgba(255,255,255,.28)}
+.blk small{display:block;font-weight:600;font-size:.78rem;opacity:.8;margin-top:4px}
+.blk.g{background:var(--grass)}
+.blk.c{background:var(--diamond)}
+.blk i{font-style:normal;font-family:var(--body);font-weight:700;font-size:clamp(1.4rem,4vw,2.4rem);display:block}
+.cycle-note{margin-top:18px;color:var(--tx-2);max-width:60ch}
+@media (max-width:520px){.blk{font-size:.74rem;padding:6px 3px;overflow-wrap:normal;hyphens:manual;border-radius:8px}.blk small{display:none}.blk i{font-size:1.4rem}}
+
+/* ============ grade switch ============ */
+.switch{display:inline-flex;background:var(--card-dark);border:1px solid var(--glass-line);border-radius:999px;padding:4px;gap:4px;margin-bottom:24px}
+.switch button{border:0;background:transparent;color:#fff;font:600 1rem var(--body);padding:10px 20px;border-radius:999px;cursor:pointer;min-height:44px}
+.switch button[aria-pressed="true"]{background:var(--yellow);color:var(--navy)}
+.band-grid{display:grid;gap:14px}
+.band-row{background:var(--glass);border:1px solid var(--glass-line);border-radius:16px;padding:18px 20px;display:grid;gap:6px}
+.band-row h3{font-size:1rem;color:var(--yellow);display:flex;align-items:center;gap:10px}
+.band-row h3 img{width:22px;height:22px}
+.band-row p{font-size:1rem}
+[data-band="12"] .b34,[data-band="34"] .b12{display:none}
+@media (min-width:760px){.band-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* ============ lesson stepper ============ */
+.lesson{background:var(--night);background-image:radial-gradient(circle at 80% 10%,rgba(91,108,224,.35),transparent 50%)}
+.steps{list-style:none;padding:0;display:grid;gap:10px;counter-reset:s}
+.step{display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:start;background:var(--night-2);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:14px 16px}
+.step .min{font-family:var(--body);font-weight:700;color:var(--yellow);font-size:1.05rem;font-variant-numeric:tabular-nums;line-height:1.1;padding-top:2px}
+.step .min small{display:block;font:600 .7rem var(--body);color:var(--tx-2);letter-spacing:.02em}
+.step h3{font-size:1.05rem;margin-bottom:2px}
+.step p{font-size:.97rem;color:var(--tx-2)}
+.lesson .panel{background:var(--night-2);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:22px;position:sticky;top:84px}
+.lesson .panel .game{border-radius:12px;width:100%}
+.lesson .panel h3{margin:14px 0 6px}
+.lesson .panel p{font-size:.97rem;color:var(--tx-2)}
+.lesson .grid{display:grid;gap:24px}
+@media (min-width:900px){.lesson .grid{grid-template-columns:1.1fr .9fr;align-items:start}}
+
+/* ============ outcomes ============ */
+.outcomes{display:grid;gap:14px}
+.out{background:var(--glass);border:1px solid var(--glass-line);border-radius:20px;padding:22px}
+.out .when{font-family:var(--body);font-weight:700;font-size:1.3rem;color:var(--yellow);margin-bottom:12px}
+.out ul{list-style:none;padding:0;display:grid;gap:10px}
+.out li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:baseline}
+.out li b{font-family:var(--body);font-weight:700;font-size:1.5rem;line-height:1;min-width:2ch;text-align:right}
+.out li span{font-size:1rem}
+.out li small{display:block;color:var(--tx-2);font-size:.9rem}
+@media (min-width:760px){.outcomes{grid-template-columns:repeat(2,1fr)}}
+
+/* ============ games gallery ============ */
+.games{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.game-card{background:var(--navy);border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.14);display:grid}
+.game-card img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.game-card .t{padding:14px 16px 16px}
+.game-card .k{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--navy);background:var(--yellow);padding:3px 9px;border-radius:999px;margin-bottom:8px}
+.game-card .k.ai{background:var(--diamond)}
+.game-card h3{font-size:1.05rem}
+.game-card p{font-size:.92rem;color:var(--tx-2);margin-top:4px}
+
+/* ============ safety ============ */
+.safe{background:var(--night)}
+.safe-grid{display:grid;gap:12px}
+.safe-item{display:grid;grid-template-columns:40px 1fr;gap:14px;background:var(--night-2);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px}
+.safe-item img{width:34px;height:34px}
+.safe-item h3{font-size:1.02rem;margin-bottom:3px}
+.safe-item p{font-size:.95rem;color:var(--tx-2)}
+@media (min-width:760px){.safe-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* ============ who / quote ============ */
+.who .grid{display:grid;gap:20px}
+.who .card{background:var(--glass);border:1px solid var(--glass-line);border-radius:20px;padding:24px}
+.who .card p{font-size:1rem;color:var(--tx-2)}
+.who .card p+p{margin-top:10px}
+.quote{background:#fff;color:var(--navy);border-radius:20px;padding:26px;display:grid;gap:10px;align-content:start}
+.quote blockquote{font-size:1.2rem;font-weight:600;line-height:1.4}
+.quote cite{font-style:normal;font-size:.92rem;color:#4A5675}
+@media (min-width:860px){.who .grid{grid-template-columns:1.1fr .9fr}}
+
+/* ============ FAQ ============ */
+.faq{background:var(--night)}
+.faq details{background:var(--night-2);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:0 18px;margin-bottom:8px}
+.faq summary{cursor:pointer;font-weight:600;padding:16px 0;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center;min-height:56px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";width:14px;height:14px;flex:none;background:
+  linear-gradient(#fff,#fff) center/14px 3px no-repeat,linear-gradient(#fff,#fff) center/3px 14px no-repeat;transition:transform .2s var(--ease)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 0 18px;color:var(--tx-2);font-size:1rem;max-width:70ch}
+
+/* ============ form ============ */
+.join{background:linear-gradient(180deg,var(--night) 0,var(--night-2) 100%)}
+.join .grid{display:grid;gap:28px}
+.form{background:#fff;color:var(--navy);border-radius:24px;padding:22px;box-shadow:0 20px 50px -20px rgba(0,0,0,.5)}
+.form h3{font-size:1.25rem;margin-bottom:4px}
+.form .hint{font-size:.92rem;color:#4A5675;margin-bottom:16px}
+.progress{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px}
+.progress .slot{height:16px;border-radius:4px;background:#E6EAF5;position:relative;overflow:hidden}
+.progress .slot::after{content:"";position:absolute;inset:0;transform:scaleX(0);transform-origin:left;transition:transform .35s steps(4)}
+.progress .slot:nth-child(1)::after{background:var(--grass)}
+.progress .slot:nth-child(2)::after{background:var(--dirt)}
+.progress .slot:nth-child(3)::after{background:var(--stone)}
+.progress .slot:nth-child(4)::after{background:var(--yellow)}
+.progress .slot.done::after{transform:scaleX(1)}
+.fstep{display:none}
+.fstep.is-on{display:block}
+.field{margin-bottom:14px}
+.field label{display:block;font-weight:600;font-size:.95rem;margin-bottom:6px}
+.field label small{font-weight:400;color:#4A5675}
+.field input[type=text],.field input[type=email],.field input[type=tel]{width:100%;min-height:52px;border:2px solid #D7DDEE;border-radius:12px;padding:12px 14px;font:400 1.05rem var(--body);color:var(--navy);background:#fff}
+.field input:focus{border-color:var(--sky-2);outline:none;box-shadow:0 0 0 4px rgba(63,110,220,.18)}
+.field input[aria-invalid="true"]{border-color:#D9263F}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;inset:0;width:100%;height:100%;cursor:pointer;margin:0}
+.opt span{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 16px;border-radius:12px;border:2px solid #D7DDEE;font-weight:600;background:#fff;transition:background .15s,border-color .15s;min-width:56px}
+.opt input:checked+span{background:var(--navy);color:#fff;border-color:var(--navy)}
+.opt input:focus-visible+span{outline:3px solid var(--yellow);outline-offset:2px}
+.err{color:#B4162E;font-size:.9rem;margin-top:6px;display:none;font-weight:600}
+.err.is-on{display:block}
+.fnav{display:flex;gap:10px;margin-top:18px}
+.fnav .btn{flex:1}
+.fnav .btn-back{flex:0 0 auto;background:#EEF1F8;color:var(--navy)}
+.consent-box{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start;background:var(--paper-2);border-radius:12px;padding:14px;font-size:.93rem;line-height:1.5}
+.consent-box input{width:22px;height:22px;margin-top:2px;accent-color:var(--navy)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.thanks{text-align:center;padding:18px 6px}
+.thanks .island{width:200px;margin:0 auto 12px}
+.thanks h3{font-size:1.6rem;font-family:var(--display);font-weight:700}
+.thanks p{color:#4A5675;margin-top:8px}
+.join .aside h2{margin-bottom:12px}
+.join .aside ul{list-style:none;padding:0;display:grid;gap:12px;margin-top:18px}
+.join .aside li{display:grid;grid-template-columns:26px 1fr;gap:12px;align-items:start;font-size:1rem}
+.join .aside li img{width:22px;height:22px;margin-top:4px}
+@media (min-width:860px){.join .grid{grid-template-columns:.9fr 1.1fr;align-items:start}.form{padding:30px}}
+
+/* ============ footer ============ */
+footer{background:#0A1126;padding:40px 0 120px;font-size:.9rem;color:var(--tx-2)}
+footer .cols{display:grid;gap:22px}
+footer h4{color:#fff;font-size:1rem;margin-bottom:8px}
+footer a{color:#fff}
+footer .legal{margin-top:26px;padding-top:18px;border-top:1px solid rgba(255,255,255,.12);font-size:.82rem;line-height:1.55}
+footer .legal b{color:#fff;display:block;letter-spacing:.02em}
+@media (min-width:760px){footer .cols{grid-template-columns:1.2fr 1fr 1fr}}
+
+/* ============ sticky bottom CTA ============ */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(21,32,57,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,.12);
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom));transform:translateY(110%);transition:transform .3s var(--ease)}
+.sticky.is-on{transform:none}
+.sticky .in{display:flex;align-items:center;gap:14px;width:min(var(--wrap),100%);margin-inline:auto}
+.sticky .txt{display:none;line-height:1.3}
+.sticky .txt b{display:block}
+.sticky .txt span{font-size:.85rem;color:var(--tx-2)}
+.sticky .btn{flex:1;min-height:52px}
+@media (min-width:760px){.sticky .txt{display:block;flex:1}.sticky .btn{flex:0 0 auto;padding-inline:34px}}
+
+/* ============ consent banner ============ */
+.consent{position:fixed;left:12px;right:12px;bottom:12px;z-index:60;background:#fff;color:var(--navy);border-radius:16px;padding:16px;box-shadow:0 20px 50px -14px rgba(0,0,0,.6);max-width:560px;margin-inline:auto;font-size:.92rem;line-height:1.5;transition:opacity .25s,transform .25s var(--ease)}
+.consent.is-gone{opacity:0;transform:translateY(12px)}
+.consent-actions{display:flex;gap:10px;margin-top:12px}
+.consent-actions .btn{flex:1;min-height:48px;padding:10px 16px}
+.consent .btn-ghost{color:var(--navy);border-color:#C9D2EA}
+
+/* ============ motion defaults (turinys matomas ir be JS) ============ */
+.vx{transform-box:fill-box;transform-origin:center}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<div class="promo">Pirmoji grupė: <b>Tech Zity, Vilnius</b>. Vietos ribotos, pirmiausia rašome sąrašui.</div>
+
+<header class="top">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Robotikos akademija · Žaidimų kūrėjai">
+      <img class="mark px" src="assets/favicon.svg" alt="" width="30" height="30">
+      <span>robotikos akademija<small>Žaidimų kūrėjai · 1–4 kl.</small></span>
+    </a>
+    <a class="tel" href="tel:+37052525713">+370 5 25 25 713</a>
+    <a class="btn btn-yellow" href="#sarasas" data-cta="nav">Į sąrašą</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap grid">
+    <div class="copy">
+      <span class="tag"><img class="px" src="assets/ico-block.svg" alt="" width="16" height="16">1–4 klasė · 7–10 metų</span>
+      <h1 id="h1"><span class="h1-word">Iš</span> <span class="h1-word">žaidėjo</span> <span class="h1-word">į</span> <span class="h1-word">žaidimų</span> <span class="h1-word">kūrėją</span></h1>
+      <p class="sub"><b>Žaidimų kūrėjai</b>: Robotikos akademijos būrelis, kuriame vaikai kuria mokomuosius žaidimus apie skaitymą, matematiką ir gamtą. Minecraft Education pasaulyje ir su dirbtiniu intelektu, gyvai, grupėje, su mentoriumi.</p>
+      <div class="chips" aria-label="Formatas">
+        <span class="chip"><img class="px" src="assets/ico-clock.svg" alt="">45 min · 1× per savaitę</span>
+        <span class="chip"><img class="px" src="assets/ico-pin.svg" alt="">Tech Zity, Vilnius ir mokyklos</span>
+        <span class="chip"><img class="px" src="assets/ico-tablet.svg" alt="">Planšetės ir licencijos mūsų</span>
+      </div>
+      <div class="cta">
+        <a class="btn btn-yellow" href="#sarasas" data-cta="hero">Įrašyti į laukiančiųjų sąrašą</a>
+        <a class="btn btn-white" href="#pamoka" data-cta="hero-lesson">Kaip vyksta pamoka</a>
+      </div>
+      <p class="note">Be įsipareigojimų. Parašysime, kai atidarysime grupę, ir pirmiems pasiūlysime vietą.</p>
+    </div>
+    <div class="scene" aria-hidden="true">
+      <span class="sun"></span>
+      <!--@hero start-->
+<svg class="island" viewBox="-140 -100 280 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Blokų sala: žolė, akmens siena, auksas ir deimantas" shape-rendering="crispEdges"><g class="vx" data-k="G" data-o="0" data-t="ground"><polygon points="16,16 32,24 32,40 16,32" fill="#4FA534"/><polygon points="48,16 32,24 32,40 48,32" fill="#3B7F27"/><polygon points="32,8 48,16 32,24 16,16" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="1" data-t="ground"><polygon points="-16,16 0,24 0,40 -16,32" fill="#4FA534"/><polygon points="16,16 0,24 0,40 16,32" fill="#3B7F27"/><polygon points="0,8 16,16 0,24 -16,16" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="2" data-t="ground"><polygon points="-48,16 -32,24 -32,40 -48,32" fill="#4FA534"/><polygon points="-16,16 -32,24 -32,40 -16,32" fill="#3B7F27"/><polygon points="-32,8 -16,16 -32,24 -48,16" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="3" data-t="ground"><polygon points="32,24 48,32 48,48 32,40" fill="#4FA534"/><polygon points="64,24 48,32 48,48 64,40" fill="#3B7F27"/><polygon points="48,16 64,24 48,32 32,24" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="4" data-t="ground"><polygon points="0,24 16,32 16,48 0,40" fill="#4FA534"/><polygon points="32,24 16,32 16,48 32,40" fill="#3B7F27"/><polygon points="16,16 32,24 16,32 0,24" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="5" data-t="ground"><polygon points="-32,24 -16,32 -16,48 -32,40" fill="#4FA534"/><polygon points="0,24 -16,32 -16,48 0,40" fill="#3B7F27"/><polygon points="-16,16 0,24 -16,32 -32,24" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="6" data-t="ground"><polygon points="-64,24 -48,32 -48,48 -64,40" fill="#4FA534"/><polygon points="-32,24 -48,32 -48,48 -32,40" fill="#3B7F27"/><polygon points="-48,16 -32,24 -48,32 -64,24" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="7" data-t="ground"><polygon points="48,32 64,40 64,56 48,48" fill="#4FA534"/><polygon points="80,32 64,40 64,56 80,48" fill="#3B7F27"/><polygon points="64,24 80,32 64,40 48,32" fill="#6CC644"/></g><g class="vx" data-k="D" data-o="8" data-t="ground"><polygon points="16,32 32,40 32,56 16,48" fill="#7D5531"/><polygon points="48,32 32,40 32,56 48,48" fill="#5E3F24"/><polygon points="32,24 48,32 32,40 16,32" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="9" data-t="ground"><polygon points="-16,32 0,40 0,56 -16,48" fill="#7D5531"/><polygon points="16,32 0,40 0,56 16,48" fill="#5E3F24"/><polygon points="0,24 16,32 0,40 -16,32" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="10" data-t="ground"><polygon points="-48,32 -32,40 -32,56 -48,48" fill="#7D5531"/><polygon points="-16,32 -32,40 -32,56 -16,48" fill="#5E3F24"/><polygon points="-32,24 -16,32 -32,40 -48,32" fill="#A0703F"/></g><g class="vx" data-k="G" data-o="11" data-t="ground"><polygon points="-80,32 -64,40 -64,56 -80,48" fill="#4FA534"/><polygon points="-48,32 -64,40 -64,56 -48,48" fill="#3B7F27"/><polygon points="-64,24 -48,32 -64,40 -80,32" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="52" data-t="ground"><polygon points="16,16 32,24 32,40 16,32" fill="#4FA534"/><polygon points="48,16 32,24 32,40 48,32" fill="#3B7F27"/><polygon points="32,8 48,16 32,24 16,16" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="53" data-t="ground"><polygon points="-16,16 0,24 0,40 -16,32" fill="#4FA534"/><polygon points="16,16 0,24 0,40 16,32" fill="#3B7F27"/><polygon points="0,8 16,16 0,24 -16,16" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="54" data-t="ground"><polygon points="-48,16 -32,24 -32,40 -48,32" fill="#4FA534"/><polygon points="-16,16 -32,24 -32,40 -16,32" fill="#3B7F27"/><polygon points="-32,8 -16,16 -32,24 -48,16" fill="#6CC644"/></g><g class="vx" data-k="S" data-o="81" data-t="wall"><polygon points="-16,0 0,8 0,24 -16,16" fill="#8F8F8F"/><polygon points="16,0 0,8 0,24 16,16" fill="#6F6F6F"/><polygon points="0,-8 16,0 0,8 -16,0" fill="#B3B3B3"/></g><g class="vx" data-k="S" data-o="87" data-t="wall"><polygon points="-16,-16 0,-8 0,8 -16,0" fill="#8F8F8F"/><polygon points="16,-16 0,-8 0,8 16,0" fill="#6F6F6F"/><polygon points="0,-24 16,-16 0,-8 -16,-16" fill="#B3B3B3"/></g><g class="vx" data-k="G" data-o="12" data-t="ground"><polygon points="64,40 80,48 80,64 64,56" fill="#4FA534"/><polygon points="96,40 80,48 80,64 96,56" fill="#3B7F27"/><polygon points="80,32 96,40 80,48 64,40" fill="#6CC644"/></g><g class="vx" data-k="D" data-o="13" data-t="ground"><polygon points="32,40 48,48 48,64 32,56" fill="#7D5531"/><polygon points="64,40 48,48 48,64 64,56" fill="#5E3F24"/><polygon points="48,32 64,40 48,48 32,40" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="14" data-t="ground"><polygon points="0,40 16,48 16,64 0,56" fill="#7D5531"/><polygon points="32,40 16,48 16,64 32,56" fill="#5E3F24"/><polygon points="16,32 32,40 16,48 0,40" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="15" data-t="ground"><polygon points="-32,40 -16,48 -16,64 -32,56" fill="#7D5531"/><polygon points="0,40 -16,48 -16,64 0,56" fill="#5E3F24"/><polygon points="-16,32 0,40 -16,48 -32,40" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="16" data-t="ground"><polygon points="-64,40 -48,48 -48,64 -64,56" fill="#7D5531"/><polygon points="-32,40 -48,48 -48,64 -32,56" fill="#5E3F24"/><polygon points="-48,32 -32,40 -48,48 -64,40" fill="#A0703F"/></g><g class="vx" data-k="G" data-o="17" data-t="ground"><polygon points="-96,40 -80,48 -80,64 -96,56" fill="#4FA534"/><polygon points="-64,40 -80,48 -80,64 -64,56" fill="#3B7F27"/><polygon points="-80,32 -64,40 -80,48 -96,40" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="55" data-t="ground"><polygon points="32,24 48,32 48,48 32,40" fill="#4FA534"/><polygon points="64,24 48,32 48,48 64,40" fill="#3B7F27"/><polygon points="48,16 64,24 48,32 32,24" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="56" data-t="ground"><polygon points="0,24 16,32 16,48 0,40" fill="#4FA534"/><polygon points="32,24 16,32 16,48 32,40" fill="#3B7F27"/><polygon points="16,16 32,24 16,32 0,24" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="57" data-t="ground"><polygon points="-32,24 -16,32 -16,48 -32,40" fill="#4FA534"/><polygon points="0,24 -16,32 -16,48 0,40" fill="#3B7F27"/><polygon points="-16,16 0,24 -16,32 -32,24" fill="#6CC644"/></g><g class="vx" data-k="W" data-o="58" data-t="pond"><polygon points="-64,24 -48,32 -48,48 -64,40" fill="#2F8FDD"/><polygon points="-32,24 -48,32 -48,48 -32,40" fill="#2374BC"/><polygon points="-48,16 -32,24 -48,32 -64,24" fill="#4FB2F7"/></g><g class="vx" data-k="S" data-o="82" data-t="wall"><polygon points="-32,8 -16,16 -16,32 -32,24" fill="#8F8F8F"/><polygon points="0,8 -16,16 -16,32 0,24" fill="#6F6F6F"/><polygon points="-16,0 0,8 -16,16 -32,8" fill="#B3B3B3"/></g><g class="vx" data-k="S" data-o="83" data-t="wall"><polygon points="0,8 16,16 16,32 0,24" fill="#8F8F8F"/><polygon points="32,8 16,16 16,32 32,24" fill="#6F6F6F"/><polygon points="16,0 32,8 16,16 0,8" fill="#B3B3B3"/></g><g class="vx" data-k="G" data-o="18" data-t="ground"><polygon points="48,48 64,56 64,72 48,64" fill="#4FA534"/><polygon points="80,48 64,56 64,72 80,64" fill="#3B7F27"/><polygon points="64,40 80,48 64,56 48,48" fill="#6CC644"/></g><g class="vx" data-k="D" data-o="19" data-t="ground"><polygon points="16,48 32,56 32,72 16,64" fill="#7D5531"/><polygon points="48,48 32,56 32,72 48,64" fill="#5E3F24"/><polygon points="32,40 48,48 32,56 16,48" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="20" data-t="ground"><polygon points="-16,48 0,56 0,72 -16,64" fill="#7D5531"/><polygon points="16,48 0,56 0,72 16,64" fill="#5E3F24"/><polygon points="0,40 16,48 0,56 -16,48" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="21" data-t="ground"><polygon points="-48,48 -32,56 -32,72 -48,64" fill="#7D5531"/><polygon points="-16,48 -32,56 -32,72 -16,64" fill="#5E3F24"/><polygon points="-32,40 -16,48 -32,56 -48,48" fill="#A0703F"/></g><g class="vx" data-k="W" data-o="22" data-t="pond"><polygon points="-80,48 -64,56 -64,72 -80,64" fill="#2F8FDD"/><polygon points="-48,48 -64,56 -64,72 -48,64" fill="#2374BC"/><polygon points="-64,40 -48,48 -64,56 -80,48" fill="#4FB2F7"/></g><g class="vx" data-k="G" data-o="59" data-t="ground"><polygon points="16,32 32,40 32,56 16,48" fill="#4FA534"/><polygon points="48,32 32,40 32,56 48,48" fill="#3B7F27"/><polygon points="32,24 48,32 32,40 16,32" fill="#6CC644"/></g><g class="vx" data-k="D" data-o="60" data-t="ground"><polygon points="-16,32 0,40 0,56 -16,48" fill="#7D5531"/><polygon points="16,32 0,40 0,56 16,48" fill="#5E3F24"/><polygon points="0,24 16,32 0,40 -16,32" fill="#A0703F"/></g><g class="vx" data-k="G" data-o="61" data-t="ground"><polygon points="-48,32 -32,40 -32,56 -48,48" fill="#4FA534"/><polygon points="-16,32 -32,40 -32,56 -16,48" fill="#3B7F27"/><polygon points="-32,24 -16,32 -32,40 -48,32" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="76" data-t="ground"><polygon points="-16,16 0,24 0,40 -16,32" fill="#4FA534"/><polygon points="16,16 0,24 0,40 16,32" fill="#3B7F27"/><polygon points="0,8 16,16 0,24 -16,16" fill="#6CC644"/></g><g class="vx" data-k="S" data-o="84" data-t="wall"><polygon points="16,16 32,24 32,40 16,32" fill="#8F8F8F"/><polygon points="48,16 32,24 32,40 48,32" fill="#6F6F6F"/><polygon points="32,8 48,16 32,24 16,16" fill="#B3B3B3"/></g><g class="vx" data-k="F" data-o="88" data-t="tree"><polygon points="48,0 64,8 64,24 48,16" fill="#2F8A2F"/><polygon points="80,0 64,8 64,24 80,16" fill="#246B24"/><polygon points="64,-8 80,0 64,8 48,0" fill="#3FA83F"/></g><g class="vx" data-k="G" data-o="23" data-t="ground"><polygon points="64,56 80,64 80,80 64,72" fill="#4FA534"/><polygon points="96,56 80,64 80,80 96,72" fill="#3B7F27"/><polygon points="80,48 96,56 80,64 64,56" fill="#6CC644"/></g><g class="vx" data-k="D" data-o="24" data-t="ground"><polygon points="32,56 48,64 48,80 32,72" fill="#7D5531"/><polygon points="64,56 48,64 48,80 64,72" fill="#5E3F24"/><polygon points="48,48 64,56 48,64 32,56" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="25" data-t="ground"><polygon points="0,56 16,64 16,80 0,72" fill="#7D5531"/><polygon points="32,56 16,64 16,80 32,72" fill="#5E3F24"/><polygon points="16,48 32,56 16,64 0,56" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="26" data-t="ground"><polygon points="-32,56 -16,64 -16,80 -32,72" fill="#7D5531"/><polygon points="0,56 -16,64 -16,80 0,72" fill="#5E3F24"/><polygon points="-16,48 0,56 -16,64 -32,56" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="27" data-t="ground"><polygon points="-64,56 -48,64 -48,80 -64,72" fill="#7D5531"/><polygon points="-32,56 -48,64 -48,80 -32,72" fill="#5E3F24"/><polygon points="-48,48 -32,56 -48,64 -64,56" fill="#A0703F"/></g><g class="vx" data-k="G" data-o="28" data-t="ground"><polygon points="-96,56 -80,64 -80,80 -96,72" fill="#4FA534"/><polygon points="-64,56 -80,64 -80,80 -64,72" fill="#3B7F27"/><polygon points="-80,48 -64,56 -80,64 -96,56" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="62" data-t="ground"><polygon points="32,40 48,48 48,64 32,56" fill="#4FA534"/><polygon points="64,40 48,48 48,64 64,56" fill="#3B7F27"/><polygon points="48,32 64,40 48,48 32,40" fill="#6CC644"/></g><g class="vx" data-k="D" data-o="63" data-t="ground"><polygon points="0,40 16,48 16,64 0,56" fill="#7D5531"/><polygon points="32,40 16,48 16,64 32,56" fill="#5E3F24"/><polygon points="16,32 32,40 16,48 0,40" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="64" data-t="ground"><polygon points="-32,40 -16,48 -16,64 -32,56" fill="#7D5531"/><polygon points="0,40 -16,48 -16,64 0,56" fill="#5E3F24"/><polygon points="-16,32 0,40 -16,48 -32,40" fill="#A0703F"/></g><g class="vx" data-k="W" data-o="65" data-t="pond"><polygon points="-64,40 -48,48 -48,64 -64,56" fill="#2F8FDD"/><polygon points="-32,40 -48,48 -48,64 -32,56" fill="#2374BC"/><polygon points="-48,32 -32,40 -48,48 -64,40" fill="#4FB2F7"/></g><g class="vx" data-k="G" data-o="77" data-t="ground"><polygon points="0,24 16,32 16,48 0,40" fill="#4FA534"/><polygon points="32,24 16,32 16,48 32,40" fill="#3B7F27"/><polygon points="16,16 32,24 16,32 0,24" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="78" data-t="ground"><polygon points="-32,24 -16,32 -16,48 -32,40" fill="#4FA534"/><polygon points="0,24 -16,32 -16,48 0,40" fill="#3B7F27"/><polygon points="-16,16 0,24 -16,32 -32,24" fill="#6CC644"/></g><g class="vx" data-k="Y" data-o="85" data-t="gold"><polygon points="32,24 48,32 48,48 32,40" fill="#DBA600"/><polygon points="64,24 48,32 48,48 64,40" fill="#B88A00"/><polygon points="48,16 64,24 48,32 32,24" fill="#FEC404"/></g><g class="vx" data-k="F" data-o="89" data-t="tree"><polygon points="64,8 80,16 80,32 64,24" fill="#2F8A2F"/><polygon points="96,8 80,16 80,32 96,24" fill="#246B24"/><polygon points="80,0 96,8 80,16 64,8" fill="#3FA83F"/></g><g class="vx" data-k="F" data-o="90" data-t="tree"><polygon points="32,8 48,16 48,32 32,24" fill="#2F8A2F"/><polygon points="64,8 48,16 48,32 64,24" fill="#246B24"/><polygon points="48,0 64,8 48,16 32,8" fill="#3FA83F"/></g><g class="vx" data-k="S" data-o="91" data-t="wall"><polygon points="-32,8 -16,16 -16,32 -32,24" fill="#8F8F8F"/><polygon points="0,8 -16,16 -16,32 0,24" fill="#6F6F6F"/><polygon points="-16,0 0,8 -16,16 -32,8" fill="#B3B3B3"/></g><g class="vx" data-k="G" data-o="29" data-t="ground"><polygon points="48,64 64,72 64,88 48,80" fill="#4FA534"/><polygon points="80,64 64,72 64,88 80,80" fill="#3B7F27"/><polygon points="64,56 80,64 64,72 48,64" fill="#6CC644"/></g><g class="vx" data-k="D" data-o="30" data-t="ground"><polygon points="16,64 32,72 32,88 16,80" fill="#7D5531"/><polygon points="48,64 32,72 32,88 48,80" fill="#5E3F24"/><polygon points="32,56 48,64 32,72 16,64" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="31" data-t="ground"><polygon points="-16,64 0,72 0,88 -16,80" fill="#7D5531"/><polygon points="16,64 0,72 0,88 16,80" fill="#5E3F24"/><polygon points="0,56 16,64 0,72 -16,64" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="32" data-t="ground"><polygon points="-48,64 -32,72 -32,88 -48,80" fill="#7D5531"/><polygon points="-16,64 -32,72 -32,88 -16,80" fill="#5E3F24"/><polygon points="-32,56 -16,64 -32,72 -48,64" fill="#A0703F"/></g><g class="vx" data-k="G" data-o="33" data-t="ground"><polygon points="-80,64 -64,72 -64,88 -80,80" fill="#4FA534"/><polygon points="-48,64 -64,72 -64,88 -48,80" fill="#3B7F27"/><polygon points="-64,56 -48,64 -64,72 -80,64" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="66" data-t="ground"><polygon points="16,48 32,56 32,72 16,64" fill="#4FA534"/><polygon points="48,48 32,56 32,72 48,64" fill="#3B7F27"/><polygon points="32,40 48,48 32,56 16,48" fill="#6CC644"/></g><g class="vx" data-k="D" data-o="67" data-t="ground"><polygon points="-16,48 0,56 0,72 -16,64" fill="#7D5531"/><polygon points="16,48 0,56 0,72 16,64" fill="#5E3F24"/><polygon points="0,40 16,48 0,56 -16,48" fill="#A0703F"/></g><g class="vx" data-k="G" data-o="68" data-t="ground"><polygon points="-48,48 -32,56 -32,72 -48,64" fill="#4FA534"/><polygon points="-16,48 -32,56 -32,72 -16,64" fill="#3B7F27"/><polygon points="-32,40 -16,48 -32,56 -48,48" fill="#6CC644"/></g><g class="vx" data-k="L" data-o="80" data-t="tree"><polygon points="48,48 64,56 64,72 48,64" fill="#6E4727"/><polygon points="80,48 64,56 64,72 80,64" fill="#52351D"/><polygon points="64,40 80,48 64,56 48,48" fill="#8B5E34"/></g><g class="vx" data-k="G" data-o="79" data-t="ground"><polygon points="-16,32 0,40 0,56 -16,48" fill="#4FA534"/><polygon points="16,32 0,40 0,56 16,48" fill="#3B7F27"/><polygon points="0,24 16,32 0,40 -16,32" fill="#6CC644"/></g><g class="vx" data-k="L" data-o="86" data-t="tree"><polygon points="48,32 64,40 64,56 48,48" fill="#6E4727"/><polygon points="80,32 64,40 64,56 80,48" fill="#52351D"/><polygon points="64,24 80,32 64,40 48,32" fill="#8B5E34"/></g><g class="vx" data-k="F" data-o="92" data-t="tree"><polygon points="80,16 96,24 96,40 80,32" fill="#2F8A2F"/><polygon points="112,16 96,24 96,40 112,32" fill="#246B24"/><polygon points="96,8 112,16 96,24 80,16" fill="#3FA83F"/></g><g class="vx" data-k="F" data-o="93" data-t="tree"><polygon points="48,16 64,24 64,40 48,32" fill="#2F8A2F"/><polygon points="80,16 64,24 64,40 80,32" fill="#246B24"/><polygon points="64,8 80,16 64,24 48,16" fill="#3FA83F"/></g><g class="vx" data-k="F" data-o="94" data-t="tree"><polygon points="16,16 32,24 32,40 16,32" fill="#2F8A2F"/><polygon points="48,16 32,24 32,40 48,32" fill="#246B24"/><polygon points="32,8 48,16 32,24 16,16" fill="#3FA83F"/></g><g class="vx" data-k="C" data-o="95" data-t="diamond"><polygon points="-16,16 0,24 0,40 -16,32" fill="#3FCBD6"/><polygon points="16,16 0,24 0,40 16,32" fill="#239FAA"/><polygon points="0,8 16,16 0,24 -16,16" fill="#6FEFF5"/></g><g class="vx" data-k="F" data-o="99" data-t="tree"><polygon points="48,0 64,8 64,24 48,16" fill="#2F8A2F"/><polygon points="80,0 64,8 64,24 80,16" fill="#246B24"/><polygon points="64,-8 80,0 64,8 48,0" fill="#3FA83F"/></g><g class="vx" data-k="G" data-o="34" data-t="ground"><polygon points="64,72 80,80 80,96 64,88" fill="#4FA534"/><polygon points="96,72 80,80 80,96 96,88" fill="#3B7F27"/><polygon points="80,64 96,72 80,80 64,72" fill="#6CC644"/></g><g class="vx" data-k="D" data-o="35" data-t="ground"><polygon points="32,72 48,80 48,96 32,88" fill="#7D5531"/><polygon points="64,72 48,80 48,96 64,88" fill="#5E3F24"/><polygon points="48,64 64,72 48,80 32,72" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="36" data-t="ground"><polygon points="0,72 16,80 16,96 0,88" fill="#7D5531"/><polygon points="32,72 16,80 16,96 32,88" fill="#5E3F24"/><polygon points="16,64 32,72 16,80 0,72" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="37" data-t="ground"><polygon points="-32,72 -16,80 -16,96 -32,88" fill="#7D5531"/><polygon points="0,72 -16,80 -16,96 0,88" fill="#5E3F24"/><polygon points="-16,64 0,72 -16,80 -32,72" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="38" data-t="ground"><polygon points="-64,72 -48,80 -48,96 -64,88" fill="#7D5531"/><polygon points="-32,72 -48,80 -48,96 -32,88" fill="#5E3F24"/><polygon points="-48,64 -32,72 -48,80 -64,72" fill="#A0703F"/></g><g class="vx" data-k="G" data-o="39" data-t="ground"><polygon points="-96,72 -80,80 -80,96 -96,88" fill="#4FA534"/><polygon points="-64,72 -80,80 -80,96 -64,88" fill="#3B7F27"/><polygon points="-80,64 -64,72 -80,80 -96,72" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="69" data-t="ground"><polygon points="32,56 48,64 48,80 32,72" fill="#4FA534"/><polygon points="64,56 48,64 48,80 64,72" fill="#3B7F27"/><polygon points="48,48 64,56 48,64 32,56" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="70" data-t="ground"><polygon points="0,56 16,64 16,80 0,72" fill="#4FA534"/><polygon points="32,56 16,64 16,80 32,72" fill="#3B7F27"/><polygon points="16,48 32,56 16,64 0,56" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="71" data-t="ground"><polygon points="-32,56 -16,64 -16,80 -32,72" fill="#4FA534"/><polygon points="0,56 -16,64 -16,80 0,72" fill="#3B7F27"/><polygon points="-16,48 0,56 -16,64 -32,56" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="72" data-t="ground"><polygon points="-64,56 -48,64 -48,80 -64,72" fill="#4FA534"/><polygon points="-32,56 -48,64 -48,80 -32,72" fill="#3B7F27"/><polygon points="-48,48 -32,56 -48,64 -64,56" fill="#6CC644"/></g><g class="vx" data-k="F" data-o="96" data-t="tree"><polygon points="64,24 80,32 80,48 64,40" fill="#2F8A2F"/><polygon points="96,24 80,32 80,48 96,40" fill="#246B24"/><polygon points="80,16 96,24 80,32 64,24" fill="#3FA83F"/></g><g class="vx" data-k="F" data-o="97" data-t="tree"><polygon points="32,24 48,32 48,48 32,40" fill="#2F8A2F"/><polygon points="64,24 48,32 48,48 64,40" fill="#246B24"/><polygon points="48,16 64,24 48,32 32,24" fill="#3FA83F"/></g><g class="vx" data-k="G" data-o="40" data-t="ground"><polygon points="48,80 64,88 64,104 48,96" fill="#4FA534"/><polygon points="80,80 64,88 64,104 80,96" fill="#3B7F27"/><polygon points="64,72 80,80 64,88 48,80" fill="#6CC644"/></g><g class="vx" data-k="D" data-o="41" data-t="ground"><polygon points="16,80 32,88 32,104 16,96" fill="#7D5531"/><polygon points="48,80 32,88 32,104 48,96" fill="#5E3F24"/><polygon points="32,72 48,80 32,88 16,80" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="42" data-t="ground"><polygon points="-16,80 0,88 0,104 -16,96" fill="#7D5531"/><polygon points="16,80 0,88 0,104 16,96" fill="#5E3F24"/><polygon points="0,72 16,80 0,88 -16,80" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="43" data-t="ground"><polygon points="-48,80 -32,88 -32,104 -48,96" fill="#7D5531"/><polygon points="-16,80 -32,88 -32,104 -16,96" fill="#5E3F24"/><polygon points="-32,72 -16,80 -32,88 -48,80" fill="#A0703F"/></g><g class="vx" data-k="G" data-o="44" data-t="ground"><polygon points="-80,80 -64,88 -64,104 -80,96" fill="#4FA534"/><polygon points="-48,80 -64,88 -64,104 -48,96" fill="#3B7F27"/><polygon points="-64,72 -48,80 -64,88 -80,80" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="73" data-t="ground"><polygon points="16,64 32,72 32,88 16,80" fill="#4FA534"/><polygon points="48,64 32,72 32,88 48,80" fill="#3B7F27"/><polygon points="32,56 48,64 32,72 16,64" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="74" data-t="ground"><polygon points="-16,64 0,72 0,88 -16,80" fill="#4FA534"/><polygon points="16,64 0,72 0,88 16,80" fill="#3B7F27"/><polygon points="0,56 16,64 0,72 -16,64" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="75" data-t="ground"><polygon points="-48,64 -32,72 -32,88 -48,80" fill="#4FA534"/><polygon points="-16,64 -32,72 -32,88 -16,80" fill="#3B7F27"/><polygon points="-32,56 -16,64 -32,72 -48,64" fill="#6CC644"/></g><g class="vx" data-k="F" data-o="98" data-t="tree"><polygon points="48,32 64,40 64,56 48,48" fill="#2F8A2F"/><polygon points="80,32 64,40 64,56 80,48" fill="#246B24"/><polygon points="64,24 80,32 64,40 48,32" fill="#3FA83F"/></g><g class="vx" data-k="G" data-o="45" data-t="ground"><polygon points="32,88 48,96 48,112 32,104" fill="#4FA534"/><polygon points="64,88 48,96 48,112 64,104" fill="#3B7F27"/><polygon points="48,80 64,88 48,96 32,88" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="46" data-t="ground"><polygon points="0,88 16,96 16,112 0,104" fill="#4FA534"/><polygon points="32,88 16,96 16,112 32,104" fill="#3B7F27"/><polygon points="16,80 32,88 16,96 0,88" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="47" data-t="ground"><polygon points="-32,88 -16,96 -16,112 -32,104" fill="#4FA534"/><polygon points="0,88 -16,96 -16,112 0,104" fill="#3B7F27"/><polygon points="-16,80 0,88 -16,96 -32,88" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="48" data-t="ground"><polygon points="-64,88 -48,96 -48,112 -64,104" fill="#4FA534"/><polygon points="-32,88 -48,96 -48,112 -32,104" fill="#3B7F27"/><polygon points="-48,80 -32,88 -48,96 -64,88" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="49" data-t="ground"><polygon points="16,96 32,104 32,120 16,112" fill="#4FA534"/><polygon points="48,96 32,104 32,120 48,112" fill="#3B7F27"/><polygon points="32,88 48,96 32,104 16,96" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="50" data-t="ground"><polygon points="-16,96 0,104 0,120 -16,112" fill="#4FA534"/><polygon points="16,96 0,104 0,120 16,112" fill="#3B7F27"/><polygon points="0,88 16,96 0,104 -16,96" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="51" data-t="ground"><polygon points="-48,96 -32,104 -32,120 -48,112" fill="#4FA534"/><polygon points="-16,96 -32,104 -32,120 -16,112" fill="#3B7F27"/><polygon points="-32,88 -16,96 -32,104 -48,96" fill="#6CC644"/></g></svg>
+<!--@hero end-->
+    </div>
+  </div>
+</section>
+
+<!-- ============ FACTS ============ -->
+<section class="facts" aria-label="Pagrindiniai faktai">
+  <div class="wrap">
+    <ul>
+      <li><img class="px" src="assets/ico-group.svg" alt=""><div><b>1–4 klasė</b><span>dvi grupės: 1–2 ir 3–4 kl.</span></div></li>
+      <li><img class="px" src="assets/ico-clock.svg" alt=""><div><b>45 min</b><span>1 kartą per savaitę</span></div></li>
+      <li><img class="px" src="assets/ico-tablet.svg" alt=""><div><b>Įranga mūsų</b><span>planšetės, licencijos, pasauliai</span></div></li>
+      <li><img class="px" src="assets/ico-euro.svg" alt=""><div><b>Planuojama nuo 49 €/mėn.</b><span>tikslią kainą pranešime prieš registraciją</span></div></li>
+      <!-- ⚠️ kaina: siūlymas iš brief'o §8, laukia Kris'o/Džiugo sprendimo. Grupės dydis 8–12 = siūlymas, todėl į puslapį nededam. -->
+    </ul>
+  </div>
+</section>
+
+<!-- ============ TRUST ============ -->
+<section class="trust" aria-label="Robotikos akademija skaičiais">
+  <div class="wrap">
+    <div class="nums">
+      <div class="num"><b>110+</b><span>mentorių</span></div>
+      <div class="num"><b>12 000+</b><span>vaikų per metus</span></div>
+      <div class="num"><b>650+</b><span>lokacijų Lietuvoje</span></div>
+      <div class="num"><b>9 iš 10</b><span>tėvų rekomenduoja</span></div>
+    </div>
+    <p class="src">Robotikos akademija: Nr. 1 vaikų technologinio ugdymo organizacija Lietuvoje, STEM.org akredituota. Skaičiai iš <a href="https://robotikosakademija.lt/" rel="noopener">robotikosakademija.lt</a>.</p>
+  </div>
+</section>
+
+<div class="ground" role="presentation"></div>
+
+<!-- ============ PILLARS ============ -->
+<section aria-labelledby="h-pillars">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="pixel" id="h-pillars">Ekranas, prie kurio kuriama</h2>
+      <p>Vaikas jau moka statyti. Čia jis išmoksta kurti žaidimus, kurie moko kitus.</p>
+    </div>
+    <div class="pillars">
+      <article class="pillar">
+        <img class="px" src="assets/ico-block.svg" alt="" loading="lazy">
+        <h3>Kuria, o ne vartoja</h3>
+        <p>Kiekvieną savaitę komanda gauna misiją ir pastato savo žaidimą. Namo parsineša ne „pažaidžiau", o „sukūriau ir išmokau".</p>
+      </article>
+      <article class="pillar">
+        <img class="px" src="assets/ico-book.svg" alt="" loading="lazy">
+        <h3>Kiekvienas žaidimas moko</h3>
+        <p>Skiemenys ant blokų, daugyba sienose, gyvūnai savo biomuose. Skaitymą, matematiką ir gamtą vaikas pritaiko statydamas.</p>
+      </article>
+      <article class="pillar">
+        <img class="px" src="assets/ico-chip.svg" alt="" loading="lazy">
+        <h3>Dirbtinis intelektas saugiai</h3>
+        <p>Kartą per ciklą vaikai sugalvoja žaidimą žodžiais, DI padeda jį sukurti, vaikai testuoja ir taiso. DI įrankius valdo tik mentorius, vaikai paskyrų neturi.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CYCLE ============ -->
+<section aria-labelledby="h-cycle">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="pixel" id="h-cycle">Keturių pamokų ciklas</h2>
+      <p>Trys pamokos Minecraft Education pasaulyje, ketvirta: žaidimo kūrimas su dirbtiniu intelektu.</p>
+    </div>
+    <div class="cycle" role="list">
+      <div class="blk g" role="listitem"><i>1</i>Minecraft Education<small>statom ir skaičiuojam</small></div>
+      <div class="blk g" role="listitem"><i>2</i>Minecraft Education<small>skaitom ir rašom</small></div>
+      <div class="blk g" role="listitem"><i>3</i>Minecraft Education<small>gamta ir komanda</small></div>
+      <div class="blk c" role="listitem"><i>4</i>DI žaidimo kūrimas<small>per mentoriaus ekraną</small></div>
+    </div>
+    <p class="cycle-note">Per mokslo metus tai apie 24 pamokos: 18 Minecraft Education ir 6 žaidimų kūrimo su DI.</p>
+  </div>
+</section>
+
+<!-- ============ GRADE BANDS ============ -->
+<section aria-labelledby="h-band" id="klases" data-band="12">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="pixel" id="h-band">Ko išmoks jūsų vaikas</h2>
+      <p>Užduotys pagal amžių. Pasirinkite klasę.</p>
+    </div>
+    <div class="switch" role="group" aria-label="Klasė">
+      <button type="button" data-set="12" aria-pressed="true">1–2 klasė</button>
+      <button type="button" data-set="34" aria-pressed="false">3–4 klasė</button>
+    </div>
+    <div class="band-grid">
+      <div class="band-row">
+        <h3><img class="px" src="assets/ico-block.svg" alt="" loading="lazy">Minecraft Education</h3>
+        <p class="b12">Blokų statymas pagal užduotį, skaičiavimas blokais, „teisingo kelio" žaidimai. Be sudėtingų grandinių.</p>
+        <p class="b34">Redstone grandinės, Code Builder (kodo blokeliai, kuriais agentas stato už tave), komandinis žaidimas viename pasaulyje.</p>
+      </div>
+      <div class="band-row">
+        <h3><img class="px" src="assets/ico-chip.svg" alt="" loading="lazy">Žaidimas su DI</h3>
+        <p class="b12">Klasė kartu sugalvoja žaidimą, piešia ir rašo „prompto korteles", mentorius jas suveda ir žaidimas atsidaro planšetėse.</p>
+        <p class="b34">Grupės po tris rašo promptą, testuoja žaidimą, randa klaidą ir taiso promptą. Taip išmoksta, kad DI klysta.</p>
+      </div>
+      <div class="band-row">
+        <h3><img class="px" src="assets/ico-book.svg" alt="" loading="lazy">Skaitymas ir rašymas</h3>
+        <p class="b12">Žodžiai ant blokų, skiemenys, pirmos instrukcijos draugui.</p>
+        <p class="b34">Instrukcijos kitiems žaidėjams, žaidimo taisyklių tekstas, klausimai ant ženklų.</p>
+      </div>
+      <div class="band-row">
+        <h3><img class="px" src="assets/ico-calc.svg" alt="" loading="lazy">Matematika</h3>
+        <p class="b12">Sudėtis ir atimtis iki 20, vėliau iki 100, formos ir simetrija.</p>
+        <p class="b34">Daugyba kaip eilės × stulpeliai, plotas, perimetras, tūris.</p>
+      </div>
+      <div class="band-row">
+        <h3><img class="px" src="assets/ico-leaf.svg" alt="" loading="lazy">Gamta</h3>
+        <p class="b12">Gyvūnai ir jų namai: kam reikia vandens, kam miško.</p>
+        <p class="b34">Ekosistemos, maisto grandinė, Marso bazės vanduo ir energija.</p>
+      </div>
+      <div class="band-row">
+        <h3><img class="px" src="assets/ico-group.svg" alt="" loading="lazy">Komanda</h3>
+        <p class="b12">Eilės laukimas, bendras pasaulis, pagalba draugui.</p>
+        <p class="b34">Paaiškina kitam, kaip žaisti jo žaidimą. Ekspertai gauna sunkesnes užduotis ir padeda kitiems.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ground ground-night" role="presentation"></div>
+
+<!-- ============ ONE LESSON ============ -->
+<section class="lesson" id="pamoka" aria-labelledby="h-lesson">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="pixel" id="h-lesson">Viena pamoka, minutė po minutės</h2>
+      <p>45 minutės, pavyzdys 3–4 klasei: „Daugybos tvirtovė". Tikslas: suprasti daugybą kaip eiles × stulpelius ir sukurti mini žaidimą draugui.</p>
+    </div>
+    <div class="grid">
+      <ol class="steps">
+        <li class="step"><div class="min">0–3<small>min</small></div><div><h3>Istorija</h3><p>Marso bazės sieną sugriovė audra. Komanda gauna „blokų normą" sienai atstatyti.</p></div></li>
+        <li class="step"><div class="min">3–8<small>min</small></div><div><h3>Edukacija</h3><p>3 eilės po 4 = 12. Stačiakampis iš kubelių ant stalo, du pavyzdžiai rankomis, dar be ekrano.</p></div></li>
+        <li class="step"><div class="min">8–11<small>min</small></div><div><h3>Prisijungimas</h3><p>Pasaulis jau paruoštas. Mentorius patikrina, kad visi mato tą patį žemėlapį.</p></div></li>
+        <li class="step"><div class="min">11–26<small>min</small></div><div><h3>Statymas komandose</h3><p>Kiekviena siena turi kortelę: 4×6, 5×5, 3×8. Vartai atsidaro tik tada, kai blokų skaičius teisingas.</p></div></li>
+        <li class="step"><div class="min">26–36<small>min</small></div><div><h3>Kurk žaidimą draugui</h3><p>Komanda pastato savo vartus ir užrašo klausimą ant ženklo. Tai ir rašymo pratimas.</p></div></li>
+        <li class="step"><div class="min">36–41<small>min</small></div><div><h3>Žaidžiam vieni kitų žaidimus</h3><p>Komandos keičiasi vietomis ir sprendžia svetimas sienas.</p></div></li>
+        <li class="step"><div class="min">41–44<small>min</small></div><div><h3>Aptarimas</h3><p>„Kur gyvenime matai eiles × stulpelius?" Kiaušinių dėklas, langai, šokolado plytelė.</p></div></li>
+        <li class="step"><div class="min">44–45<small>min</small></div><div><h3>Namo tėvams</h3><p>Savo vartų nuotrauka (be vaikų veidų) ir vienas sakinys „ko išmoko" keliauja tėvams.</p></div></li>
+      </ol>
+      <aside class="panel">
+        <img class="px game" src="assets/game-daugybos-tvirtove.svg" alt="Pikselių piešinys: akmens tvirtovė su auksiniais vartais" width="192" height="128" loading="lazy">
+        <h3>Kodėl paskutinė minutė svarbiausia</h3>
+        <p>Dažniausia tėvų abejonė: „ar jis tik žaidžia?". Todėl kiekviena pamoka baigiasi mokymosi įrodymu, kuris pasiekia jus tą pačią dieną.</p>
+        <p style="margin-top:10px">1–2 klasei ta pati struktūra, tik užduotys paprastesnės: sudėtis blokais, žodžiai ant blokų, be kodo.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<div class="ground" role="presentation"></div>
+
+<!-- ============ OUTCOMES ============ -->
+<section aria-labelledby="h-out">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="pixel" id="h-out">Ką vaikas parsineš</h2>
+      <p>Tikslai, kuriuos keliame programai. Pažymių pokyčio nežadame: sakome tiesiai, ką vaikas darys ir mokės.</p>
+    </div>
+    <div class="outcomes">
+      <article class="out">
+        <div class="when">Po 3 mėnesių</div>
+        <ul>
+          <li><b>12</b><span>pamokų<small>9 Minecraft Education ir 3 žaidimų kūrimo su DI</small></span></li>
+          <li><b>3</b><span>sukurti mokomieji mini žaidimai<small>skaitymas, matematika, gamta</small></span></li>
+          <li><b>1</b><span>savarankiškai valdomas pasaulis<small>planšetėje ar kompiuteryje, komandoje</small></span></li>
+          <li><b>1</b><span>supratimas, kas yra promptas<small>ir kad DI gali klysti</small></span></li>
+        </ul>
+      </article>
+      <article class="out">
+        <div class="when">Po 6 mėnesių</div>
+        <ul>
+          <li><b>6+</b><span>žaidimų portfelis<small>ir pristatymas tėvams</small></span></li>
+          <li><b>3+</b><span>užduotys kitiems viename pasaulyje<small>3–4 kl.: su Redstone arba Code Builder</small></span></li>
+          <li><b>1</b><span>parašytas, ištestuotas ir pataisytas promptas</span></li>
+          <li><b>3</b><span>DI saugumo taisyklės<small>kurias vaikas paaiškina pats</small></span></li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GAMES ============ -->
+<section aria-labelledby="h-games">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="pixel" id="h-games">Žaidimai, kuriuos kurs vaikai</h2>
+      <p>Pavyzdinės misijos iš programos. Piešiniai mūsų pačių, pasauliai statomi pamokose.</p>
+    </div>
+    <div class="games">
+      <article class="game-card"><img class="px" src="assets/game-skiemenu-tiltas.svg" alt="Tiltas per vandenį iš auksinių ir medinių blokų" loading="lazy" width="240" height="160"><div class="t"><span class="k">Skaitymas</span><h3>Skiemenų tiltas</h3><p>Tiltas į salą statomas tik iš teisingų skiemenų blokų.</p></div></article>
+      <article class="game-card"><img class="px" src="assets/game-daugybos-tvirtove.svg" alt="Akmens tvirtovė su auksiniais vartais" loading="lazy" width="240" height="160"><div class="t"><span class="k">Matematika</span><h3>Daugybos tvirtovė</h3><p>Vartai atsidaro, kai siena turi teisingą blokų skaičių: 4×6.</p></div></article>
+      <article class="game-card"><img class="px" src="assets/game-gyvunu-rezervatas.svg" alt="Pieva su medžiu, tvenkiniu ir dviem gyvūnais" loading="lazy" width="240" height="160"><div class="t"><span class="k">Gamta</span><h3>Gyvūnų rezervatas</h3><p>Kiekvienam gyvūnui teisingas biomas, vanduo ir maistas.</p></div></article>
+      <article class="game-card"><img class="px" src="assets/game-raidziu-gaudykle.svg" alt="Krentančios raidės ir dėžė, į kurią jas gaudyti" loading="lazy" width="240" height="160"><div class="t"><span class="k ai">Su DI</span><h3>Raidžių gaudyklė</h3><p>Gaudyk raides iš eilės, kad sudėtum žodį. Žaidimas sukurtas iš vaikų prompto.</p></div></article>
+      <article class="game-card"><img class="px" src="assets/game-skaiciu-lenktynes.svg" alt="Raudona mašina lenktynių trasoje" loading="lazy" width="240" height="160"><div class="t"><span class="k ai">Su DI</span><h3>Skaičių lenktynės</h3><p>Mašina greitėja už kiekvieną teisingą atsakymą.</p></div></article>
+      <article class="game-card"><img class="px" src="assets/game-marso-baze.svg" alt="Kupolas ir saulės jėgainė ant raudonos Marso žemės" loading="lazy" width="240" height="160"><div class="t"><span class="k">Gamta</span><h3>Marso bazė</h3><p>Saulės ir vėjo jėgainės, vanduo ir apsauga nuo smėlio audros. 3–4 klasei.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<div class="ground ground-night" role="presentation"></div>
+
+<!-- ============ SAFETY ============ -->
+<section class="safe" id="saugumas" aria-labelledby="h-safe">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="pixel" id="h-safe">Saugu ir aišku tėvams</h2>
+      <p>Taisyklės, kurių laikomės kiekvienoje pamokoje.</p>
+    </div>
+    <div class="safe-grid">
+      <div class="safe-item"><img class="px" src="assets/ico-shield.svg" alt="" loading="lazy"><div><h3>Vaikas neturi asmeninės paskyros</h3><p>Naudojamos Robotikos akademijos organizacijos paskyros be vaiko vardo. Po pamokos mentorius atjungia visus įrenginius.</p></div></div>
+      <div class="safe-item"><img class="px" src="assets/ico-chip.svg" alt="" loading="lazy"><div><h3>DI valdo tik mentorius</h3><p>Vaikai neturi ChatGPT ar kitų DI paskyrų. Jokio vaiko vardo, nuotraukos ar balso į DI įrankius.</p></div></div>
+      <div class="safe-item"><img class="px" src="assets/ico-group.svg" alt="" loading="lazy"><div><h3>Pasaulyje tik grupė ir mentorius</h3><p>Pamokos pasaulis skirtas tik būrelio grupei. Pašaliniai žaidėjai į jį nepatenka.</p></div></div>
+      <!-- ⚠️ DUK #7 formuluotė: patikrinti MS dokumentacijoje prieš reklamą (brief §11) -->
+      <div class="safe-item"><img class="px" src="assets/ico-heart.svg" alt="" loading="lazy"><div><h3>Jūsų duomenys tik jums</h3><p>Forma renka tik tėvo kontaktus ir vaiko klasę, ne vardą. Analitika įsijungia tik jums leidus.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHO ============ -->
+<section class="who" aria-labelledby="h-who">
+  <div class="wrap grid">
+    <div class="card">
+      <h2 class="plain" id="h-who" style="margin-bottom:12px">Kas kuria ir veda</h2>
+      <p>Programą kuria Robotikos akademijos edukatoriai kartu su Minecraft Education turinio kūrėjais. Pasauliai, užduotys ir paaiškinamieji video paruošti iš anksto, todėl pamokos laikas skiriamas kūrimui, ne derinimui.</p>
+      <!-- ⚠️ partnerio (Trys Kubai) vardo leidimas ir turinio teisės nepatvirtinti (brief §2, §18), todėl vardo nerašome -->
+      <p>Veda Robotikos akademijos mentoriai, praėję atskirus Minecraft Education mokymus. Mentorius vaikšto tarp komandų ir klausia „kodėl?", o ne pasakoja nuo ekrano.</p>
+      <p>Pamokų istorijos iš Robotikos akademijos visatos, kurią vaikai jau pažįsta iš robotikos būrelių: Marso bazė, misijos, komandos.</p>
+    </div>
+    <div class="quote">
+      <blockquote>„Pati tematika, ir Minecraft, ir kosmosas, mano vaikui buvo jėga!"</blockquote>
+      <cite>Mama apie Robotikos akademijos skaitmenines pamokas su Minecraft Education</cite>
+      <!-- ⚠️ citata iš RA tėvų balso (brief §14 #12); viešo naudojimo leidimas tikrintinas -->
+    </div>
+  </div>
+</section>
+
+<div class="ground ground-night" role="presentation"></div>
+
+<!-- ============ FAQ ============ -->
+<section class="faq" id="duk" aria-labelledby="h-faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="pixel" id="h-faq">Tėvų klausimai</h2>
+      <p>Atsakome tiesiai, įskaitant tai, ko dar nežinome.</p>
+    </div>
+    <details><summary>Vaikas ir taip per daug žaidžia Minecraft.</summary><p>Čia vaikas ne žaidžia, o kuria žaidimą su užduotimi: skaičiuoja, skaito, aiškina kitiems. 45 min per savaitę, su mentoriumi, o namo parsinešate, ko išmoko.</p></details>
+    <details><summary>Kuo tai geriau nei namie?</summary><p>Namie vaikas dažniausiai stato vienas. Čia komanda, paruošti pasauliai su mokymosi užduotimis ir mentorius, kuris klausia „kodėl".</p></details>
+    <details><summary>Ar tikrai išmoks matematikos ir skaitymo?</summary><p>Matematiką ir skaitymą vaikas taiko kiekvienoje užduotyje. Pažymių pokyčio nežadame: tyrimai apie Minecraft mokymąsi dar nėra tvirti, todėl sakome tiesiai, ką vaikas darys, o ne ką „garantuojame".</p></details>
+    <details><summary>Kas tas žaidimų kūrimas su DI?</summary><p>Vaikas sugalvoja žaidimą žodžiais, DI padeda jį sukurti, vaikas išbando ir taiso. Taip mokosi, kad DI klysta ir kad reikia aiškiai paaiškinti, ko nori.</p></details>
+    <details><summary>Ar vaikas naudos ChatGPT?</summary><p>Ne. DI įrankius valdo tik mentorius per savo ekraną. Vaikai neturi paskyrų ir jokių savo duomenų į DI nesuveda.</p></details>
+    <details><summary>Ar reikia savo kompiuterio ar Minecraft?</summary><p>Ne. Planšetės, kompiuteriai ir licencijos mūsų. Jei pamokos vyksta mokykloje, naudojami mokyklos kompiuteriai.</p></details>
+    <details><summary>Ar vaikas susirašinės su nepažįstamais?</summary><p>Ne. Pamokos pasaulyje tik būrelio grupė ir mentorius.</p></details>
+    <details><summary>Kokio amžiaus vaikams?</summary><p>1–4 klasei. 1–2 ir 3–4 klasės mokosi skirtingose grupėse, užduotys pagal amžių.</p></details>
+    <details><summary>Mano vaikas niekada nežaidė Minecraft.</summary><p>Puiku. Pirmoji pamoka moko valdymo, o mentorius turi pradžiamokslį kiekvienam įrenginiui.</p></details>
+    <details><summary>Mano vaikas Minecraft ekspertas, jam bus nuobodu.</summary><p>Ekspertai gauna sunkesnes užduotis (Redstone, kodas) ir padeda kitiems. Paaiškinti kitam irgi yra įgūdis.</p></details>
+    <details><summary>Kiek kainuoja?</summary><p>Planuojama nuo 49 € per mėnesį. Jei programai bus taikomas NVŠ krepšelis, kaina mažės. Tikslią kainą parašysime kiekvienam iš laukiančiųjų sąrašo prieš registraciją.</p></details>
+    <details><summary>Ar čia oficialus Minecraft būrelis?</summary><p>Ne. Tai Robotikos akademijos būrelis, kuriame mokymui naudojama Minecraft Education. Su Mojang ar Microsoft nesame susiję.</p></details>
+    <details><summary>Kodėl tik 45 minutės?</summary><p>7–10 metų vaikui tai geras laikas susikaupti prie ekrano. Pamokoje dar yra darbas be ekrano: istorija, kubeliai ant stalo, aptarimas.</p></details>
+    <details><summary>Kas veda pamokas?</summary><p>Robotikos akademijos mentoriai, praėję Minecraft Education mokymus.</p></details>
+    <details><summary>Ar galiu ateiti pažiūrėti?</summary><p>Pirmai grupei planuojame atvirą pamoką tėvams. Apie ją pirmiausia pranešime laukiančiųjų sąrašui.</p></details>
+    <details><summary>O jei vaikui nepatiks?</summary><p>Galioja bendros Robotikos akademijos būrelių sutarties sąlygos, įskaitant nutraukimą. Tikslias sąlygas gausite prieš registraciją, prieš mokant.</p></details>
+  </div>
+</section>
+
+<!-- ============ WAITLIST ============ -->
+<section class="join" id="sarasas" aria-labelledby="h-join">
+  <div class="wrap grid">
+    <div class="aside">
+      <h2 class="pixel" id="h-join">Įrašykite vaiką į sąrašą</h2>
+      <p class="lead">Keturi žingsniai, keturi blokai. Užtrunka apie minutę.</p>
+      <ul>
+        <li><img class="px" src="assets/ico-check.svg" alt="" loading="lazy"><span>Be įsipareigojimų ir be mokėjimo.</span></li>
+        <li><img class="px" src="assets/ico-check.svg" alt="" loading="lazy"><span>Parašysime, kai atidarysime grupę jūsų klasei, ir pirmiems pasiūlysime vietą.</span></li>
+        <li><img class="px" src="assets/ico-check.svg" alt="" loading="lazy"><span>Vaiko vardo neprašome. Tik klasės.</span></li>
+        <li><img class="px" src="assets/ico-check.svg" alt="" loading="lazy"><span>Klausimai? <a href="tel:+37052525713">+370 5 25 25 713</a></span></li>
+      </ul>
+    </div>
+
+    <form class="form" id="waitlist" novalidate>
+      <div class="progress" aria-hidden="true"><span class="slot"></span><span class="slot"></span><span class="slot"></span><span class="slot"></span></div>
+      <p class="hint" id="f-count" aria-live="polite">1 iš 4 · Vaikas</p>
+
+      <div class="fstep is-on" data-step="1">
+        <h3>Kurioje klasėje vaikas?</h3>
+        <p class="hint">Pagal klasę parinksime grupę: 1–2 arba 3–4.</p>
+        <div class="field">
+          <div class="opts" role="radiogroup" aria-label="Klasė">
+            <label class="opt"><input type="radio" name="child_age" value="1"><span>1 kl.</span></label>
+            <label class="opt"><input type="radio" name="child_age" value="2"><span>2 kl.</span></label>
+            <label class="opt"><input type="radio" name="child_age" value="3"><span>3 kl.</span></label>
+            <label class="opt"><input type="radio" name="child_age" value="4"><span>4 kl.</span></label>
+          </div>
+          <p class="err" data-err="child_age">Pasirinkite klasę.</p>
+        </div>
+        <div class="field">
+          <label>Ar vaikas jau žaidžia Minecraft? <small>(nebūtina)</small></label>
+          <div class="opts" role="radiogroup" aria-label="Patirtis">
+            <label class="opt"><input type="radio" name="interest" value="jau žaidžia"><span>Jau žaidžia</span></label>
+            <label class="opt"><input type="radio" name="interest" value="dar nežaidė"><span>Dar nežaidė</span></label>
+            <label class="opt"><input type="radio" name="interest" value="labiausiai domina DI"><span>Labiausiai domina DI</span></label>
+          </div>
+        </div>
+        <div class="fnav"><button type="button" class="btn btn-yellow" data-next>Toliau</button></div>
+      </div>
+
+      <div class="fstep" data-step="2">
+        <h3>Kur būtų patogiausia?</h3>
+        <p class="hint">Pirmoji grupė renkama Tech Zity, Vilniuje. Mokyklų grupės atsiras pagal paklausą.</p>
+        <div class="field">
+          <div class="opts" role="radiogroup" aria-label="Vieta">
+            <label class="opt"><input type="radio" name="location_pref" value="RA centras"><span>Tech Zity, Vilnius</span></label>
+            <label class="opt"><input type="radio" name="location_pref" value="mokykla"><span>Vaiko mokykloje</span></label>
+            <label class="opt"><input type="radio" name="location_pref" value="dar nežinau"><span>Dar nežinau</span></label>
+          </div>
+          <p class="err" data-err="location_pref">Pasirinkite vieną variantą.</p>
+        </div>
+        <div class="field">
+          <label for="city">Miestas</label>
+          <input type="text" id="city" name="city" autocomplete="address-level2" placeholder="Vilnius" value="Vilnius">
+          <p class="err" data-err="city">Įrašykite miestą.</p>
+        </div>
+        <div class="fnav"><button type="button" class="btn btn-back" data-back>Atgal</button><button type="button" class="btn btn-yellow" data-next>Toliau</button></div>
+      </div>
+
+      <div class="fstep" data-step="3">
+        <h3>Kaip su jumis susisiekti?</h3>
+        <p class="hint">Rašysime tik dėl šio būrelio.</p>
+        <div class="field">
+          <label for="parent_name">Jūsų vardas <small>(nebūtina)</small></label>
+          <input type="text" id="parent_name" name="parent_name" autocomplete="given-name" placeholder="pvz. Rūta">
+        </div>
+        <div class="field">
+          <label for="email">El. paštas</label>
+          <input type="email" id="email" name="email" autocomplete="email" inputmode="email" placeholder="vardas@pastas.lt" required>
+          <p class="err" data-err="email">Įrašykite veikiantį el. paštą.</p>
+        </div>
+        <div class="field">
+          <label for="phone">Telefonas <small>(nebūtina, bet taip greičiau)</small></label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="+370 6xx xxxxx">
+        </div>
+        <label class="hp" aria-hidden="true">Svetainė <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        <div class="fnav"><button type="button" class="btn btn-back" data-back>Atgal</button><button type="button" class="btn btn-yellow" data-next>Toliau</button></div>
+      </div>
+
+      <div class="fstep" data-step="4">
+        <h3>Paskutinis blokas</h3>
+        <p class="hint">Patvirtinkite, kad galime parašyti.</p>
+        <div class="field">
+          <label class="consent-box"><input type="checkbox" name="consent_contact" value="v1" required><span>Sutinku, kad Robotikos akademija susisiektų su manimi el. paštu arba telefonu dėl šio būrelio. Sutikimą galiu bet kada atšaukti paskambinus +370 5 25 25 713. Duomenis tvarko VšĮ „Robotikos akademija".</span></label>
+          <p class="err" data-err="consent_contact">Be sutikimo negalėsime parašyti.</p>
+        </div>
+        <p class="err" data-err="submit">Nepavyko išsiųsti. Pabandykite dar kartą arba paskambinkite +370 5 25 25 713.</p>
+        <div class="fnav"><button type="button" class="btn btn-back" data-back>Atgal</button><button type="submit" class="btn btn-yellow" id="submit-btn">Įrašyti į sąrašą</button></div>
+      </div>
+
+      <div class="fstep thanks" data-step="done">
+        <!--@thanks start-->
+<svg class="island done" viewBox="-140 -100 280 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Blokų sala: žolė, akmens siena, auksas ir deimantas" shape-rendering="crispEdges"><g class="vx" data-k="G" data-o="0" data-t="ground"><polygon points="16,16 32,24 32,40 16,32" fill="#4FA534"/><polygon points="48,16 32,24 32,40 48,32" fill="#3B7F27"/><polygon points="32,8 48,16 32,24 16,16" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="1" data-t="ground"><polygon points="-16,16 0,24 0,40 -16,32" fill="#4FA534"/><polygon points="16,16 0,24 0,40 16,32" fill="#3B7F27"/><polygon points="0,8 16,16 0,24 -16,16" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="2" data-t="ground"><polygon points="-48,16 -32,24 -32,40 -48,32" fill="#4FA534"/><polygon points="-16,16 -32,24 -32,40 -16,32" fill="#3B7F27"/><polygon points="-32,8 -16,16 -32,24 -48,16" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="3" data-t="ground"><polygon points="32,24 48,32 48,48 32,40" fill="#4FA534"/><polygon points="64,24 48,32 48,48 64,40" fill="#3B7F27"/><polygon points="48,16 64,24 48,32 32,24" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="4" data-t="ground"><polygon points="0,24 16,32 16,48 0,40" fill="#4FA534"/><polygon points="32,24 16,32 16,48 32,40" fill="#3B7F27"/><polygon points="16,16 32,24 16,32 0,24" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="5" data-t="ground"><polygon points="-32,24 -16,32 -16,48 -32,40" fill="#4FA534"/><polygon points="0,24 -16,32 -16,48 0,40" fill="#3B7F27"/><polygon points="-16,16 0,24 -16,32 -32,24" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="6" data-t="ground"><polygon points="-64,24 -48,32 -48,48 -64,40" fill="#4FA534"/><polygon points="-32,24 -48,32 -48,48 -32,40" fill="#3B7F27"/><polygon points="-48,16 -32,24 -48,32 -64,24" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="7" data-t="ground"><polygon points="48,32 64,40 64,56 48,48" fill="#4FA534"/><polygon points="80,32 64,40 64,56 80,48" fill="#3B7F27"/><polygon points="64,24 80,32 64,40 48,32" fill="#6CC644"/></g><g class="vx" data-k="D" data-o="8" data-t="ground"><polygon points="16,32 32,40 32,56 16,48" fill="#7D5531"/><polygon points="48,32 32,40 32,56 48,48" fill="#5E3F24"/><polygon points="32,24 48,32 32,40 16,32" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="9" data-t="ground"><polygon points="-16,32 0,40 0,56 -16,48" fill="#7D5531"/><polygon points="16,32 0,40 0,56 16,48" fill="#5E3F24"/><polygon points="0,24 16,32 0,40 -16,32" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="10" data-t="ground"><polygon points="-48,32 -32,40 -32,56 -48,48" fill="#7D5531"/><polygon points="-16,32 -32,40 -32,56 -16,48" fill="#5E3F24"/><polygon points="-32,24 -16,32 -32,40 -48,32" fill="#A0703F"/></g><g class="vx" data-k="G" data-o="11" data-t="ground"><polygon points="-80,32 -64,40 -64,56 -80,48" fill="#4FA534"/><polygon points="-48,32 -64,40 -64,56 -48,48" fill="#3B7F27"/><polygon points="-64,24 -48,32 -64,40 -80,32" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="52" data-t="ground"><polygon points="16,16 32,24 32,40 16,32" fill="#4FA534"/><polygon points="48,16 32,24 32,40 48,32" fill="#3B7F27"/><polygon points="32,8 48,16 32,24 16,16" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="53" data-t="ground"><polygon points="-16,16 0,24 0,40 -16,32" fill="#4FA534"/><polygon points="16,16 0,24 0,40 16,32" fill="#3B7F27"/><polygon points="0,8 16,16 0,24 -16,16" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="54" data-t="ground"><polygon points="-48,16 -32,24 -32,40 -48,32" fill="#4FA534"/><polygon points="-16,16 -32,24 -32,40 -16,32" fill="#3B7F27"/><polygon points="-32,8 -16,16 -32,24 -48,16" fill="#6CC644"/></g><g class="vx" data-k="S" data-o="81" data-t="wall"><polygon points="-16,0 0,8 0,24 -16,16" fill="#8F8F8F"/><polygon points="16,0 0,8 0,24 16,16" fill="#6F6F6F"/><polygon points="0,-8 16,0 0,8 -16,0" fill="#B3B3B3"/></g><g class="vx" data-k="S" data-o="87" data-t="wall"><polygon points="-16,-16 0,-8 0,8 -16,0" fill="#8F8F8F"/><polygon points="16,-16 0,-8 0,8 16,0" fill="#6F6F6F"/><polygon points="0,-24 16,-16 0,-8 -16,-16" fill="#B3B3B3"/></g><g class="vx" data-k="G" data-o="12" data-t="ground"><polygon points="64,40 80,48 80,64 64,56" fill="#4FA534"/><polygon points="96,40 80,48 80,64 96,56" fill="#3B7F27"/><polygon points="80,32 96,40 80,48 64,40" fill="#6CC644"/></g><g class="vx" data-k="D" data-o="13" data-t="ground"><polygon points="32,40 48,48 48,64 32,56" fill="#7D5531"/><polygon points="64,40 48,48 48,64 64,56" fill="#5E3F24"/><polygon points="48,32 64,40 48,48 32,40" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="14" data-t="ground"><polygon points="0,40 16,48 16,64 0,56" fill="#7D5531"/><polygon points="32,40 16,48 16,64 32,56" fill="#5E3F24"/><polygon points="16,32 32,40 16,48 0,40" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="15" data-t="ground"><polygon points="-32,40 -16,48 -16,64 -32,56" fill="#7D5531"/><polygon points="0,40 -16,48 -16,64 0,56" fill="#5E3F24"/><polygon points="-16,32 0,40 -16,48 -32,40" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="16" data-t="ground"><polygon points="-64,40 -48,48 -48,64 -64,56" fill="#7D5531"/><polygon points="-32,40 -48,48 -48,64 -32,56" fill="#5E3F24"/><polygon points="-48,32 -32,40 -48,48 -64,40" fill="#A0703F"/></g><g class="vx" data-k="G" data-o="17" data-t="ground"><polygon points="-96,40 -80,48 -80,64 -96,56" fill="#4FA534"/><polygon points="-64,40 -80,48 -80,64 -64,56" fill="#3B7F27"/><polygon points="-80,32 -64,40 -80,48 -96,40" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="55" data-t="ground"><polygon points="32,24 48,32 48,48 32,40" fill="#4FA534"/><polygon points="64,24 48,32 48,48 64,40" fill="#3B7F27"/><polygon points="48,16 64,24 48,32 32,24" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="56" data-t="ground"><polygon points="0,24 16,32 16,48 0,40" fill="#4FA534"/><polygon points="32,24 16,32 16,48 32,40" fill="#3B7F27"/><polygon points="16,16 32,24 16,32 0,24" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="57" data-t="ground"><polygon points="-32,24 -16,32 -16,48 -32,40" fill="#4FA534"/><polygon points="0,24 -16,32 -16,48 0,40" fill="#3B7F27"/><polygon points="-16,16 0,24 -16,32 -32,24" fill="#6CC644"/></g><g class="vx" data-k="W" data-o="58" data-t="pond"><polygon points="-64,24 -48,32 -48,48 -64,40" fill="#2F8FDD"/><polygon points="-32,24 -48,32 -48,48 -32,40" fill="#2374BC"/><polygon points="-48,16 -32,24 -48,32 -64,24" fill="#4FB2F7"/></g><g class="vx" data-k="S" data-o="82" data-t="wall"><polygon points="-32,8 -16,16 -16,32 -32,24" fill="#8F8F8F"/><polygon points="0,8 -16,16 -16,32 0,24" fill="#6F6F6F"/><polygon points="-16,0 0,8 -16,16 -32,8" fill="#B3B3B3"/></g><g class="vx" data-k="S" data-o="83" data-t="wall"><polygon points="0,8 16,16 16,32 0,24" fill="#8F8F8F"/><polygon points="32,8 16,16 16,32 32,24" fill="#6F6F6F"/><polygon points="16,0 32,8 16,16 0,8" fill="#B3B3B3"/></g><g class="vx" data-k="G" data-o="18" data-t="ground"><polygon points="48,48 64,56 64,72 48,64" fill="#4FA534"/><polygon points="80,48 64,56 64,72 80,64" fill="#3B7F27"/><polygon points="64,40 80,48 64,56 48,48" fill="#6CC644"/></g><g class="vx" data-k="D" data-o="19" data-t="ground"><polygon points="16,48 32,56 32,72 16,64" fill="#7D5531"/><polygon points="48,48 32,56 32,72 48,64" fill="#5E3F24"/><polygon points="32,40 48,48 32,56 16,48" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="20" data-t="ground"><polygon points="-16,48 0,56 0,72 -16,64" fill="#7D5531"/><polygon points="16,48 0,56 0,72 16,64" fill="#5E3F24"/><polygon points="0,40 16,48 0,56 -16,48" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="21" data-t="ground"><polygon points="-48,48 -32,56 -32,72 -48,64" fill="#7D5531"/><polygon points="-16,48 -32,56 -32,72 -16,64" fill="#5E3F24"/><polygon points="-32,40 -16,48 -32,56 -48,48" fill="#A0703F"/></g><g class="vx" data-k="W" data-o="22" data-t="pond"><polygon points="-80,48 -64,56 -64,72 -80,64" fill="#2F8FDD"/><polygon points="-48,48 -64,56 -64,72 -48,64" fill="#2374BC"/><polygon points="-64,40 -48,48 -64,56 -80,48" fill="#4FB2F7"/></g><g class="vx" data-k="G" data-o="59" data-t="ground"><polygon points="16,32 32,40 32,56 16,48" fill="#4FA534"/><polygon points="48,32 32,40 32,56 48,48" fill="#3B7F27"/><polygon points="32,24 48,32 32,40 16,32" fill="#6CC644"/></g><g class="vx" data-k="D" data-o="60" data-t="ground"><polygon points="-16,32 0,40 0,56 -16,48" fill="#7D5531"/><polygon points="16,32 0,40 0,56 16,48" fill="#5E3F24"/><polygon points="0,24 16,32 0,40 -16,32" fill="#A0703F"/></g><g class="vx" data-k="G" data-o="61" data-t="ground"><polygon points="-48,32 -32,40 -32,56 -48,48" fill="#4FA534"/><polygon points="-16,32 -32,40 -32,56 -16,48" fill="#3B7F27"/><polygon points="-32,24 -16,32 -32,40 -48,32" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="76" data-t="ground"><polygon points="-16,16 0,24 0,40 -16,32" fill="#4FA534"/><polygon points="16,16 0,24 0,40 16,32" fill="#3B7F27"/><polygon points="0,8 16,16 0,24 -16,16" fill="#6CC644"/></g><g class="vx" data-k="S" data-o="84" data-t="wall"><polygon points="16,16 32,24 32,40 16,32" fill="#8F8F8F"/><polygon points="48,16 32,24 32,40 48,32" fill="#6F6F6F"/><polygon points="32,8 48,16 32,24 16,16" fill="#B3B3B3"/></g><g class="vx" data-k="F" data-o="88" data-t="tree"><polygon points="48,0 64,8 64,24 48,16" fill="#2F8A2F"/><polygon points="80,0 64,8 64,24 80,16" fill="#246B24"/><polygon points="64,-8 80,0 64,8 48,0" fill="#3FA83F"/></g><g class="vx" data-k="G" data-o="23" data-t="ground"><polygon points="64,56 80,64 80,80 64,72" fill="#4FA534"/><polygon points="96,56 80,64 80,80 96,72" fill="#3B7F27"/><polygon points="80,48 96,56 80,64 64,56" fill="#6CC644"/></g><g class="vx" data-k="D" data-o="24" data-t="ground"><polygon points="32,56 48,64 48,80 32,72" fill="#7D5531"/><polygon points="64,56 48,64 48,80 64,72" fill="#5E3F24"/><polygon points="48,48 64,56 48,64 32,56" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="25" data-t="ground"><polygon points="0,56 16,64 16,80 0,72" fill="#7D5531"/><polygon points="32,56 16,64 16,80 32,72" fill="#5E3F24"/><polygon points="16,48 32,56 16,64 0,56" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="26" data-t="ground"><polygon points="-32,56 -16,64 -16,80 -32,72" fill="#7D5531"/><polygon points="0,56 -16,64 -16,80 0,72" fill="#5E3F24"/><polygon points="-16,48 0,56 -16,64 -32,56" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="27" data-t="ground"><polygon points="-64,56 -48,64 -48,80 -64,72" fill="#7D5531"/><polygon points="-32,56 -48,64 -48,80 -32,72" fill="#5E3F24"/><polygon points="-48,48 -32,56 -48,64 -64,56" fill="#A0703F"/></g><g class="vx" data-k="G" data-o="28" data-t="ground"><polygon points="-96,56 -80,64 -80,80 -96,72" fill="#4FA534"/><polygon points="-64,56 -80,64 -80,80 -64,72" fill="#3B7F27"/><polygon points="-80,48 -64,56 -80,64 -96,56" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="62" data-t="ground"><polygon points="32,40 48,48 48,64 32,56" fill="#4FA534"/><polygon points="64,40 48,48 48,64 64,56" fill="#3B7F27"/><polygon points="48,32 64,40 48,48 32,40" fill="#6CC644"/></g><g class="vx" data-k="D" data-o="63" data-t="ground"><polygon points="0,40 16,48 16,64 0,56" fill="#7D5531"/><polygon points="32,40 16,48 16,64 32,56" fill="#5E3F24"/><polygon points="16,32 32,40 16,48 0,40" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="64" data-t="ground"><polygon points="-32,40 -16,48 -16,64 -32,56" fill="#7D5531"/><polygon points="0,40 -16,48 -16,64 0,56" fill="#5E3F24"/><polygon points="-16,32 0,40 -16,48 -32,40" fill="#A0703F"/></g><g class="vx" data-k="W" data-o="65" data-t="pond"><polygon points="-64,40 -48,48 -48,64 -64,56" fill="#2F8FDD"/><polygon points="-32,40 -48,48 -48,64 -32,56" fill="#2374BC"/><polygon points="-48,32 -32,40 -48,48 -64,40" fill="#4FB2F7"/></g><g class="vx" data-k="G" data-o="77" data-t="ground"><polygon points="0,24 16,32 16,48 0,40" fill="#4FA534"/><polygon points="32,24 16,32 16,48 32,40" fill="#3B7F27"/><polygon points="16,16 32,24 16,32 0,24" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="78" data-t="ground"><polygon points="-32,24 -16,32 -16,48 -32,40" fill="#4FA534"/><polygon points="0,24 -16,32 -16,48 0,40" fill="#3B7F27"/><polygon points="-16,16 0,24 -16,32 -32,24" fill="#6CC644"/></g><g class="vx" data-k="Y" data-o="85" data-t="gold"><polygon points="32,24 48,32 48,48 32,40" fill="#DBA600"/><polygon points="64,24 48,32 48,48 64,40" fill="#B88A00"/><polygon points="48,16 64,24 48,32 32,24" fill="#FEC404"/></g><g class="vx" data-k="F" data-o="89" data-t="tree"><polygon points="64,8 80,16 80,32 64,24" fill="#2F8A2F"/><polygon points="96,8 80,16 80,32 96,24" fill="#246B24"/><polygon points="80,0 96,8 80,16 64,8" fill="#3FA83F"/></g><g class="vx" data-k="F" data-o="90" data-t="tree"><polygon points="32,8 48,16 48,32 32,24" fill="#2F8A2F"/><polygon points="64,8 48,16 48,32 64,24" fill="#246B24"/><polygon points="48,0 64,8 48,16 32,8" fill="#3FA83F"/></g><g class="vx" data-k="S" data-o="91" data-t="wall"><polygon points="-32,8 -16,16 -16,32 -32,24" fill="#8F8F8F"/><polygon points="0,8 -16,16 -16,32 0,24" fill="#6F6F6F"/><polygon points="-16,0 0,8 -16,16 -32,8" fill="#B3B3B3"/></g><g class="vx" data-k="G" data-o="29" data-t="ground"><polygon points="48,64 64,72 64,88 48,80" fill="#4FA534"/><polygon points="80,64 64,72 64,88 80,80" fill="#3B7F27"/><polygon points="64,56 80,64 64,72 48,64" fill="#6CC644"/></g><g class="vx" data-k="D" data-o="30" data-t="ground"><polygon points="16,64 32,72 32,88 16,80" fill="#7D5531"/><polygon points="48,64 32,72 32,88 48,80" fill="#5E3F24"/><polygon points="32,56 48,64 32,72 16,64" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="31" data-t="ground"><polygon points="-16,64 0,72 0,88 -16,80" fill="#7D5531"/><polygon points="16,64 0,72 0,88 16,80" fill="#5E3F24"/><polygon points="0,56 16,64 0,72 -16,64" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="32" data-t="ground"><polygon points="-48,64 -32,72 -32,88 -48,80" fill="#7D5531"/><polygon points="-16,64 -32,72 -32,88 -16,80" fill="#5E3F24"/><polygon points="-32,56 -16,64 -32,72 -48,64" fill="#A0703F"/></g><g class="vx" data-k="G" data-o="33" data-t="ground"><polygon points="-80,64 -64,72 -64,88 -80,80" fill="#4FA534"/><polygon points="-48,64 -64,72 -64,88 -48,80" fill="#3B7F27"/><polygon points="-64,56 -48,64 -64,72 -80,64" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="66" data-t="ground"><polygon points="16,48 32,56 32,72 16,64" fill="#4FA534"/><polygon points="48,48 32,56 32,72 48,64" fill="#3B7F27"/><polygon points="32,40 48,48 32,56 16,48" fill="#6CC644"/></g><g class="vx" data-k="D" data-o="67" data-t="ground"><polygon points="-16,48 0,56 0,72 -16,64" fill="#7D5531"/><polygon points="16,48 0,56 0,72 16,64" fill="#5E3F24"/><polygon points="0,40 16,48 0,56 -16,48" fill="#A0703F"/></g><g class="vx" data-k="G" data-o="68" data-t="ground"><polygon points="-48,48 -32,56 -32,72 -48,64" fill="#4FA534"/><polygon points="-16,48 -32,56 -32,72 -16,64" fill="#3B7F27"/><polygon points="-32,40 -16,48 -32,56 -48,48" fill="#6CC644"/></g><g class="vx" data-k="L" data-o="80" data-t="tree"><polygon points="48,48 64,56 64,72 48,64" fill="#6E4727"/><polygon points="80,48 64,56 64,72 80,64" fill="#52351D"/><polygon points="64,40 80,48 64,56 48,48" fill="#8B5E34"/></g><g class="vx" data-k="G" data-o="79" data-t="ground"><polygon points="-16,32 0,40 0,56 -16,48" fill="#4FA534"/><polygon points="16,32 0,40 0,56 16,48" fill="#3B7F27"/><polygon points="0,24 16,32 0,40 -16,32" fill="#6CC644"/></g><g class="vx" data-k="L" data-o="86" data-t="tree"><polygon points="48,32 64,40 64,56 48,48" fill="#6E4727"/><polygon points="80,32 64,40 64,56 80,48" fill="#52351D"/><polygon points="64,24 80,32 64,40 48,32" fill="#8B5E34"/></g><g class="vx" data-k="F" data-o="92" data-t="tree"><polygon points="80,16 96,24 96,40 80,32" fill="#2F8A2F"/><polygon points="112,16 96,24 96,40 112,32" fill="#246B24"/><polygon points="96,8 112,16 96,24 80,16" fill="#3FA83F"/></g><g class="vx" data-k="F" data-o="93" data-t="tree"><polygon points="48,16 64,24 64,40 48,32" fill="#2F8A2F"/><polygon points="80,16 64,24 64,40 80,32" fill="#246B24"/><polygon points="64,8 80,16 64,24 48,16" fill="#3FA83F"/></g><g class="vx" data-k="F" data-o="94" data-t="tree"><polygon points="16,16 32,24 32,40 16,32" fill="#2F8A2F"/><polygon points="48,16 32,24 32,40 48,32" fill="#246B24"/><polygon points="32,8 48,16 32,24 16,16" fill="#3FA83F"/></g><g class="vx" data-k="C" data-o="95" data-t="diamond"><polygon points="-16,16 0,24 0,40 -16,32" fill="#3FCBD6"/><polygon points="16,16 0,24 0,40 16,32" fill="#239FAA"/><polygon points="0,8 16,16 0,24 -16,16" fill="#6FEFF5"/></g><g class="vx" data-k="F" data-o="99" data-t="tree"><polygon points="48,0 64,8 64,24 48,16" fill="#2F8A2F"/><polygon points="80,0 64,8 64,24 80,16" fill="#246B24"/><polygon points="64,-8 80,0 64,8 48,0" fill="#3FA83F"/></g><g class="vx" data-k="G" data-o="34" data-t="ground"><polygon points="64,72 80,80 80,96 64,88" fill="#4FA534"/><polygon points="96,72 80,80 80,96 96,88" fill="#3B7F27"/><polygon points="80,64 96,72 80,80 64,72" fill="#6CC644"/></g><g class="vx" data-k="D" data-o="35" data-t="ground"><polygon points="32,72 48,80 48,96 32,88" fill="#7D5531"/><polygon points="64,72 48,80 48,96 64,88" fill="#5E3F24"/><polygon points="48,64 64,72 48,80 32,72" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="36" data-t="ground"><polygon points="0,72 16,80 16,96 0,88" fill="#7D5531"/><polygon points="32,72 16,80 16,96 32,88" fill="#5E3F24"/><polygon points="16,64 32,72 16,80 0,72" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="37" data-t="ground"><polygon points="-32,72 -16,80 -16,96 -32,88" fill="#7D5531"/><polygon points="0,72 -16,80 -16,96 0,88" fill="#5E3F24"/><polygon points="-16,64 0,72 -16,80 -32,72" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="38" data-t="ground"><polygon points="-64,72 -48,80 -48,96 -64,88" fill="#7D5531"/><polygon points="-32,72 -48,80 -48,96 -32,88" fill="#5E3F24"/><polygon points="-48,64 -32,72 -48,80 -64,72" fill="#A0703F"/></g><g class="vx" data-k="G" data-o="39" data-t="ground"><polygon points="-96,72 -80,80 -80,96 -96,88" fill="#4FA534"/><polygon points="-64,72 -80,80 -80,96 -64,88" fill="#3B7F27"/><polygon points="-80,64 -64,72 -80,80 -96,72" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="69" data-t="ground"><polygon points="32,56 48,64 48,80 32,72" fill="#4FA534"/><polygon points="64,56 48,64 48,80 64,72" fill="#3B7F27"/><polygon points="48,48 64,56 48,64 32,56" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="70" data-t="ground"><polygon points="0,56 16,64 16,80 0,72" fill="#4FA534"/><polygon points="32,56 16,64 16,80 32,72" fill="#3B7F27"/><polygon points="16,48 32,56 16,64 0,56" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="71" data-t="ground"><polygon points="-32,56 -16,64 -16,80 -32,72" fill="#4FA534"/><polygon points="0,56 -16,64 -16,80 0,72" fill="#3B7F27"/><polygon points="-16,48 0,56 -16,64 -32,56" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="72" data-t="ground"><polygon points="-64,56 -48,64 -48,80 -64,72" fill="#4FA534"/><polygon points="-32,56 -48,64 -48,80 -32,72" fill="#3B7F27"/><polygon points="-48,48 -32,56 -48,64 -64,56" fill="#6CC644"/></g><g class="vx" data-k="F" data-o="96" data-t="tree"><polygon points="64,24 80,32 80,48 64,40" fill="#2F8A2F"/><polygon points="96,24 80,32 80,48 96,40" fill="#246B24"/><polygon points="80,16 96,24 80,32 64,24" fill="#3FA83F"/></g><g class="vx" data-k="F" data-o="97" data-t="tree"><polygon points="32,24 48,32 48,48 32,40" fill="#2F8A2F"/><polygon points="64,24 48,32 48,48 64,40" fill="#246B24"/><polygon points="48,16 64,24 48,32 32,24" fill="#3FA83F"/></g><g class="vx" data-k="G" data-o="40" data-t="ground"><polygon points="48,80 64,88 64,104 48,96" fill="#4FA534"/><polygon points="80,80 64,88 64,104 80,96" fill="#3B7F27"/><polygon points="64,72 80,80 64,88 48,80" fill="#6CC644"/></g><g class="vx" data-k="D" data-o="41" data-t="ground"><polygon points="16,80 32,88 32,104 16,96" fill="#7D5531"/><polygon points="48,80 32,88 32,104 48,96" fill="#5E3F24"/><polygon points="32,72 48,80 32,88 16,80" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="42" data-t="ground"><polygon points="-16,80 0,88 0,104 -16,96" fill="#7D5531"/><polygon points="16,80 0,88 0,104 16,96" fill="#5E3F24"/><polygon points="0,72 16,80 0,88 -16,80" fill="#A0703F"/></g><g class="vx" data-k="D" data-o="43" data-t="ground"><polygon points="-48,80 -32,88 -32,104 -48,96" fill="#7D5531"/><polygon points="-16,80 -32,88 -32,104 -16,96" fill="#5E3F24"/><polygon points="-32,72 -16,80 -32,88 -48,80" fill="#A0703F"/></g><g class="vx" data-k="G" data-o="44" data-t="ground"><polygon points="-80,80 -64,88 -64,104 -80,96" fill="#4FA534"/><polygon points="-48,80 -64,88 -64,104 -48,96" fill="#3B7F27"/><polygon points="-64,72 -48,80 -64,88 -80,80" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="73" data-t="ground"><polygon points="16,64 32,72 32,88 16,80" fill="#4FA534"/><polygon points="48,64 32,72 32,88 48,80" fill="#3B7F27"/><polygon points="32,56 48,64 32,72 16,64" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="74" data-t="ground"><polygon points="-16,64 0,72 0,88 -16,80" fill="#4FA534"/><polygon points="16,64 0,72 0,88 16,80" fill="#3B7F27"/><polygon points="0,56 16,64 0,72 -16,64" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="75" data-t="ground"><polygon points="-48,64 -32,72 -32,88 -48,80" fill="#4FA534"/><polygon points="-16,64 -32,72 -32,88 -16,80" fill="#3B7F27"/><polygon points="-32,56 -16,64 -32,72 -48,64" fill="#6CC644"/></g><g class="vx" data-k="F" data-o="98" data-t="tree"><polygon points="48,32 64,40 64,56 48,48" fill="#2F8A2F"/><polygon points="80,32 64,40 64,56 80,48" fill="#246B24"/><polygon points="64,24 80,32 64,40 48,32" fill="#3FA83F"/></g><g class="vx" data-k="G" data-o="45" data-t="ground"><polygon points="32,88 48,96 48,112 32,104" fill="#4FA534"/><polygon points="64,88 48,96 48,112 64,104" fill="#3B7F27"/><polygon points="48,80 64,88 48,96 32,88" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="46" data-t="ground"><polygon points="0,88 16,96 16,112 0,104" fill="#4FA534"/><polygon points="32,88 16,96 16,112 32,104" fill="#3B7F27"/><polygon points="16,80 32,88 16,96 0,88" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="47" data-t="ground"><polygon points="-32,88 -16,96 -16,112 -32,104" fill="#4FA534"/><polygon points="0,88 -16,96 -16,112 0,104" fill="#3B7F27"/><polygon points="-16,80 0,88 -16,96 -32,88" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="48" data-t="ground"><polygon points="-64,88 -48,96 -48,112 -64,104" fill="#4FA534"/><polygon points="-32,88 -48,96 -48,112 -32,104" fill="#3B7F27"/><polygon points="-48,80 -32,88 -48,96 -64,88" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="49" data-t="ground"><polygon points="16,96 32,104 32,120 16,112" fill="#4FA534"/><polygon points="48,96 32,104 32,120 48,112" fill="#3B7F27"/><polygon points="32,88 48,96 32,104 16,96" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="50" data-t="ground"><polygon points="-16,96 0,104 0,120 -16,112" fill="#4FA534"/><polygon points="16,96 0,104 0,120 16,112" fill="#3B7F27"/><polygon points="0,88 16,96 0,104 -16,96" fill="#6CC644"/></g><g class="vx" data-k="G" data-o="51" data-t="ground"><polygon points="-48,96 -32,104 -32,120 -48,112" fill="#4FA534"/><polygon points="-16,96 -32,104 -32,120 -16,112" fill="#3B7F27"/><polygon points="-32,88 -16,96 -32,104 -48,96" fill="#6CC644"/></g></svg>
+<!--@thanks end-->
+        <h3>Sala pastatyta!</h3>
+        <p>Ačiū. Parašysime, kai atidarysime grupę jūsų vaiko klasei. Iki tol: pasiūlykite vaikui sugalvoti, kokį žaidimą jis norėtų sukurti pirmiausia.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>Robotikos akademija</h4>
+        <p>Nr. 1 vaikų technologinio ugdymo organizacija Lietuvoje. 110+ mentorių, 650+ lokacijų.</p>
+        <p style="margin-top:8px"><a href="https://robotikosakademija.lt/" rel="noopener">robotikosakademija.lt</a></p>
+      </div>
+      <div>
+        <h4>Kontaktai</h4>
+        <p><a href="tel:+37052525713">+370 5 25 25 713</a></p>
+        <p>Mindaugo g. 23B, LT-03214 Vilnius</p>
+      </div>
+      <div>
+        <h4>Būrelis</h4>
+        <p><a href="#pamoka">Kaip vyksta pamoka</a></p>
+        <p><a href="#saugumas">Saugumas</a></p>
+        <p><a href="#duk">Tėvų klausimai</a></p>
+        <p><a href="#sarasas">Laukiančiųjų sąrašas</a></p>
+      </div>
+    </div>
+    <div class="legal">
+      <b>NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</b>
+      <b>NĖRA OFICIALUS MINECRAFT PRODUKTAS. NEPATVIRTINTA MOJANG AR MICROSOFT IR SU JOMIS NESUSIJĘS.</b>
+      <p style="margin-top:8px">Už būrelį atsako VšĮ „Robotikos akademija", Mindaugo g. 23B, LT-03214 Vilnius, įm. k. 303015010, tel. +370 5 25 25 713. Minecraft yra Mojang Synergies AB prekių ženklas.<!-- ⚠️ paskutinis sakinys: įprasta formuluotė, oficialiame Mojang tekste nerasta (brief §12) --> Visos šio puslapio iliustracijos originalios, nupieštos Robotikos akademijos.</p>
+      <p style="margin-top:8px">© 2026 Robotikos akademija.</p>
+    </div>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky" aria-hidden="true">
+  <div class="in">
+    <div class="txt"><b>Žaidimų kūrėjai · 1–4 klasė</b><span>45 min per savaitę, Tech Zity, Vilnius</span></div>
+    <a class="btn btn-yellow" href="#sarasas" data-cta="sticky">Į laukiančiųjų sąrašą</a>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script>
+(function(){
+  'use strict';
+  var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  var track=function(n,p){ if(window.bt) try{window.bt(n,p||{})}catch(e){} };
+
+  /* ---- src iš URL (?src=kanalas), default 'direct' ---- */
+  var SRC=(new URLSearchParams(location.search).get('src')||'direct').slice(0,40);
+  var CONSENT_VERSION='v1'; // sutikimo teksto versija (formos 4 žingsnis). ⚠️ ra_waitlist neturi consent_version stulpelio; pridėjus, siųsti payload'e.
+
+  /* ---- CTA sekimas ---- */
+  $$('[data-cta]').forEach(function(a){ a.addEventListener('click',function(){ track('cta',{id:a.getAttribute('data-cta'),src:SRC}); }); });
+
+  /* ---- klasių jungiklis ---- */
+  var band=$('#klases');
+  $$('.switch button',band).forEach(function(b){
+    b.addEventListener('click',function(){
+      band.setAttribute('data-band',b.getAttribute('data-set'));
+      $$('.switch button',band).forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
+      track('engage',{band:b.getAttribute('data-set')});
+    });
+  });
+
+  /* ---- lipnus CTA: rodom po hero, slepiam prie formos ---- */
+  var sticky=$('#sticky'), hero=$('.hero'), join=$('#sarasas'), pastHero=false, atForm=false;
+  function sync(){ var on=pastHero&&!atForm; sticky.classList.toggle('is-on',on); sticky.setAttribute('aria-hidden',on?'false':'true'); }
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){ pastHero=!es[0].isIntersecting&&es[0].boundingClientRect.top<0; sync(); },{threshold:0}).observe(hero);
+    new IntersectionObserver(function(es){ atForm=es[0].isIntersecting; sync(); },{threshold:.15}).observe(join);
+  }
+
+  /* ---- forma: 4 žingsniai = 4 blokai ---- */
+  var form=$('#waitlist'), steps=$$('.fstep',form), slots=$$('.progress .slot',form), count=$('#f-count'), cur=1;
+  var names={1:'Vaikas',2:'Vieta',3:'Kontaktai',4:'Sutikimas'};
+  function show(n){
+    steps.forEach(function(s){ s.classList.toggle('is-on',s.getAttribute('data-step')===String(n)); });
+    slots.forEach(function(s,i){ s.classList.toggle('done',i<(n==='done'?4:n-1)); });
+    if(n!=='done'){ count.textContent=n+' iš 4 · '+names[n]; var h=$('.fstep.is-on h3',form); if(h){h.setAttribute('tabindex','-1');h.focus({preventScroll:true});} }
+    cur=n;
+  }
+  function err(name,on){ var e=form.querySelector('[data-err="'+name+'"]'); if(e) e.classList.toggle('is-on',!!on); }
+  function val(name){ var els=form.querySelectorAll('[name="'+name+'"]'); if(!els.length) return '';
+    if(els[0].type==='radio'||els[0].type==='checkbox'){ var c=form.querySelector('[name="'+name+'"]:checked'); return c?c.value:''; }
+    return els[0].value.trim(); }
+  function validate(n){
+    var ok=true;
+    if(n===1){ if(!val('child_age')){err('child_age',1);ok=false;} else err('child_age',0); }
+    if(n===2){ if(!val('location_pref')){err('location_pref',1);ok=false;} else err('location_pref',0);
+               if(!val('city')){err('city',1);ok=false;} else err('city',0); }
+    if(n===3){ var em=val('email'), eEl=$('#email'); var good=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em); err('email',!good); eEl.setAttribute('aria-invalid',good?'false':'true'); if(!good){ok=false;eEl.focus();} }
+    if(n===4){ if(!val('consent_contact')){err('consent_contact',1);ok=false;} else err('consent_contact',0); }
+    return ok;
+  }
+  form.addEventListener('click',function(e){
+    if(e.target.closest('[data-next]')){ if(validate(cur)){ track('engage',{form_step:cur}); show(cur+1);} }
+    if(e.target.closest('[data-back]')){ show(cur-1); }
+  });
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!validate(4)) return;
+    var btn=$('#submit-btn'); btn.disabled=true; btn.textContent='Siunčiama…'; err('submit',0);
+    if(val('website')){ show('done'); return; }   // honeypot: botams rodom „ačiū", nieko nesiunčiam
+    var payload={
+      product:'minecraft',
+      parent_name: val('parent_name')||null,
+      email: val('email').toLowerCase(),
+      phone: val('phone')||null,
+      child_age: parseInt(val('child_age'),10),
+      city: val('city'),
+      location_pref: val('location_pref'),
+      interest: val('interest')||null,
+      src: SRC,
+      consent_contact: true   // sutikimo tekstas = CONSENT_VERSION; ⚠️ lentelėje nėra stulpelio versijai (2026-10-10), žr. komentarą viršuje
+    };
+    fetch('https://iiekmeylpppczicrsxho.supabase.co/rest/v1/ra_waitlist',{
+      method:'POST',
+      headers:{'apikey':'sb_publishable_iJC59f30YJm7hU4OwZsLDQ_9FN-ygzF','Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify(payload)
+    }).then(function(r){
+      if(r.status===201){ track('value',{step:'waitlist_submit',src:SRC,klase:payload.child_age}); show('done'); }
+      else { return r.text().then(function(t){ throw new Error(r.status+' '+t); }); }
+    }).catch(function(ex){
+      console.error('[waitlist]',ex); track('error',{where:'waitlist',msg:String(ex).slice(0,80)});
+      err('submit',1); btn.disabled=false; btn.textContent='Įrašyti į sąrašą';
+    });
+  });
+
+  /* ---- judesys: vienas autorinis momentas (sala susideda iš blokų) + pamokos žingsniai ---- */
+  function motion(){
+    if(!window.gsap) return;
+    var mm=gsap.matchMedia();
+    mm.add({ok:'(prefers-reduced-motion: no-preference)', rm:'(prefers-reduced-motion: reduce)'},function(ctx){
+      if(ctx.conditions.rm) return;   // statinė sala, viskas matoma
+      var vx=$$('.hero .island .vx').sort(function(a,b){return +a.getAttribute('data-o')-+b.getAttribute('data-o')});
+      var tl=gsap.timeline({defaults:{ease:'steps(3)'}});
+      tl.from(vx,{y:-60,autoAlpha:0,duration:.32,stagger:{each:.012}},0)
+        .from('.h1-word',{yPercent:60,autoAlpha:0,duration:.28,ease:'steps(4)',stagger:.08},.25)
+        .from('.hero .sub, .hero .chips, .hero .cta, .hero .note',{y:16,autoAlpha:0,duration:.4,ease:'power3.out',stagger:.08},.7);
+      if(window.ScrollTrigger){
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.from('.step',{x:-24,autoAlpha:0,duration:.35,ease:'steps(4)',stagger:.09,scrollTrigger:{trigger:'.steps',start:'top 78%',once:true}});
+        gsap.from('.cycle .blk',{scale:.6,autoAlpha:0,duration:.3,ease:'steps(3)',stagger:.1,scrollTrigger:{trigger:'.cycle',start:'top 80%',once:true}});
+      }
+    });
+  }
+  if(document.readyState==='complete') motion(); else window.addEventListener('load',motion);
+})();
+</script>
+</body>
+</html>
