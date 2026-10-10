@@ -226,6 +226,24 @@ GAMES = {
 "SSSSSSSSSSSSSSSSSSSSSSSS",
 "gggggggggggggggggggggggg",
 ]),
+"mentorius": ("Piešinys: mentorius iš nugaros prie stalo su trimis planšetėmis", [
+"bbbbbbbbbbbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbbbbbbbbbbb",
+"bbbbbbbbbbkkkkbbbbbbbbbb",
+"bbbbbbbbbbkkkkbbbbbbbbbb",
+"bbbbbbbbbbbiibbbbbbbbbbb",
+"bbbbbbbbbBBBBBBbbbbbbbbb",
+"bbbbbbbbBBBBBBBBbbbbbbbb",
+"bbkkkbbbBBBBBBBBbbbkkkbb",
+"bbccckbbBBBBBBBBbbkcccbb",
+"bbccckbbbBBBBBBbbbkcccbb",
+"ssssssssssssssssssssssss",
+"SSSSSSSSSSSSSSSSSSSSSSSS",
+"ddddddddddddddddddddddDd",
+"dDddddddddDddddddddddddd",
+"dddddddddddddddddddddddd",
+]),
 "marso-baze": ("Marso bazė: saulės jėgainės ir kupolas", [
 "nnnnnnnnnnnnnnnnnnnnnnnn",
 "nnnnnonnnnnnnnnnnnnnnnnn",
@@ -463,6 +481,7 @@ if __name__ == "__main__":
         write(f"game-{slug}.svg", pixmap(rows, cls="px game", label=label))
     for k,rows in ICONS.items():
         write(f"ico-{k}.svg", pixmap(rows, cls="px ico", label=""))
+    write("ico-block-navy.svg", pixmap(ICONS["block"], cls="px ico", label="").replace('#FFFFFF','#152039'))
     write("ico-check-navy.svg", pixmap(ICONS["check"], cls="px ico", label="").replace('#FFFFFF','#152039'))
     # favicon: a single gold block on transparent
     write("favicon.svg", '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-18 -10 36 36" shape-rendering="crispEdges">'
