@@ -317,8 +317,8 @@ body:has(.consent:not(.is-gone)) .sticky{transform:translateY(120%)}
 .mentor ul{list-style:none;padding:0;display:grid;gap:8px;margin-top:12px}
 .mentor li{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;font-size:.98rem}
 .mentor li img{width:18px;height:18px;margin-top:5px}
-.who{margin-top:16px;background:#fff;border-radius:var(--r-md);padding:16px;box-shadow:var(--shadow-card);font-size:.96rem;color:var(--ink-2)}
-.who b{color:var(--ink)}
+.who-creates{margin-top:16px;background:#fff;border-radius:var(--r-md);padding:16px;box-shadow:var(--shadow-card);font-size:.96rem;color:var(--ink-2)}
+.who-creates b{color:var(--ink)}
 @media (min-width:860px){.mentor-grid{grid-template-columns:1fr 1fr;align-items:center;gap:36px}}
 
 /* ---------- įrodymai ---------- */
@@ -525,7 +525,7 @@ footer p+p{margin-top:6px}
   .honest{margin-top:12px;padding:10px 12px;font-size:.88rem}
   .sources{margin-top:6px;font-size:.82rem}
   .safe-grid{gap:6px}.safe-item{padding:10px 12px;grid-template-columns:32px 1fr;gap:10px;align-items:center}.safe-item img{width:30px;height:30px}.safe-item h3{font-size:.95rem}.safe-item p{font-size:.84rem;line-height:1.4}
-  .mentor-grid{gap:12px}.mentor .frame{display:none}.mentor ul{gap:6px;margin-top:10px}.mentor li{font-size:.9rem}.mentor li img{margin-top:4px}.who{margin-top:10px;padding:12px;font-size:.88rem}
+  .mentor-grid{gap:12px}.mentor .frame{display:none}.mentor ul{gap:6px;margin-top:10px}.mentor li{font-size:.9rem}.mentor li img{margin-top:4px}.who-creates{margin-top:10px;padding:12px;font-size:.88rem}
   .nums{grid-template-columns:repeat(3,1fr);gap:6px}.num{padding:9px 8px}.num b{font-size:1.35rem}.num span{font-size:.74rem;margin-top:2px}
   .rating{font-size:.88rem;margin-top:8px}.rating small{font-size:.74rem}
   .about{padding:14px;gap:10px;margin-top:12px}.about img.logo{height:34px}.about p{font-size:.88rem;margin-top:8px!important}.about .stem img{width:56px;height:56px}.about .stem .t,.about .stem a{font-size:.86rem}
@@ -550,7 +550,7 @@ footer p+p{margin-top:6px}
   .m-details>summary::-webkit-details-marker{display:none}
   .m-details>summary::after{content:"";width:12px;height:12px;flex:none;background:linear-gradient(currentColor,currentColor) center/12px 2px no-repeat,linear-gradient(currentColor,currentColor) center/2px 12px no-repeat;transition:transform .25s var(--ease)}
   .m-details[open]>summary::after{transform:rotate(45deg)}
-  .who.m-details{padding:4px 12px}.who p{margin-top:4px;padding-bottom:8px}
+  .who-creates.m-details{padding:4px 12px}.who-creates p{margin-top:4px;padding-bottom:8px}
   .steps:not(.is-all) .step:nth-child(n+4){display:none}
   .faq:not(.is-all) details:nth-of-type(n+6){display:none}
   .wef:not(.is-all) li:nth-child(n+4){display:grid}
@@ -560,7 +560,7 @@ footer p+p{margin-top:6px}
 }
 @media (min-width:760px){
   .m-details>summary{display:none}
-  .who.m-details{padding:16px}.who summary b{color:var(--ink)}
+  .who-creates.m-details{padding:16px}.who-creates summary b{color:var(--ink)}
 }
 
 /* ---------- mobilus v3: kompaktiškesnės eilutės ---------- */
@@ -617,3 +617,5 @@ footer p+p{margin-top:6px}
 }
 
 @media (max-width:759px){.price .amt{font-size:1.6rem}.price .amt small{font-size:.78rem}}
+
+.fstep h3:focus{outline:none}
