@@ -4,5 +4,7 @@
   "date": "2026-10-11",
   "illustration": true,
   "depictsActualPupils": false,
-  "jobId": "754874bd-ba65-4652-8b28-f433b678cf72"
+  "jobId": "754874bd-ba65-4652-8b28-f433b678cf72",
+  "edited": "2026-10-11: abiejų nešiojamųjų kompiuterių ekranai pakeisti Robotikos akademijos vokselių pasauliais (Marso bazė, tvirtovė) iš ai-komanda-marsas ir ai-pristato-tvirtove; originalūs ekranai rodė į Minecraft panašų reljefą, robotą ir kodo skydelį. Perspektyvinis montažas Pillow.",
+  "use": "tik puslapiui (hero); reklamai ir og paveikslėliui naudoti ai-komanda-marsas / ai-pristato-tvirtove"
 }
