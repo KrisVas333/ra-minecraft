@@ -98,6 +98,23 @@
   }
   render();
 
+  /* ---------- oficialūs Minecraft Education video: YouTube grotuvas įkeliamas tik paspaudus (taisyklė 16) ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('.mcv[data-yt]'), function (fig) {
+    var btn = fig.querySelector('.mcv-play'); if (!btn) return;
+    btn.addEventListener('click', function () {
+      var id = fig.getAttribute('data-yt');
+      if (!/^[\w-]{11}$/.test(id)) return;
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&hl=lt&cc_lang_pref=lt&cc_load_policy=1';
+      f.title = fig.getAttribute('data-yt-title') || 'Minecraft Education video';
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      f.setAttribute('allowfullscreen', '');
+      f.referrerPolicy = 'strict-origin-when-cross-origin';
+      btn.replaceWith(f);
+      track('engage', { mce_video: id });
+    });
+  });
+
   /* ---------- bendras sekimas: CTA, nuorodos, DUK, skirtukai (vienas įvykis per paspaudimą) ---------- */
   document.addEventListener('click', function (e) {
     var cta = e.target.closest('[data-cta]');

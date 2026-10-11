@@ -618,3 +618,24 @@ footer p+p{margin-top:6px}
   /* taikiniai ir fokusas */
   .shots .row:focus-visible,.games:focus-visible,.quotes:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
 }
+
+/* ---------- v2.1 (2026-10-11): oficialūs Minecraft Education video, įkeliami tik paspaudus ---------- */
+.mce-video{padding-block:clamp(20px,4vw,48px)}
+.mce-video .sec-head p{margin:.3em 0 0}
+.mcv-grid{display:grid;gap:12px}
+.mcv{margin:0}
+.mcv-play,.mcv iframe{display:block;width:100%;aspect-ratio:16/9;border:0;border-radius:var(--r-md)}
+.mcv-play{position:relative;cursor:pointer;padding:16px;text-align:left;color:#fff;font:inherit;background:linear-gradient(135deg,#1d2c63 0%,#2a4fb5 60%,#3d5bd6 100%);border:2px solid rgba(255,255,255,.22);display:flex;flex-direction:column;justify-content:flex-end;gap:10px;overflow:hidden}
+.mcv-play::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 28px),repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,transparent 1px 28px);pointer-events:none}
+.mcv-play:hover{border-color:var(--yellow)}
+.mcv-play:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+.mcv-ico{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:var(--yellow);color:var(--navy);display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.mcv-ico svg{width:30px;height:30px;margin-left:3px}
+.mcv-t{position:relative;display:grid;gap:3px}
+.mcv-t b{font-size:1.05rem;line-height:1.25}
+.mcv-t small{font-size:.875rem;font-weight:600;opacity:.92}
+.mcv figcaption{font-size:.875rem;padding:8px 2px 0;line-height:1.4}
+.mcv figcaption a{color:inherit;font-weight:700;text-underline-offset:3px}
+.mcv-note{font-size:.875rem;line-height:1.45;margin:12px 0 0;opacity:.92}
+@media (min-width:760px){.mcv-grid{grid-template-columns:1fr 1fr;gap:20px}}
+.teaser.real{display:flex}
