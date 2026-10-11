@@ -141,12 +141,12 @@ body:has(.consent:not(.is-gone)) .sticky{transform:translateY(120%)}
 /* ---------- spec kortelė: viskas per 10 sekundžių ---------- */
 .spec{padding-block:0 clamp(20px,3vw,36px)}
 .spec .card{background:#fff;color:var(--navy);border-radius:var(--r-lg);padding:6px;box-shadow:var(--shadow-soft)}
-.spec ul{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:4px}
-.spec li{padding:12px 12px;border-radius:var(--r-md);background:var(--paper-2)}
-.spec li small{display:block;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--ink-2);margin-bottom:2px}
-.spec li b{display:block;font-size:1rem;line-height:1.25}
-.spec li>span{display:block;font-size:.84rem;color:var(--ink-2);line-height:1.35;margin-top:2px}
-@media (min-width:760px){.spec ul{grid-template-columns:repeat(3,1fr);gap:6px}.spec li{padding:16px 18px}.spec li b{font-size:1.08rem}}
+.spec .card ul{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.spec .card li{padding:12px 12px;border-radius:var(--r-md);background:var(--paper-2)}
+.spec .card li small{display:block;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--ink-2);margin-bottom:2px}
+.spec .card li b{display:block;font-size:1rem;line-height:1.25}
+.spec .card li>span{display:block;font-size:.84rem;color:var(--ink-2);line-height:1.35;margin-top:2px}
+@media (min-width:760px){.spec .card ul{grid-template-columns:repeat(3,1fr);gap:6px}.spec .card li{padding:16px 18px}.spec .card li b{font-size:1.08rem}}
 
 /* ---------- pamokos kadrai (juosta) ---------- */
 .shots{padding-block:0 clamp(28px,4vw,56px)}
@@ -506,7 +506,7 @@ footer p+p{margin-top:6px}
   .hero .cta-row{margin-top:14px;gap:8px}.btn{min-height:52px;padding:12px 20px;font-size:.95rem}
   .teaser{margin-top:6px;min-height:40px;font-size:.92rem}
   .hero .legal-line{font-size:.74rem;margin-top:6px}
-  .spec .card{padding:4px}.spec ul{gap:3px}.spec li{padding:9px 10px}.spec li small{font-size:.64rem}.spec li b{font-size:.92rem}.spec li span{font-size:.78rem;margin-top:1px}
+  .spec .card{padding:4px}.spec .card ul{gap:3px}.spec .card li{padding:9px 10px}.spec .card li small{font-size:.64rem}.spec .card li b{font-size:.92rem}.spec .card li span{font-size:.78rem;margin-top:1px}
   .shots .row{grid-auto-columns:min(72%,260px);gap:10px;padding-bottom:10px}.shot figcaption{font-size:.84rem;padding:8px 8px 6px}
   .value{padding:10px 12px;grid-template-columns:40px 1fr;gap:10px;align-items:center}.value img{width:40px;height:40px}.value h3{font-size:.98rem;margin-bottom:2px}.value p{font-size:.86rem;line-height:1.45}
   .age-switch{margin:0 0 10px}.age-switch button{padding:8px 14px;font-size:.9rem;min-height:40px}
@@ -544,7 +544,7 @@ footer p+p{margin-top:6px}
 @media (max-width:759px){
   .m-hide{display:none!important}.m-only{display:inline}
   h1{font-size:1.8rem}
-  .spec ul{grid-template-columns:1fr;gap:2px}.spec li{display:grid;grid-template-columns:56px 1fr;gap:0 8px;align-items:baseline;padding:7px 10px}.spec li small{margin:0;font-size:.62rem}.spec li b{font-size:.92rem}.spec li>span{grid-column:2;font-size:.78rem;margin-top:0}
+  .spec .card ul{grid-template-columns:1fr;gap:2px}.spec .card li{display:grid;grid-template-columns:56px 1fr;gap:0 8px;align-items:baseline;padding:7px 10px}.spec .card li small{margin:0;font-size:.62rem}.spec .card li b{font-size:.92rem}.spec .card li>span{grid-column:2;font-size:.78rem;margin-top:0}
   .slot{aspect-ratio:auto;height:24px;min-height:0}
   .m-details{margin-top:12px}.m-details>summary{list-style:none;cursor:pointer;font-weight:700;font-size:.98rem;min-height:44px;display:flex;align-items:center;justify-content:space-between;gap:10px}
   .m-details>summary::-webkit-details-marker{display:none}
