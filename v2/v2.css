@@ -619,3 +619,9 @@ footer p+p{margin-top:6px}
 @media (max-width:759px){.price .amt{font-size:1.6rem}.price .amt small{font-size:.78rem}}
 
 .fstep h3:focus{outline:none}
+
+/* ---------- pasitikėjimo eilutė po spec kortele ---------- */
+.trustline{list-style:none;padding:0;margin:12px 4px 0;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.92rem;align-items:center}
+.trustline b{font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.01em}
+.trustline a{color:#fff;font-weight:600;min-height:44px;display:inline-flex;align-items:center}
+@media (max-width:759px){.trustline{margin-top:8px;gap:4px 12px;font-size:.84rem}.trustline b{font-size:.95rem}.trustline li:last-child{flex-basis:100%}.trustline a{min-height:40px}}
