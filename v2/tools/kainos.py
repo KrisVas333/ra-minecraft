@@ -11,7 +11,7 @@ Ką daro:
      kad tą patį matytų ir paieškos robotai, ir naršyklė be JavaScript.
   3. Perrašo sąrašus iš config (`#incl`, `#school-tiles`, `#org-needs`).
   4. Patikrina, kad meta description / og:description neturėtų kainų (jos ten nerašomos).
-  5. Pergeneruoja og.jpg (v2/tools/og.html → headless Chrome → sips) ir lankstinuko PDF (headless Chrome).
+  5. Pergeneruoja og.jpg (v2/tools/og-src.html → headless Chrome → sips) ir lankstinuko PDF (headless Chrome).
   6. Išspausdina, kas pasikeitė. Reikia: python3, node (config.js nuskaitymui) ir Google Chrome (5 žingsniui).
 """
 import html
@@ -35,7 +35,7 @@ PAGES = [
     os.path.join(V2, 'index.html'),
     os.path.join(V2, 'lankstinukas', 'index.html'),
     os.path.join(V2, 'komandai', 'index.html'),
-    os.path.join(HERE, 'og.html'),
+    os.path.join(HERE, 'og-src.html'),
 ]
 LISTS = {'incl': ('included',), 'school-tiles': ('school', 'tiles'), 'org-needs': ('school', 'needs')}
 # tekstai, kurie rodomi tik įjungus vėliavą: kol ji false, atsarginis tekstas lieka tuščias (puslapyje nėra nei „0 €", nei COI eilutės)
@@ -157,7 +157,7 @@ def render_og():
     tmp_png = os.path.join(HERE, '_og.png')
     subprocess.run([CHROME, '--headless=new', '--disable-gpu', '--hide-scrollbars', '--allow-file-access-from-files',
                     '--window-size=1200,630', '--virtual-time-budget=6000', '--screenshot=' + tmp_png,
-                    'file://' + os.path.join(HERE, 'og.html')], capture_output=True, text=True, timeout=120)
+                    'file://' + os.path.join(HERE, 'og-src.html')], capture_output=True, text=True, timeout=120)
     if not os.path.exists(tmp_png):
         return 'og.jpg: Chrome nesukūrė ekrano kopijos'
     out = os.path.join(V2, 'og.jpg')
