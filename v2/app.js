@@ -427,7 +427,7 @@
       err(wl, 'submit', 1); btn.disabled = false; btn.textContent = 'Įrašyti į sąrašą';
     });
   });
-  shareInit($('#share-btn'), 'Robotikos akademijos būrelis 1–4 klasei: Žaidimų kūrėjai su Minecraft Education ir DI.');
+  shareInit($('#share-btn'), 'Robotikos akademijos būrelis 1–6 klasei: Žaidimų kūrėjai, DI ir žaidimų kūrimas 6–12 metų vaikams.');
 
   /* ---------- mokyklos forma: 1 žingsnis, el. paštas būtinas, telefonas pasirinktinai ---------- */
   var orgSeen = false;
@@ -480,7 +480,7 @@
       err(org, 'org_submit', 1); btn.disabled = false; btn.textContent = 'Pakviesti į mokyklą';
     });
   });
-  shareInit($('#org-share-btn'), 'Robotikos akademijos būrelis mokyklai: Žaidimų kūrėjai su Minecraft Education ir DI, 1–4 klasei.');
+  shareInit($('#org-share-btn'), 'Robotikos akademijos būrelis mokyklai: Žaidimų kūrėjai su Minecraft Education ir DI, 1–6 klasei.');
 
   /* ---------- judesys: antraštės žodžiai kyla CSS animacija (nuo pirmo piešimo, be GSAP); GSAP tik RAbotukui,
      burbului ir švelniems atskleidimams slenkant. Pradinės RAbotuko/burbulo būsenos CSS (html.js-motion). ---------- */

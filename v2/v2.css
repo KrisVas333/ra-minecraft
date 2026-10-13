@@ -639,3 +639,9 @@ footer p+p{margin-top:6px}
 .mcv-note{font-size:.875rem;line-height:1.45;margin:12px 0 0;opacity:.92}
 @media (min-width:760px){.mcv-grid{grid-template-columns:1fr 1fr;gap:20px}}
 .teaser.real{display:flex}
+
+/* Dvi grupės (2026-10-13): aprašymai matomi ir mobiliajame, 2 stulpeliai darbalaukyje */
+#grupes .value p{display:block}
+#grupes .value p.foot{margin-top:8px;font-size:.9375rem;color:var(--ink-2)}
+@media (min-width:760px){#grupes .values{grid-template-columns:repeat(2,1fr)}#grupes .value{align-content:start}}
+@media (max-width:759px){#grupes .values{display:grid;gap:10px}#grupes .value{grid-template-columns:40px 1fr;align-items:start;padding:14px}#grupes .value img{width:40px;height:40px}}

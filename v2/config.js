@@ -13,10 +13,15 @@ window.RA_CFG = {
   product: 'minecraft',
   productName: 'Žaidimų kūrėjai',
   productSub: 'su Minecraft Education ir DI',
-  ageLabel: '1–4 klasė',
-  ageLabelDative: '1–4 klasei',
-  ageYears: '7–10 metų',
-  ageDetail: '1–2 ir 3–4 kl. atskirai',
+  positioning: 'DI ir žaidimų kūrimas 6–12 metų vaikams.',
+  groups: [
+    { code: '1-3', label: '1–3 klasė', years: '6–9 metų', builds: 'Stato Minecraft Education pasaulius ir sugalvoja paprastus DI pagalbininkus bei personažus: vaikas aprašo idėją, mentorius ją paleidžia su DI, o vaikai išbando ir ieško, kur DI suklydo.' },
+    { code: '4-6', label: '4–6 klasė', years: '10–12 metų', builds: 'Kuria žaidimo logiką su kodo blokais (Code Builder) ir DI personažus su dialogais: vaikas rašo personažo aprašymą ir užklausą, mentorius ją paleidžia, komanda tikrina ir taiso.', note: 'Programą 4–6 klasėms dar rengiame. Pirmąsias temas atsiųsime laukiančiųjų sąrašui.' }
+  ],
+  ageLabel: '1–6 klasė',
+  ageLabelDative: '1–6 klasei',
+  ageYears: '6–12 metų',
+  ageDetail: 'dvi grupės: 1–3 kl. (6–9 m.) ir 4–6 kl. (10–12 m.)',
   siteUrl: 'https://krisvas333.github.io/ra-minecraft/v2/',
 
   /* ---------- KAINOS (eurais per mėnesį) ---------- */
@@ -28,7 +33,7 @@ window.RA_CFG = {
   lessonMinutes: 45,
   firstLessonFree: false,            // true rodo eilutę firstLessonLine kainos kortelėje; palikti false, kol tokios grupės tikrai nėra
   firstLessonLine: 'Pirmoji pamoka 0 €, be įsipareigojimo',
-  included: ['įranga vietoje: mokykloje mokyklos kompiuteriai, centre mūsų planšetės ar kompiuteriai', 'programa ir paruošti pasauliai', 'prisijungimas per būrelį, be vaiko paskyros', 'Robotikos akademijos mentorius'],
+  included: ['4 pamokos per mėnesį po 45 min', 'įranga vietoje: mokykloje mokyklos kompiuteriai, centre mūsų planšetės ar kompiuteriai', 'programa ir paruošti pasauliai', 'prisijungimas per būrelį, be vaiko paskyros', 'Robotikos akademijos mentorius'],
   paymentNote: 'Sutartį, tvarkaraštį ir mokėjimo sąlygas atsiųsime prieš registraciją. Sąrašas niekuo neįpareigoja.',
 
   /* ---------- STARTAS (date tuščia = rodomas text; įrašius datą rodoma „Startas: <data>“) ---------- */
@@ -97,7 +102,7 @@ window.RA_CFG = {
     whoCreates: 'Programą kuria Robotikos akademijos ugdymo turinio komanda. Pamokas veda mūsų mentoriai, praėję Minecraft Education mokymus. Visas programas tobuliname pagal 13 metų būrelių patirtį, mentorių ataskaitas po kiekvienos pamokos ir tėvų nuomonę.',
     goals: 'Tai ugdymo tikslai, pagal kuriuos kuriame pamokų planus.',
     sixLines: 'Šešios ugdymo kryptys, pagal kurias kuriame pamokų planus.',
-    lessonExample: 'Pavyzdys 3–4 klasei: „Daugybos tvirtovė“. Tai pamokos plano pavyzdys, ne įrašas iš vykusios pamokos.',
+    lessonExample: 'Pavyzdys jaunesnei grupei (1–3 kl.): „Daugybos tvirtovė“. Tai pamokos plano pavyzdys, ne įrašas iš vykusios pamokos.',
     dataCollected: 'Renkame tik tai, ko reikia grupei suburti: kontaktą, vaiko klasę, vietą ir patogias dienas.',
     aiVoiceVideo: true,              // video įgarsintas DI balsu: rodomas atskleidimas
     aiImageLabel: 'DI iliustracija'
