@@ -21,6 +21,7 @@
     '.consent p{margin:0}.consent a{color:#152039;font-weight:600;display:inline-block;padding:10px 0;margin:-10px 0}.consent .long{display:none}.consent.is-gone{opacity:0;transform:translateY(12px)}' +
     '.consent-actions{display:flex;gap:6px}.consent-actions button{min-height:44px;padding:8px 12px;border-radius:999px;border:2px solid #152039;background:#fff;color:#152039;font:600 14px/1.2 Poppins,system-ui,sans-serif;cursor:pointer;white-space:nowrap}.consent-actions button:hover{background:#F3F6FF}.consent-actions button:focus-visible{outline:3px solid #3D5BD6;outline-offset:2px}' +
     '@media (min-width:860px){.consent{left:auto;right:20px;bottom:20px;width:420px;border-radius:22px;padding:16px 18px;grid-template-columns:1fr;gap:10px;font-size:15px}.consent .long{display:inline}.consent-actions{justify-content:stretch}.consent-actions button{flex:1;font-size:15px}}' +
+    '@media (max-width:859px){html.consent-open .sticky{visibility:hidden!important}.consent .note{display:none}}' +
     '@media print{.consent{display:none!important}}';
 
   function track(n, p) { if (window.bt) { try { window.bt(n, Object.assign({ version: 'v2', src: SRC }, p || {})); } catch (e) {} } }
@@ -65,6 +66,7 @@
   function setPad() {
     var h = el && !el.classList.contains('is-gone') ? el.offsetHeight : 0;
     document.documentElement.style.setProperty('--consent-h', h + 'px');
+    document.documentElement.classList.toggle('consent-open', h > 0);
   }
   function css() {
     if (document.getElementById('consent-css')) return;
@@ -78,7 +80,7 @@
     el.className = 'consent';
     el.setAttribute('role', 'region');
     el.setAttribute('aria-label', 'Slapukų pasirinkimas');
-    var note = document.getElementById('privatumas') ? ' · <a href="#privatumas" data-track="privacy-note-consent">Kaip tvarkome duomenis</a>' : '';
+    var note = document.getElementById('privatumas') ? '<span class="note"> · <a href="#privatumas" data-track="privacy-note-consent">Kaip tvarkome duomenis</a></span>' : '';
     el.innerHTML =
       '<p>Seansų įrašai (Microsoft Clarity<span class="long">, įvestys paslėptos</span>) tik jums leidus.<span class="long"> Be sutikimo: tik anoniminė statistika be slapukų.</span> ' +
       '<a href="' + PRIVACY + '" rel="noopener" data-track="privacy-consent">Privatumas</a>' + note + '</p>' +

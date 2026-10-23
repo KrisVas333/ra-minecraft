@@ -22,13 +22,23 @@
     })(window, document, 'clarity', 'script', CLARITY_ID);
   }
 
+  function css() {
+    // telefonuose: kompaktiška juosta (≤ ~12 % ekrano), mygtukai ≥ 44 px
+    var st = document.createElement('style');
+    st.textContent = '.consent .consent-actions .btn{min-height:44px}' +
+      '@media (max-width:599px){.consent{display:grid!important;grid-template-columns:1fr auto;gap:8px!important;padding:8px 12px calc(8px + env(safe-area-inset-bottom))!important;font-size:.8rem!important;line-height:1.3!important}' +
+      '.consent p{flex:none!important}.consent .c-long{display:none}.consent .consent-actions{gap:6px}.consent .consent-actions .btn{min-height:44px;padding:6px 12px!important}}';
+    document.head.appendChild(st);
+  }
+
   function banner() {
+    css();
     var el = document.createElement('div');
     el.className = 'consent';
     el.setAttribute('role', 'dialog');
     el.setAttribute('aria-label', 'Slapukų sutikimas');
     el.innerHTML =
-      '<p>„Leisti" įjungia Microsoft Clarity (anoniminius šilumos žemėlapius), kad matytume, kur puslapis neaiškus. Be sutikimo: tik anoniminė statistika be slapukų.</p>' +
+      '<p>„Leisti" įjungia Microsoft Clarity<span class="c-long"> (anoniminius šilumos žemėlapius), kad matytume, kur puslapis neaiškus</span>. Be sutikimo: tik anoniminė statistika be slapukų.</p>' +
       '<div class="consent-actions">' +
       '<button type="button" class="btn btn-yellow" data-c="all">Leisti</button>' +
       '<button type="button" class="btn btn-ghost" data-c="necessary">Tik būtini</button>' +

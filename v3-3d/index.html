@@ -1,0 +1,1671 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<!--
+  ŽAIDIMŲ KŪRĖJAI · v3-3d · PROTOTIPAS (2026-10-23, Neuron)
+  ⚠️ PROTOTIPAS: ne gyvas puslapis. Prieš paleidžiant: Kris + RA patvirtina tekstą, `page_version` reikšmę Supabase lentelėje, Clarity projektą.
+  Prielaidos (clarify-before-build):
+   1. Auditorija: tėvai telefone iš Meta reklamos (pirmas ekranas = kas, kiek, kur + CTA), antra: mokyklų vadovai (skirtukas „Mokyklai“).
+   2. Forma: vienas HTML failas; 3D sala sticky fone per hero + 4 skyrius; po to v2 faktai, kaina, DUK, ta pati forma.
+   3. Skaičiai/kainos TIK iš v2/config.js ir v2/index.html (25 € / 39 €, 45 min × 4, 13+, 10 000+, 110+, 650+, 9 iš 10, 9,8 iš 10). Nieko naujo.
+   4. Už ribų: DI vaikų iliustracijos, atsiliepimų pavyzdžiai, WEF lentelė, mini žaidimas, video įterpimai (tik nuorodos), og paveikslėlis (naudojamas v2).
+   5. Done: tekstas + CTA be JS, 3D įsikrauna po pirmo piešimo, be WebGL = statinis SVG, reduced-motion = baigta sala, 0 konsolės klaidų, forma identiška v2.
+  Teisinė: jokių Minecraft/Mojang logotipų, tekstūrų ar personažų. Sala = originalus RA spalvų voksel stilius. „Minecraft Education“ tik kaip faktinis kurso aprašymas.
+  ⚠️ „Pirmoji pamoka nemokama“: buvo v1 (index.html), v2 config firstLessonFree:false. Čia NErodoma, kol nepatvirtinta (under review).
+-->
+<title>Žaidimų kūrėjai · Robotikos akademija · 1–6 kl.</title>
+<meta name="description" content="DI ir žaidimų kūrimas 6–12 metų vaikams. Robotikos akademijos būrelis 1–6 klasei, dvi amžiaus grupės: vaikai Minecraft Education pasaulyje kuria žaidimus draugams, o DI įrankius valdo mentorius. Kartą per savaitę mokykloje arba Tech Zity centre Vilniuje. Laukiančiųjų sąrašas.">
+<meta name="theme-color" content="#3D5BD6">
+<link rel="icon" href="../v2/assets/ra-favicon-48.png" type="image/png" sizes="48x48">
+<link rel="apple-touch-icon" href="../v2/apple-touch-icon.png">
+<link rel="canonical" href="https://krisvas333.github.io/ra-minecraft/v3-3d/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Robotikos akademija">
+<meta property="og:url" content="https://krisvas333.github.io/ra-minecraft/v3-3d/">
+<meta property="og:title" content="Žaidimų kūrėjai · būrelis 1–6 klasei su Minecraft Education ir DI">
+<meta property="og:description" content="Vaikai kuria mokomuosius žaidimus draugams, o jūs matote, kaip jie mokosi. Kartą per savaitę mokykloje arba Tech Zity centre. Robotikos akademijos būrelis.">
+<meta property="og:image" content="https://krisvas333.github.io/ra-minecraft/v2/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="lt_LT">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" as="font" type="font/woff2" href="../v2/assets/fonts/syne-700-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../v2/assets/fonts/poppins-400-latin.woff2" crossorigin>
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js" crossorigin>
+<style>
+/* Syne 700/800 + Poppins 400/600/700, latin + latin-ext (LT ąčęėįšųūž), savi failai iš v2 */
+@font-face{font-family:'Poppins';font-style:normal;font-weight:400;font-display:swap;src:url(../v2/assets/fonts/poppins-400-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:400;font-display:swap;src:url(../v2/assets/fonts/poppins-400-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:600;font-display:swap;src:url(../v2/assets/fonts/poppins-600-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:600;font-display:swap;src:url(../v2/assets/fonts/poppins-600-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:700;font-display:swap;src:url(../v2/assets/fonts/poppins-700-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:700;font-display:swap;src:url(../v2/assets/fonts/poppins-700-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Syne';font-style:normal;font-weight:700 800;font-display:swap;src:url(../v2/assets/fonts/syne-700-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Syne';font-style:normal;font-weight:700 800;font-display:swap;src:url(../v2/assets/fonts/syne-700-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Syne Fallback';src:local('Arial Bold'),local('Arial');font-weight:700 800;size-adjust:164%;ascent-override:62%;descent-override:16%;line-gap-override:0%}
+@font-face{font-family:'Poppins Fallback';src:local('Arial');size-adjust:114%;ascent-override:92%;descent-override:30%;line-gap-override:0%}
+
+/* ============ RA DNA (iš v2.css): mėlynas dangus, geltonas CTA, navy, Syne + Poppins ============
+   Kontrastas: baltas tekstas tik ant #3D5BD6 ar tamsesnio (≥ 4,9:1); ant baltų kortelių navy #152039 (15:1); antrinis #4A5675 (7:1). */
+:root{
+  --sky-1:#4A5ED8;--sky-2:#3D5BD6;--sky-3:#1F6FD0;--haze:#BCD0FA;
+  --navy:#152039;--night:#0E1730;
+  --yellow:#FEC404;--yellow-2:#E0AB00;
+  --paper:#FFFFFF;--paper-2:#F3F6FF;--paper-3:#E6EAF5;
+  --ink:#152039;--ink-2:#4A5675;
+  --grass:#6CC644;--dirt:#A0703F;--stone:#B3B3B3;--diamond:#6FEFF5;--mars:#E0734A;
+  --err:#B4162E;
+  --display:'Syne','Syne Fallback',sans-serif;--body:Poppins,'Poppins Fallback',system-ui,sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);--spring:cubic-bezier(.32,.72,0,1);
+  --wrap:1120px;--consent-h:0px;--sticky-h:72px;
+  --r-xl:28px;--r-lg:22px;--r-md:16px;
+  --shadow:0 18px 50px -24px rgba(10,20,60,.45);--shadow-card:0 10px 30px -18px rgba(10,20,60,.35);
+}
+*{box-sizing:border-box;margin:0}
+[hidden]{display:none!important}
+html{background:var(--sky-2);scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:20px;scroll-padding-bottom:calc(var(--sticky-h) + 16px)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:var(--body);font-size:17px;line-height:1.6;color:var(--ink);background:var(--paper);overflow-x:hidden}
+::selection{background:var(--yellow);color:var(--navy)}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:3px;border-radius:8px}
+.on-paper :focus-visible,.form :focus-visible,.card :focus-visible{outline-color:var(--sky-2)}
+img,svg{display:block;max-width:100%}
+img{height:auto}
+a{color:inherit;text-underline-offset:3px}
+.nb{white-space:nowrap}
+.wrap{width:min(var(--wrap),100% - 32px);margin-inline:auto}
+h1,h2,h3{line-height:1.12;text-wrap:balance;font-family:var(--display);font-weight:800;letter-spacing:-.01em}
+h1{font-size:clamp(2.15rem,5.6vw,4.1rem);line-height:1.02}
+h2{font-size:clamp(1.55rem,2.8vw,2.3rem)}
+h3{font-size:1.12rem;font-family:var(--body);font-weight:700;line-height:1.3}
+p{text-wrap:pretty}
+section{padding-block:clamp(48px,7vw,96px)}
+.sec-head{margin-bottom:clamp(20px,3vw,32px)}
+.sec-head h2{max-width:28ch}
+.sec-head p{margin-top:10px;font-size:1.05rem;max-width:62ch;color:var(--ink-2)}
+.skip{position:absolute;left:12px;top:-60px;background:var(--yellow);color:var(--navy);padding:10px 16px;border-radius:999px;font-weight:700;z-index:100;text-decoration:none}
+.skip:focus{top:12px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- mygtukai (RA pill) ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:14px 26px;border-radius:999px;border:0;font:600 1.02rem/1.2 var(--body);text-decoration:none;cursor:pointer;color:var(--navy);transition:transform .35s var(--spring),background .25s,box-shadow .25s;text-align:center}
+.btn:active{transform:translateY(2px) scale(.985)}
+.btn-yellow{background:var(--yellow);box-shadow:0 6px 0 var(--yellow-2),0 14px 30px -12px rgba(10,20,60,.5)}
+.btn-yellow:hover{background:#FFD23A}
+.btn-white{background:#fff}
+.btn-navy{background:var(--navy);color:#fff}
+.btn-back{background:var(--paper-2);color:var(--navy)}
+.btn .arr{width:30px;height:30px;border-radius:50%;background:rgba(21,32,57,.12);display:inline-grid;place-items:center;flex:none}
+.btn .arr svg{width:16px;height:16px}
+.link{background:none;border:0;padding:0;font:inherit;color:inherit;text-decoration:underline;cursor:pointer;text-underline-offset:3px}
+
+/* ============ 3D ISTORIJA: sticky scena + turinys virš jos ============ */
+.story{position:relative;background:var(--sky-2)}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;z-index:0;
+  /* baltas tekstas tik ant ≤ #4A62DA (≥ 5,2:1); šviesi migla tik po sala (apačioje telefone, dešinėje kompiuteryje) */
+  background:radial-gradient(130% 24% at 50% 100%,rgba(188,208,250,.9),rgba(188,208,250,0) 100%),linear-gradient(180deg,#3D5BD6 0%,#4A62DA 100%)}
+@media (min-width:900px){.stage{background:radial-gradient(42% 60% at 72% 62%,rgba(188,208,250,.75),rgba(188,208,250,0) 100%),linear-gradient(180deg,#3D5BD6 0%,#4A62DA 100%)}}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y;opacity:0;transition:opacity .9s var(--ease);cursor:grab}
+.stage canvas:active{cursor:grabbing}
+.stage.gl-on canvas{opacity:1}
+.poster{position:absolute;left:0;right:0;bottom:7%;margin:auto;width:min(100%,560px);transition:opacity .9s var(--ease);pointer-events:none}
+.poster svg{width:100%;height:auto}
+.stage.gl-on .poster{opacity:0}
+.sun{position:absolute;right:8%;top:16%;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,#FFF6CF 0 30%,rgba(255,236,160,.55) 45%,rgba(255,236,160,0) 70%);pointer-events:none}
+.stage-ui{position:absolute;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));display:flex;gap:8px;align-items:flex-end;justify-content:space-between;pointer-events:none;transition:transform .35s var(--ease)}
+body.has-sticky .stage-ui{transform:translateY(calc(-1 * var(--sticky-h)))}
+.chip{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.94);color:var(--navy);border-radius:999px;padding:8px 14px;font-size:.88rem;font-weight:600;line-height:1.3;box-shadow:var(--shadow-card)}
+.chip .dot{width:14px;height:14px;border-radius:3px;background:var(--yellow);box-shadow:0 0 0 3px rgba(254,196,4,.35);flex:none}
+.legend{max-width:min(420px,72vw)}
+.sound{pointer-events:auto;min-height:44px;min-width:44px;border:0;cursor:pointer;font:600 .88rem var(--body)}
+.sound svg{width:20px;height:20px}
+.sound[aria-pressed="true"]{background:var(--yellow)}
+.meter{position:absolute;right:12px;top:calc(76px + env(safe-area-inset-top));font-variant-numeric:tabular-nums;font-size:.8rem;padding:6px 12px;opacity:0;transition:opacity .4s}
+.stage.gl-on .meter{opacity:1}
+.stage.no-gl .legend .gl-only,.stage.no-gl .meter,.stage.no-gl .sound{display:none}
+
+.story-body{position:relative;z-index:1;margin-top:-100vh;margin-top:-100svh;pointer-events:none}
+.story-body a,.story-body button,.story-body .chap-card,.story-body .top{pointer-events:auto}
+
+/* header */
+.top{position:relative;z-index:5}
+.nav{display:flex;align-items:center;gap:12px;padding-block:14px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;margin-right:auto;min-width:0}
+.brand img{width:118px;height:auto}
+.brand .lab{font-size:.82rem;font-weight:600;opacity:.95;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tel{color:#fff;font-weight:600;text-decoration:none;font-size:.95rem;padding:10px 4px}
+.nav .btn{min-height:44px;padding:10px 18px;font-size:.95rem;box-shadow:0 4px 0 var(--yellow-2)}
+
+/* hero */
+.hero{min-height:100vh;min-height:100svh;color:#fff;padding:0 0 40px}
+.hero-copy{max-width:600px;padding-top:clamp(8px,4vh,48px);text-shadow:0 1px 2px rgba(10,20,60,.25)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.32);border-radius:999px;padding:6px 14px;font-size:.88rem;font-weight:600;margin-bottom:14px}
+.eyebrow i{width:12px;height:12px;background:var(--yellow);border-radius:3px;display:inline-block}
+.hero h1 .hl{color:var(--yellow)}
+.hero .sub{margin-top:14px;font-size:clamp(1.02rem,1.7vw,1.18rem);max-width:54ch}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;padding:0;list-style:none}
+.facts li{background:rgba(14,23,48,.42);border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:6px 12px;font-size:.92rem;font-weight:600;text-shadow:none}
+.facts b{color:var(--yellow)}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px 16px;align-items:center;margin-top:20px}
+.cta-row .btn-yellow{min-width:min(100%,320px)}
+.ghost-link{color:#fff;font-weight:600;padding:12px 4px}
+.micro{margin-top:10px;font-size:.9rem}
+.legal-line{margin-top:8px;font-size:.84rem}
+
+/* skyriai (4 žingsniai) */
+.chap{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding-block:12vh}
+.chap-card{background:#fff;color:var(--navy);border-radius:var(--r-lg);padding:22px 22px 20px;max-width:440px;box-shadow:var(--shadow);position:relative}
+.chap-card .step{display:inline-flex;align-items:center;gap:10px;font:700 .82rem var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);margin-bottom:8px}
+.chap-card .step i{width:26px;height:26px;border-radius:6px;display:inline-grid;place-items:center;font-style:normal;color:var(--navy);font-size:.9rem}
+.chap-card h2{font-size:clamp(1.5rem,2.4vw,2rem)}
+.chap-card p{margin-top:10px}
+.chap-card .age{margin-top:12px;display:grid;gap:8px;font-size:.95rem;color:var(--ink-2)}
+.chap-card .age b{color:var(--navy)}
+.chap-card .btn{margin-top:16px;width:100%}
+.chap-card .ai-note{margin-top:12px;display:flex;gap:10px;align-items:flex-start;background:var(--paper-2);border-radius:12px;padding:10px 12px;font-size:.92rem}
+.chap-card .ai-note .dot{width:16px;height:16px;border-radius:4px;background:var(--yellow);flex:none;margin-top:4px}
+
+/* ============ popieriaus sekcijos ============ */
+.on-paper{background:var(--paper)}
+.on-paper-2{background:var(--paper-2)}
+.on-blue{background:linear-gradient(180deg,var(--sky-2),var(--sky-3));color:#fff}
+.on-blue .sec-head p{color:#E6ECFF}
+.grid-4{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+.tile{background:#fff;border:2px solid var(--paper-3);border-radius:var(--r-md);padding:16px}
+.tile small{display:block;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.tile b{display:block;font-family:var(--display);font-size:1.25rem;line-height:1.2;margin-top:4px}
+.tile>span{display:block;margin-top:6px;font-size:.95rem;color:var(--ink-2)}
+.trust{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:20px;padding:0;list-style:none;font-size:.98rem}
+.trust b{font-family:var(--display);font-size:1.3rem}
+.cards-2{display:grid;gap:14px}
+.card{background:#fff;border-radius:var(--r-lg);padding:20px;box-shadow:var(--shadow-card);color:var(--navy)}
+.card h3{font-size:1.15rem}
+.card p{margin-top:8px}
+.card .foot{font-size:.92rem;color:var(--ink-2)}
+.card .vx{width:44px;height:44px;margin-bottom:10px}
+
+/* pamoka */
+.timeline{list-style:none;padding:0;display:grid;gap:10px;counter-reset:t}
+.timeline li{display:grid;grid-template-columns:86px 1fr;gap:12px;background:#fff;border-radius:var(--r-md);padding:14px 16px;border:2px solid var(--paper-3)}
+.timeline .t{font:700 .9rem var(--body);color:var(--sky-2);font-variant-numeric:tabular-nums}
+.timeline b{display:block}
+.timeline span{display:block;color:var(--ink-2);font-size:.96rem;margin-top:2px}
+details.more{margin-top:10px}
+details.more>summary{cursor:pointer;font-weight:700;color:var(--sky-2);min-height:44px;display:flex;align-items:center;list-style:none}
+details.more>summary::-webkit-details-marker{display:none}
+details.more>summary::before{content:"+";display:inline-grid;place-items:center;width:26px;height:26px;border-radius:6px;background:var(--paper-2);margin-right:10px}
+details.more[open]>summary::before{content:"–"}
+.note{font-size:.9rem;color:var(--ink-2);margin-top:12px}
+
+/* saugumas */
+.safe{display:grid;gap:12px}
+.safe .card{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start}
+.safe .card img{width:44px;height:44px}
+.safe .card p{margin-top:4px;color:var(--ink-2)}
+
+/* skaičiai */
+.nums{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:6px}
+.num{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);border-radius:var(--r-md);padding:16px}
+.num b{display:block;font-family:var(--display);font-size:clamp(1.6rem,3vw,2.2rem);color:var(--yellow);line-height:1.1}
+.num span{font-size:.95rem}
+.proof-line{margin-top:16px;font-size:.95rem}
+.proof-line a{color:#fff;font-weight:600}
+.stem{display:inline-flex;align-items:center;gap:12px;margin-top:16px;background:#fff;color:var(--navy);border-radius:14px;padding:10px 14px;text-decoration:none;font-weight:600;font-size:.92rem}
+.stem img{width:48px;height:48px}
+
+/* kaina */
+.prices{display:grid;gap:14px}
+.price{background:#fff;border:3px solid var(--paper-3);border-radius:var(--r-lg);padding:20px}
+.price.best{border-color:var(--yellow)}
+.price small{font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);font-size:.8rem}
+.price .amt{font-family:var(--display);font-size:2.4rem;line-height:1.1;margin-top:4px}
+.price .amt span{font-size:1rem;font-family:var(--body);font-weight:600;color:var(--ink-2)}
+.price .per{font-weight:600;color:var(--ink-2)}
+.price p{margin-top:8px}
+.incl{list-style:none;padding:0;display:grid;gap:8px;margin-top:18px}
+.incl li{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start}
+.incl img{width:22px;height:22px;margin-top:3px}
+.cta-block{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.school-tiles{display:grid;gap:10px;grid-template-columns:1fr 1fr;margin-top:6px}
+.school-tiles li{list-style:none;background:var(--paper-2);border-radius:14px;padding:14px;font-weight:600;font-size:.95rem}
+
+/* DUK */
+.faq details{background:#fff;border-radius:var(--r-md);margin-bottom:10px;border:2px solid var(--paper-3)}
+.faq summary{cursor:pointer;list-style:none;padding:16px 48px 16px 18px;font-weight:700;position:relative;min-height:56px;display:flex;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:1.4rem;color:var(--sky-2)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{padding:0 18px 16px;color:var(--ink-2)}
+
+/* ============ forma (iš v2) ============ */
+.join{background:linear-gradient(180deg,var(--sky-2),var(--sky-3));color:#fff}
+.join .grid{display:grid;gap:24px}
+.aside h2{color:#fff}
+.aside .lead{margin-top:10px;font-size:1.08rem}
+.aside ul{list-style:none;padding:0;margin-top:16px;display:grid;gap:10px}
+.aside li{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start}
+.aside li img{width:22px;height:22px;margin-top:3px}
+.aside a{color:#fff;font-weight:600}
+.robot-join{width:150px;margin-top:16px}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:rgba(255,255,255,.14);border-radius:999px;padding:4px;margin-bottom:12px}
+.tabs button{border:0;background:transparent;color:#fff;font:700 .98rem var(--body);min-height:48px;border-radius:999px;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:#fff;color:var(--navy)}
+.form{background:#fff;color:var(--navy);border-radius:var(--r-xl);padding:20px;box-shadow:var(--shadow);scroll-margin-top:20px}
+.form h3{font-size:1.2rem;margin-bottom:4px}
+.form .hint{font-size:.94rem;color:var(--ink-2);margin-bottom:12px}
+.progress{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px}
+.progress span{height:12px;border-radius:4px;background:var(--paper-3);position:relative;overflow:hidden}
+.progress span::after{content:"";position:absolute;inset:0;transform:scaleX(0);transform-origin:left;transition:transform .4s steps(4)}
+.progress span:nth-child(1)::after{background:var(--grass)}
+.progress span:nth-child(2)::after{background:var(--dirt)}
+.progress span:nth-child(3)::after{background:var(--stone)}
+.progress span:nth-child(4)::after{background:var(--yellow)}
+.progress span.done::after{transform:scaleX(1)}
+.fstep{display:none}
+.fstep.is-on{display:block}
+.fstep h3:focus{outline:none}
+.field{margin-bottom:12px}
+.field label,.field .lbl{display:block;font-weight:600;font-size:.96rem;margin-bottom:6px}
+.field label small,.field .lbl small{font-weight:400;color:var(--ink-2)}
+.field input[type=text],.field input[type=email],.field input[type=tel],.field select{width:100%;min-height:52px;border:2px solid #C9D1E6;border-radius:12px;padding:12px 14px;font:400 1.02rem var(--body);color:var(--navy);background:#fff;appearance:none;-webkit-appearance:none}
+.field select{background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path d='M3 6l5 5 5-5' fill='none' stroke='%23152039' stroke-width='2'/></svg>") no-repeat right 14px center;padding-right:40px}
+.field input:focus,.field select:focus{border-color:var(--sky-2);outline:none;box-shadow:0 0 0 4px rgba(61,91,214,.22)}
+.field input[aria-invalid="true"],.field select[aria-invalid="true"]{border-color:var(--err)}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;inset:0;width:100%;height:100%;cursor:pointer;margin:0}
+.opt span{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 14px;border-radius:12px;border:2px solid #C9D1E6;font-weight:600;background:#fff;min-width:50px}
+.opt input:checked+span{background:var(--navy);color:#fff;border-color:var(--navy)}
+.opt input:focus-visible+span{outline:3px solid var(--sky-2);outline-offset:2px}
+.opt input:disabled+span{opacity:.5}
+.err{color:var(--err);font-size:.92rem;margin-top:6px;display:none;font-weight:600}
+.err.is-on{display:block}
+.consent-box{display:grid;grid-template-columns:26px 1fr;gap:12px;align-items:start;background:var(--paper-2);border-radius:12px;padding:14px;font-size:.94rem;line-height:1.5}
+.consent-box input{width:22px;height:22px;margin-top:2px;accent-color:var(--navy)}
+.consent-box a{color:var(--navy)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;pointer-events:none}
+.sub-field{display:none;margin-top:10px}
+.sub-field.is-on{display:block}
+.fnav{display:flex;gap:10px;justify-content:flex-end;margin-top:14px}
+.fnav .btn-yellow{flex:1}
+.thanks img{width:140px;margin-bottom:10px}
+.thanks ol{margin:12px 0 16px 20px;display:grid;gap:6px}
+.org-needs-wrap{background:var(--paper-2);border-radius:12px;padding:10px 14px;margin-bottom:14px}
+.org-needs-wrap summary{cursor:pointer;font-weight:700;min-height:40px;display:flex;align-items:center}
+.org-what{list-style:none;padding:0;display:grid;gap:8px;margin-top:8px;font-size:.94rem}
+.org-what li{display:grid;grid-template-columns:20px 1fr;gap:8px}
+.org-what img{width:20px;height:20px;margin-top:3px}
+
+/* footer */
+footer{background:var(--night);color:#D5DCF2;padding:44px 0 calc(var(--sticky-h) + 40px);font-size:.95rem}
+footer a{color:#fff}
+footer .cols{display:grid;gap:22px}
+footer h4{font-family:var(--body);color:#fff;font-size:1rem;margin-bottom:8px}
+footer .flogo{width:150px;margin-bottom:10px}
+footer p{margin-bottom:6px}
+.privacy-note{margin-top:22px}
+.privacy-note summary{cursor:pointer;font-weight:600;color:#fff;min-height:44px;display:flex;align-items:center}
+.legal{margin-top:20px;border-top:1px solid rgba(255,255,255,.14);padding-top:18px;display:grid;gap:8px;font-size:.86rem}
+.legal b{color:#fff;font-weight:600}
+
+/* lipni juosta */
+.sticky{position:fixed;left:0;right:0;bottom:var(--consent-h);z-index:50;background:var(--navy);color:#fff;transform:translateY(110%);transition:transform .35s var(--ease);padding:10px 12px calc(10px + env(safe-area-inset-bottom));box-shadow:0 -10px 30px rgba(10,20,60,.3)}
+.sticky.is-on{transform:none}
+.sticky .in{display:flex;align-items:center;gap:10px;width:min(var(--wrap),100%);margin:auto}
+.sticky .txt{flex:1;min-width:0;font-size:.85rem;line-height:1.3}
+.sticky .txt b{display:block;font-size:.95rem}
+.sticky .btn{min-height:48px;padding:10px 18px;font-size:.95rem;box-shadow:none}
+.sticky .btn-white{display:none}
+
+/* ============ mobilus ============ */
+@media (max-width:759px){
+  body{font-size:16px}
+  .tel,.brand .lab{display:none}
+  .hero-copy{padding-top:6px}
+  .hero .sub .m-hide,.hero .micro,.hero .eyebrow,.meter{display:none}
+  .chap{align-items:flex-start;padding-top:9vh}
+  .chap-card{padding:18px}
+  .stage-ui .legend{font-size:.8rem;padding:6px 12px}
+  .sun{display:none}
+  .poster{width:min(74vw,290px);bottom:calc(80px + env(safe-area-inset-bottom))}
+  .meter{top:calc(64px + env(safe-area-inset-top))}
+}
+@media (max-width:380px){.facts li{font-size:.86rem}}
+@media (min-width:600px){.sticky .btn-white{display:inline-flex}}
+@media (min-width:760px){
+  .grid-4{grid-template-columns:repeat(4,1fr)}
+  .cards-2{grid-template-columns:1fr 1fr}
+  .safe{grid-template-columns:repeat(3,1fr)}
+  .nums{grid-template-columns:repeat(4,1fr)}
+  .prices{grid-template-columns:1fr 1fr}
+  .school-tiles{grid-template-columns:repeat(4,1fr)}
+  footer .cols{grid-template-columns:2fr 1fr 1fr}
+  .form{padding:28px}
+}
+@media (min-width:900px){
+  .poster{left:auto;right:1%;bottom:auto;top:50%;transform:translateY(-44%);width:min(58vw,820px)}
+  .hero{display:flex;align-items:center}
+  .hero .wrap{width:min(var(--wrap),100% - 64px)}
+  .hero-copy{padding-top:0;margin-top:-40px}
+  .join .grid{grid-template-columns:5fr 6fr;align-items:start}
+  .sticky{display:none}
+}
+/* mobile pass 2026-10-23: tighter rhythm on phones (content unchanged), 44px tap targets */
+.brand{min-height:44px}
+html.consent-open .stage-ui{transform:translateY(calc(-1 * var(--consent-h)))}
+footer .link,.privacy-note .link{display:inline-block;padding:10px 0;margin:-10px 0}
+@media (max-width:599px){
+  .chap{min-height:78vh;min-height:78svh;padding-block:6vh}
+  .on-paper,.on-paper-2,.on-blue,.join{padding-block:36px}
+  footer{padding-top:32px}
+}
+@media print{.stage,.sticky{display:none!important}}
+</style>
+
+<!-- ===== sekimas: kopija iš v2 (track-pre.js + consent.js), skiriasi TIK version žymė 'v3-3d' ===== -->
+<script>
+/* Minimalus RA_CFG: tik tai, ką skaito consent.js ir formos logika (reikšmės nukopijuotos iš v2/config.js) */
+window.RA_CFG = {
+  version: 'v3-3d',
+  siteUrl: 'https://krisvas333.github.io/ra-minecraft/v3-3d/',
+  supabase: { url: 'https://iiekmeylpppczicrsxho.supabase.co/rest/v1/ra_waitlist', key: 'sb_publishable_iJC59f30YJm7hU4OwZsLDQ_9FN-ygzF' },
+  clarityId: 'yvooeforl7',
+  privacyUrl: 'https://robotikosakademija.lt/privatumo-politika/'
+};
+/* track-pre.js (v2) · kraunamas PRIEŠ track.js (ne defer).
+ * 1) window.RA_SRC = ?src= iš adreso (kanalas: fb, ig, lankstinukas, qa-…), be nesaugių ženklų, iki 60 ženklų.
+ * 2) Apgaubia umami.track prieš jam įsikeliant, todėl KIEKVIENAS įvykis neša { version, src }. */
+(function () {
+  window.RA_SRC = ((new URLSearchParams(location.search).get('src') || 'direct').replace(/[^a-z0-9_.-]/gi, '') || 'direct').slice(0, 60);
+  var u;
+  try {
+    Object.defineProperty(window, 'umami', {
+      configurable: true, enumerable: true,
+      get: function () { return u; },
+      set: function (v) {
+        if (v && typeof v.track === 'function' && !v.__ra) {
+          var t = v.track.bind(v);
+          v.track = function (n, p) { if (typeof n === 'string') { p = Object.assign({ version: 'v3-3d', src: window.RA_SRC }, p || {}); } return t(n, p); };
+          v.__ra = true;
+        }
+        u = v;
+      }
+    });
+  } catch (e) {}
+})();
+</script>
+<script defer src="https://krisvas333.github.io/neuron-ar/track.js" data-brand="ra" data-artifact="minecraft-v3-3d" data-kind="landing"></script>
+</head>
+<body>
+<a class="skip" href="#main">Pereiti prie turinio</a>
+
+<main id="main">
+
+<!-- ===================== 3D ISTORIJA ===================== -->
+<div class="story" id="story">
+  <div class="stage" id="stage" aria-hidden="false">
+    <div class="sun" aria-hidden="true"></div>
+    <div class="poster" aria-hidden="true"><!--POSTER:start--><svg viewBox="-170 -115 340 215" xmlns="http://www.w3.org/2000/svg" stroke-width=".6" stroke-linejoin="round" role="img" aria-label="Kubelių sala su nameliu, medžiais ir vartais (originali Robotikos akademijos iliustracija)"><path fill="#4fa3e6" stroke="#4fa3e6" d="M-9 -91L-1 -86L-9 -81L-17 -86ZM9 -91L17 -86L9 -81L1 -86ZM-26 -91L-18 -86L-26 -81L-34 -86ZM0 -86L8 -81L0 -76L-8 -81Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-17 -86L-9 -81L-17 -76L-25 -81Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M17 -86L25 -81L17 -76L9 -81ZM-35 -86L-27 -81L-35 -76L-43 -81Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M35 -86L43 -81L35 -76L27 -81Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-52 -86L-44 -81L-52 -76L-60 -81ZM52 -86L60 -81L52 -76L44 -81ZM69 -86L77 -81L69 -76L61 -81ZM-9 -81L-1 -76L-9 -71L-17 -76ZM9 -81L17 -76L9 -71L1 -76ZM-26 -81L-18 -76L-26 -71L-34 -76ZM26 -81L34 -76L26 -71L18 -76ZM-43 -81L-35 -76L-43 -71L-51 -76ZM43 -81L51 -76L43 -71L35 -76Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-61 -81L-52 -76L-61 -71L-69 -76ZM61 -81L69 -76L61 -71L52 -76Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M0 -76L8 -71L0 -66L-8 -71Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-17 -76L-9 -71L-17 -66L-25 -71Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M17 -76L25 -71L17 -66L9 -71Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-35 -76L-27 -71L-35 -66L-43 -71Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M35 -76L43 -71L35 -66L27 -71ZM-52 -76L-44 -71L-52 -66L-60 -71Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M52 -76L60 -71L52 -66L44 -71Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-69 -76L-61 -71L-69 -66L-77 -71ZM69 -76L77 -71L69 -66L61 -71Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-87 -76L-78 -71L-87 -66L-95 -71ZM87 -76L95 -71L87 -66L78 -71Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M-9 -74L-1 -70L-9 -65L-17 -70ZM-26 -74L-18 -70L-26 -65L-34 -70Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M9 -71L17 -66L9 -61L1 -66ZM26 -71L34 -66L26 -61L18 -66Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-43 -71L-35 -66L-43 -61L-51 -66Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M43 -71L51 -66L43 -61L35 -66ZM-61 -71L-52 -66L-61 -61L-69 -66Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M61 -71L69 -66L61 -61L52 -66ZM-78 -71L-70 -66L-78 -61L-86 -66ZM78 -71L86 -66L78 -61L70 -66ZM113 -71L121 -66L113 -61L104 -66Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M17 -69L25 -65L17 -60L9 -65ZM0 -69L8 -65L0 -60L-8 -65ZM-17 -69L-9 -65L-17 -60L-25 -65Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-35 -66L-27 -61L-35 -56L-43 -61ZM35 -66L43 -61L35 -56L27 -61ZM-52 -66L-44 -61L-52 -56L-60 -61Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M52 -66L60 -61L52 -56L44 -61Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-69 -66L-61 -61L-69 -56L-77 -61ZM69 -66L77 -61L69 -56L61 -61ZM-87 -66L-78 -61L-87 -56L-95 -61ZM87 -66L95 -61L87 -56L78 -61ZM104 -66L112 -61L104 -56L96 -61Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-121 -66L-113 -61L-121 -56L-129 -61Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M-9 -64L-1 -60L-9 -55L-17 -60Z"/><path fill="#6cc644" stroke="#6cc644" d="M9 -64L17 -60L9 -55L1 -60Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M-26 -64L-18 -60L-26 -55L-34 -60ZM43 -64L51 -60L43 -55L35 -60ZM26 -64L34 -60L26 -55L18 -60ZM-43 -64L-35 -60L-43 -55L-51 -60Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-61 -61L-52 -56L-61 -51L-69 -56Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M61 -61L69 -56L61 -51L52 -56ZM-78 -61L-70 -56L-78 -51L-86 -56ZM78 -61L86 -56L78 -51L70 -56Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-95 -61L-87 -56L-95 -51L-103 -56Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M95 -61L103 -56L95 -51L87 -56Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-113 -61L-104 -56L-113 -51L-121 -56ZM113 -61L121 -56L113 -51L104 -56Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M-17 -59L-9 -55L-17 -50L-25 -55Z"/><path fill="#6cc644" stroke="#6cc644" d="M0 -59L8 -55L0 -50L-8 -55ZM-35 -59L-27 -55L-35 -50L-43 -55ZM35 -59L43 -55L35 -50L27 -55Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M-52 -59L-44 -55L-52 -50L-60 -55ZM52 -59L60 -55L52 -50L44 -55Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-69 -56L-61 -51L-69 -46L-77 -51ZM69 -56L77 -51L69 -46L61 -51ZM-87 -56L-78 -51L-87 -46L-95 -51ZM87 -56L95 -51L87 -46L78 -51ZM-104 -56L-96 -51L-104 -46L-112 -51Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M104 -56L112 -51L104 -46L96 -51Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-121 -56L-113 -51L-121 -46L-129 -51Z"/><path fill="#6cc644" stroke="#6cc644" d="M17 -69L25 -65L17 -60L9 -65Z"/><path fill="#569e36" stroke="#569e36" d="M25 -55L17 -51L17 -60L25 -65Z"/><path fill="#47832d" stroke="#47832d" d="M9 -55L17 -51L17 -60L9 -65Z"/><path fill="#3e9e3a" stroke="#3e9e3a" d="M17 -109L25 -105L17 -100L9 -105ZM-35 -109L-27 -105L-35 -100L-43 -105Z"/><path fill="#5db83a" stroke="#5db83a" d="M9 -54L17 -50L9 -45L1 -50ZM-26 -54L-18 -50L-26 -45L-34 -50ZM26 -54L34 -50L26 -45L18 -50ZM43 -54L51 -50L43 -45L35 -50Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M61 -54L69 -50L61 -45L52 -50ZM-61 -54L-52 -50L-61 -45L-69 -50Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-78 -51L-70 -46L-78 -41L-86 -46ZM78 -51L86 -46L78 -41L70 -46Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-95 -51L-87 -46L-95 -41L-103 -46ZM95 -51L103 -46L95 -41L87 -46ZM-113 -51L-104 -46L-113 -41L-121 -46ZM113 -51L121 -46L113 -41L104 -46Z"/><path fill="#6cc644" stroke="#6cc644" d="M-9 -64L-1 -60L-9 -55L-17 -60Z"/><path fill="#47832d" stroke="#47832d" d="M-17 -50L-9 -46L-9 -55L-17 -60Z"/><path fill="#6cc644" stroke="#6cc644" d="M-43 -64L-35 -60L-43 -55L-51 -60Z"/><path fill="#47832d" stroke="#47832d" d="M-51 -50L-43 -46L-43 -55L-51 -60Z"/><path fill="#52b847" stroke="#52b847" d="M9 -104L17 -100L9 -95L1 -100ZM26 -104L34 -100L26 -95L18 -100ZM-43 -104L-35 -100L-43 -95L-51 -100ZM-26 -104L-18 -100L-26 -95L-34 -100Z"/><path fill="#5db83a" stroke="#5db83a" d="M-17 -49L-9 -45L-17 -40L-25 -45Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M52 -49L60 -45L52 -40L44 -45ZM-52 -49L-44 -45L-52 -40L-60 -45ZM69 -49L77 -45L69 -40L61 -45ZM-69 -49L-61 -45L-69 -40L-77 -45Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-87 -46L-78 -41L-87 -36L-95 -41ZM87 -46L95 -41L87 -36L78 -41ZM-104 -46L-96 -41L-104 -36L-112 -41ZM104 -46L112 -41L104 -36L96 -41Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-121 -46L-113 -41L-121 -36L-129 -41Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M121 -46L129 -41L121 -36L113 -41Z"/><path fill="#5db83a" stroke="#5db83a" d="M0 -59L8 -55L0 -50L-8 -55ZM35 -59L43 -55L35 -50L27 -55Z"/><path fill="#6f4822" stroke="#6f4822" d="M25 -55L17 -51L17 -60L25 -65Z"/><path fill="#5c3b1c" stroke="#5c3b1c" d="M9 -55L17 -51L17 -60L9 -65Z"/><path fill="#6f4822" stroke="#6f4822" d="M-27 -55L-35 -51L-35 -60L-27 -65Z"/><path fill="#5c3b1c" stroke="#5c3b1c" d="M-43 -55L-35 -51L-35 -60L-43 -65Z"/><path fill="#6f4822" stroke="#6f4822" d="M25 -65L17 -61L17 -70L25 -75Z"/><path fill="#5c3b1c" stroke="#5c3b1c" d="M9 -65L17 -61L17 -70L9 -75Z"/><path fill="#6f4822" stroke="#6f4822" d="M-27 -65L-35 -61L-35 -70L-27 -75Z"/><path fill="#5c3b1c" stroke="#5c3b1c" d="M-43 -65L-35 -61L-35 -70L-43 -75Z"/><path fill="#36792f" stroke="#36792f" d="M-8 -75L0 -71L0 -80L-8 -85Z"/><path fill="#429339" stroke="#429339" d="M43 -75L35 -71L35 -80L43 -85Z"/><path fill="#36792f" stroke="#36792f" d="M-60 -75L-52 -71L-52 -80L-60 -85Z"/><path fill="#429339" stroke="#429339" d="M-9 -75L-17 -71L-17 -80L-9 -85Z"/><path fill="#3e9e3a" stroke="#3e9e3a" d="M0 -99L8 -95L0 -90L-8 -95Z"/><path fill="#296826" stroke="#296826" d="M-8 -85L0 -81L0 -90L-8 -95Z"/><path fill="#3e9e3a" stroke="#3e9e3a" d="M35 -99L43 -95L35 -90L27 -95Z"/><path fill="#327e2e" stroke="#327e2e" d="M43 -85L35 -81L35 -90L43 -95Z"/><path fill="#3e9e3a" stroke="#3e9e3a" d="M-52 -99L-44 -95L-52 -90L-60 -95Z"/><path fill="#296826" stroke="#296826" d="M-60 -85L-52 -81L-52 -90L-60 -95Z"/><path fill="#3e9e3a" stroke="#3e9e3a" d="M-17 -99L-9 -95L-17 -90L-25 -95Z"/><path fill="#327e2e" stroke="#327e2e" d="M-9 -85L-17 -81L-17 -90L-9 -95Z"/><path fill="#52b847" stroke="#52b847" d="M17 -109L25 -105L17 -100L9 -105Z"/><path fill="#429339" stroke="#429339" d="M25 -95L17 -91L17 -100L25 -105Z"/><path fill="#36792f" stroke="#36792f" d="M9 -95L17 -91L17 -100L9 -105Z"/><path fill="#52b847" stroke="#52b847" d="M-35 -109L-27 -105L-35 -100L-43 -105Z"/><path fill="#429339" stroke="#429339" d="M-27 -95L-35 -91L-35 -100L-27 -105Z"/><path fill="#36792f" stroke="#36792f" d="M-43 -95L-35 -91L-35 -100L-43 -105Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M-78 -44L-70 -40L-78 -35L-86 -40ZM78 -44L86 -40L78 -35L70 -40ZM-95 -44L-87 -40L-95 -35L-103 -40Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M95 -41L103 -36L95 -31L87 -36ZM-113 -41L-104 -36L-113 -31L-121 -36Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M113 -41L121 -36L113 -31L104 -36ZM-130 -41L-122 -36L-130 -31L-138 -36ZM130 -41L138 -36L130 -31L122 -36Z"/><path fill="#6cc644" stroke="#6cc644" d="M-9 -54L-1 -50L-9 -45L-17 -50Z"/><path fill="#5db83a" stroke="#5db83a" d="M9 -54L17 -50L9 -45L1 -50Z"/><path fill="#6cc644" stroke="#6cc644" d="M26 -54L34 -50L26 -45L18 -50Z"/><path fill="#5db83a" stroke="#5db83a" d="M-26 -54L-18 -50L-26 -45L-34 -50ZM43 -54L51 -50L43 -45L35 -50ZM-43 -54L-35 -50L-43 -45L-51 -50Z"/><path fill="#6cc644" stroke="#6cc644" d="M61 -54L69 -50L61 -45L52 -50Z"/><path fill="#569e36" stroke="#569e36" d="M69 -40L61 -36L61 -45L69 -50Z"/><path fill="#6cc644" stroke="#6cc644" d="M-61 -54L-52 -50L-61 -45L-69 -50Z"/><path fill="#47832d" stroke="#47832d" d="M-69 -40L-61 -36L-61 -45L-69 -50Z"/><path fill="#296826" stroke="#296826" d="M1 -70L9 -66L9 -75L1 -80Z"/><path fill="#327e2e" stroke="#327e2e" d="M34 -70L26 -66L26 -75L34 -80Z"/><path fill="#296826" stroke="#296826" d="M-51 -70L-43 -66L-43 -75L-51 -80Z"/><path fill="#327e2e" stroke="#327e2e" d="M-18 -70L-26 -66L-26 -75L-18 -80Z"/><path fill="#52b847" stroke="#52b847" d="M9 -94L17 -90L9 -85L1 -90Z"/><path fill="#36792f" stroke="#36792f" d="M1 -80L9 -76L9 -85L1 -90Z"/><path fill="#52b847" stroke="#52b847" d="M26 -94L34 -90L26 -85L18 -90Z"/><path fill="#429339" stroke="#429339" d="M34 -80L26 -76L26 -85L34 -90Z"/><path fill="#52b847" stroke="#52b847" d="M-43 -94L-35 -90L-43 -85L-51 -90Z"/><path fill="#36792f" stroke="#36792f" d="M-51 -80L-43 -76L-43 -85L-51 -90Z"/><path fill="#52b847" stroke="#52b847" d="M-26 -94L-18 -90L-26 -85L-34 -90Z"/><path fill="#429339" stroke="#429339" d="M-18 -80L-26 -76L-26 -85L-18 -90Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M69 -39L77 -35L69 -30L61 -35Z"/><path fill="#5db83a" stroke="#5db83a" d="M-69 -39L-61 -35L-69 -30L-77 -35Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M-87 -39L-78 -35L-87 -30L-95 -35ZM87 -39L95 -35L87 -30L78 -35ZM-104 -39L-96 -35L-104 -30L-112 -35Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M104 -36L112 -31L104 -26L96 -31Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-121 -36L-113 -31L-121 -26L-129 -31Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M121 -36L129 -31L121 -26L113 -31Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-139 -36L-130 -31L-139 -26L-147 -31Z"/><path fill="#6cc644" stroke="#6cc644" d="M-17 -49L-9 -45L-17 -40L-25 -45Z"/><path fill="#5db83a" stroke="#5db83a" d="M17 -49L25 -45L17 -40L9 -45Z"/><path fill="#6cc644" stroke="#6cc644" d="M35 -49L43 -45L35 -40L27 -45Z"/><path fill="#5db83a" stroke="#5db83a" d="M-35 -49L-27 -45L-35 -40L-43 -45ZM-52 -49L-44 -45L-52 -40L-60 -45ZM52 -49L60 -45L52 -40L44 -45ZM0 -59L8 -55L0 -50L-8 -55Z"/><path fill="#429339" stroke="#429339" d="M25 -65L17 -61L17 -70L25 -75Z"/><path fill="#36792f" stroke="#36792f" d="M9 -65L17 -61L17 -70L9 -75Z"/><path fill="#429339" stroke="#429339" d="M-27 -65L-35 -61L-35 -70L-27 -75Z"/><path fill="#36792f" stroke="#36792f" d="M-43 -65L-35 -61L-35 -70L-43 -75Z"/><path fill="#3e9e3a" stroke="#3e9e3a" d="M17 -89L25 -85L17 -80L9 -85Z"/><path fill="#327e2e" stroke="#327e2e" d="M25 -75L17 -71L17 -80L25 -85Z"/><path fill="#296826" stroke="#296826" d="M9 -75L17 -71L17 -80L9 -85Z"/><path fill="#3e9e3a" stroke="#3e9e3a" d="M-35 -89L-27 -85L-35 -80L-43 -85Z"/><path fill="#327e2e" stroke="#327e2e" d="M-27 -75L-35 -71L-35 -80L-27 -85Z"/><path fill="#296826" stroke="#296826" d="M-43 -75L-35 -71L-35 -80L-43 -85Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M0 -99L8 -95L0 -90L-8 -95Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M78 -34L86 -30L78 -25L70 -30ZM-78 -34L-70 -30L-78 -25L-86 -30ZM-95 -34L-87 -30L-95 -25L-103 -30ZM95 -34L103 -30L95 -25L87 -30Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-113 -31L-104 -26L-113 -21L-121 -26Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M113 -31L121 -26L113 -21L104 -26Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-130 -31L-122 -26L-130 -21L-138 -26Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M130 -31L138 -26L130 -21L122 -26ZM-147 -31L-139 -26L-147 -21L-155 -26Z"/><path fill="#5db83a" stroke="#5db83a" d="M26 -44L34 -40L26 -35L18 -40ZM-43 -44L-35 -40L-43 -35L-51 -40Z"/><path fill="#6cc644" stroke="#6cc644" d="M43 -44L51 -40L43 -35L35 -40ZM-61 -44L-52 -40L-61 -35L-69 -40ZM61 -44L69 -40L61 -35L52 -40Z"/><path fill="#5db83a" stroke="#5db83a" d="M9 -54L17 -50L9 -45L1 -50Z"/><path fill="#6cc644" stroke="#6cc644" d="M-9 -54L-1 -50L-9 -45L-17 -50ZM-26 -54L-18 -50L-26 -45L-34 -50Z"/><path fill="#3e9e3a" stroke="#3e9e3a" d="M-61 -84L-52 -80L-61 -75L-69 -80Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M-9 -94L-1 -90L-9 -85L-17 -90Z"/><path fill="#3149ab" stroke="#3149ab" d="M-1 -80L-9 -76L-9 -85L-1 -90Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M9 -94L17 -90L9 -85L1 -90Z"/><path fill="#283c8d" stroke="#283c8d" d="M1 -80L9 -76L9 -85L1 -90Z"/><path fill="#6cc644" stroke="#6cc644" d="M-87 -29L-78 -25L-87 -20L-95 -25ZM87 -29L95 -25L87 -20L78 -25Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M104 -29L112 -25L104 -20L96 -25ZM-104 -29L-96 -25L-104 -20L-112 -25Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-121 -26L-113 -21L-121 -16L-129 -21ZM121 -26L129 -21L121 -16L113 -21Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-139 -26L-130 -21L-139 -16L-147 -21Z"/><path fill="#5db83a" stroke="#5db83a" d="M35 -39L43 -35L35 -30L27 -35ZM-52 -39L-44 -35L-52 -30L-60 -35ZM52 -39L60 -35L52 -30L44 -35Z"/><path fill="#6cc644" stroke="#6cc644" d="M-69 -39L-61 -35L-69 -30L-77 -35Z"/><path fill="#5db83a" stroke="#5db83a" d="M-17 -49L-9 -45L-17 -40L-25 -45ZM17 -49L25 -45L17 -40L9 -45Z"/><path fill="#6cc644" stroke="#6cc644" d="M-35 -49L-27 -45L-35 -40L-43 -45Z"/><path fill="#47832d" stroke="#47832d" d="M-43 -35L-35 -31L-35 -40L-43 -45Z"/><path fill="#8b5a2b" stroke="#8b5a2b" d="M0 -79L8 -75L0 -70L-8 -75Z"/><path fill="#52b847" stroke="#52b847" d="M-69 -79L-61 -75L-69 -70L-77 -75ZM-52 -79L-44 -75L-52 -70L-60 -75Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M-17 -89L-9 -85L-17 -80L-25 -85Z"/><path fill="#3149ab" stroke="#3149ab" d="M-9 -75L-17 -71L-17 -80L-9 -85Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M17 -89L25 -85L17 -80L9 -85Z"/><path fill="#283c8d" stroke="#283c8d" d="M9 -75L17 -71L17 -80L9 -85Z"/><path fill="#2f4bc0" stroke="#2f4bc0" d="M0 -99L8 -95L0 -90L-8 -95Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M-95 -24L-87 -20L-95 -15L-103 -20ZM95 -24L103 -20L95 -15L87 -20ZM-113 -24L-104 -20L-113 -15L-121 -20Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M113 -21L121 -16L113 -11L104 -16ZM-130 -21L-122 -16L-130 -11L-138 -16Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M130 -21L138 -16L130 -11L122 -16ZM147 -21L155 -16L147 -11L139 -16Z"/><path fill="#5db83a" stroke="#5db83a" d="M-43 -34L-35 -30L-43 -25L-51 -30Z"/><path fill="#6cc644" stroke="#6cc644" d="M61 -34L69 -30L61 -25L52 -30ZM78 -34L86 -30L78 -25L70 -30ZM-78 -34L-70 -30L-78 -25L-86 -30Z"/><path fill="#47832d" stroke="#47832d" d="M-86 -20L-78 -16L-78 -25L-86 -30Z"/><path fill="#5db83a" stroke="#5db83a" d="M26 -44L34 -40L26 -35L18 -40ZM-26 -44L-18 -40L-26 -35L-34 -40Z"/><path fill="#6cc644" stroke="#6cc644" d="M43 -44L51 -40L43 -35L35 -40Z"/><path fill="#569e36" stroke="#569e36" d="M51 -30L43 -26L43 -35L51 -40Z"/><path fill="#6f4822" stroke="#6f4822" d="M-52 -30L-61 -26L-61 -35L-52 -40Z"/><path fill="#5c3b1c" stroke="#5c3b1c" d="M-69 -30L-61 -26L-61 -35L-69 -40Z"/><path fill="#c2c5cc" stroke="#c2c5cc" d="M-1 -40L-9 -36L-9 -45L-1 -50Z"/><path fill="#a0a2a8" stroke="#a0a2a8" d="M1 -40L9 -36L9 -45L1 -50Z"/><path fill="#6f4822" stroke="#6f4822" d="M-52 -40L-61 -36L-61 -45L-52 -50Z"/><path fill="#5c3b1c" stroke="#5c3b1c" d="M-69 -40L-61 -36L-61 -45L-69 -50Z"/><path fill="#c2c5cc" stroke="#c2c5cc" d="M-1 -50L-9 -46L-9 -55L-1 -60Z"/><path fill="#a0a2a8" stroke="#a0a2a8" d="M1 -50L9 -46L9 -55L1 -60Z"/><path fill="#36792f" stroke="#36792f" d="M-86 -50L-78 -46L-78 -55L-86 -60Z"/><path fill="#429339" stroke="#429339" d="M-35 -50L-43 -46L-43 -55L-35 -60Z"/><path fill="#f3f6ff" stroke="#f3f6ff" d="M-9 -74L-1 -70L-9 -65L-17 -70Z"/><path fill="#c2c5cc" stroke="#c2c5cc" d="M-1 -60L-9 -56L-9 -65L-1 -70Z"/><path fill="#f3f6ff" stroke="#f3f6ff" d="M9 -74L17 -70L9 -65L1 -70Z"/><path fill="#a0a2a8" stroke="#a0a2a8" d="M1 -60L9 -56L9 -65L1 -70Z"/><path fill="#3e9e3a" stroke="#3e9e3a" d="M-78 -74L-70 -70L-78 -65L-86 -70Z"/><path fill="#296826" stroke="#296826" d="M-86 -60L-78 -56L-78 -65L-86 -70Z"/><path fill="#3e9e3a" stroke="#3e9e3a" d="M-43 -74L-35 -70L-43 -65L-51 -70Z"/><path fill="#327e2e" stroke="#327e2e" d="M-35 -60L-43 -56L-43 -65L-35 -70Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M26 -84L34 -80L26 -75L18 -80Z"/><path fill="#283c8d" stroke="#283c8d" d="M18 -70L26 -66L26 -75L18 -80Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M-26 -84L-18 -80L-26 -75L-34 -80Z"/><path fill="#3149ab" stroke="#3149ab" d="M-18 -70L-26 -66L-26 -75L-18 -80Z"/><path fill="#52b847" stroke="#52b847" d="M-61 -84L-52 -80L-61 -75L-69 -80Z"/><path fill="#429339" stroke="#429339" d="M-52 -70L-61 -66L-61 -75L-52 -80Z"/><path fill="#36792f" stroke="#36792f" d="M-69 -70L-61 -66L-61 -75L-69 -80Z"/><path fill="#2f4bc0" stroke="#2f4bc0" d="M-9 -94L-1 -90L-9 -85L-17 -90Z"/><path fill="#263c9a" stroke="#263c9a" d="M-1 -80L-9 -76L-9 -85L-1 -90Z"/><path fill="#2f4bc0" stroke="#2f4bc0" d="M9 -94L17 -90L9 -85L1 -90Z"/><path fill="#1f327f" stroke="#1f327f" d="M1 -80L9 -76L9 -85L1 -90Z"/><path fill="#6cc644" stroke="#6cc644" d="M-87 -19L-78 -15L-87 -10L-95 -15Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M-104 -19L-96 -15L-104 -10L-112 -15Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M104 -16L112 -11L104 -6L96 -11Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-121 -16L-113 -11L-121 -6L-129 -11Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M121 -16L129 -11L121 -6L113 -11Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-139 -16L-130 -11L-139 -6L-147 -11ZM139 -16L147 -11L139 -6L130 -11ZM-156 -16L-148 -11L-156 -6L-164 -11Z"/><path fill="#5db83a" stroke="#5db83a" d="M-52 -29L-44 -25L-52 -20L-60 -25Z"/><path fill="#6cc644" stroke="#6cc644" d="M52 -29L60 -25L52 -20L44 -25Z"/><path fill="#5db83a" stroke="#5db83a" d="M69 -29L77 -25L69 -20L61 -25Z"/><path fill="#4a932e" stroke="#4a932e" d="M77 -15L69 -11L69 -20L77 -25Z"/><path fill="#5db83a" stroke="#5db83a" d="M-69 -29L-61 -25L-69 -20L-77 -25Z"/><path fill="#6cc644" stroke="#6cc644" d="M87 -29L95 -25L87 -20L78 -25Z"/><path fill="#569e36" stroke="#569e36" d="M95 -15L87 -11L87 -20L95 -25Z"/><path fill="#47832d" stroke="#47832d" d="M78 -15L87 -11L87 -20L78 -25Z"/><path fill="#6cc644" stroke="#6cc644" d="M0 -39L8 -35L0 -30L-8 -35ZM-35 -39L-27 -35L-35 -30L-43 -35ZM35 -39L43 -35L35 -30L27 -35Z"/><path fill="#a0a2a8" stroke="#a0a2a8" d="M9 -35L17 -31L17 -40L9 -45Z"/><path fill="#c2c5cc" stroke="#c2c5cc" d="M-9 -35L-17 -31L-17 -40L-9 -45Z"/><path fill="#a0a2a8" stroke="#a0a2a8" d="M9 -45L17 -41L17 -50L9 -55Z"/><path fill="#59bfc4" stroke="#59bfc4" d="M-9 -45L-17 -41L-17 -50L-9 -55Z"/><path fill="#296826" stroke="#296826" d="M-77 -45L-69 -41L-69 -50L-77 -55Z"/><path fill="#327e2e" stroke="#327e2e" d="M-44 -45L-52 -41L-52 -50L-44 -55Z"/><path fill="#f3f6ff" stroke="#f3f6ff" d="M17 -69L25 -65L17 -60L9 -65Z"/><path fill="#a0a2a8" stroke="#a0a2a8" d="M9 -55L17 -51L17 -60L9 -65Z"/><path fill="#f3f6ff" stroke="#f3f6ff" d="M-17 -69L-9 -65L-17 -60L-25 -65Z"/><path fill="#c2c5cc" stroke="#c2c5cc" d="M-9 -55L-17 -51L-17 -60L-9 -65Z"/><path fill="#52b847" stroke="#52b847" d="M-69 -69L-61 -65L-69 -60L-77 -65Z"/><path fill="#36792f" stroke="#36792f" d="M-77 -55L-69 -51L-69 -60L-77 -65Z"/><path fill="#52b847" stroke="#52b847" d="M-52 -69L-44 -65L-52 -60L-60 -65Z"/><path fill="#429339" stroke="#429339" d="M-44 -55L-52 -51L-52 -60L-44 -65Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M35 -79L43 -75L35 -70L27 -75Z"/><path fill="#283c8d" stroke="#283c8d" d="M27 -65L35 -61L35 -70L27 -75Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M-35 -79L-27 -75L-35 -70L-43 -75Z"/><path fill="#3149ab" stroke="#3149ab" d="M-27 -65L-35 -61L-35 -70L-27 -75Z"/><path fill="#2f4bc0" stroke="#2f4bc0" d="M17 -89L25 -85L17 -80L9 -85Z"/><path fill="#1f327f" stroke="#1f327f" d="M9 -75L17 -71L17 -80L9 -85Z"/><path fill="#2f4bc0" stroke="#2f4bc0" d="M-17 -89L-9 -85L-17 -80L-25 -85Z"/><path fill="#263c9a" stroke="#263c9a" d="M-9 -75L-17 -71L-17 -80L-9 -85Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M0 -99L8 -95L0 -90L-8 -95Z"/><path fill="#5db83a" stroke="#5db83a" d="M78 -14L86 -10L78 -5L70 -10Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M-95 -14L-87 -10L-95 -5L-103 -10ZM95 -14L103 -10L95 -5L87 -10Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-113 -11L-104 -6L-113 -1L-121 -6ZM113 -11L121 -6L113 -1L104 -6Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-130 -11L-122 -6L-130 -1L-138 -6ZM130 -11L138 -6L130 -1L122 -6Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-147 -11L-139 -6L-147 -1L-155 -6Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M147 -11L155 -6L147 -1L139 -6Z"/><path fill="#6cc644" stroke="#6cc644" d="M-61 -24L-52 -20L-61 -15L-69 -20Z"/><path fill="#5db83a" stroke="#5db83a" d="M61 -24L69 -20L61 -15L52 -20Z"/><path fill="#6cc644" stroke="#6cc644" d="M-78 -24L-70 -20L-78 -15L-86 -20Z"/><path fill="#47832d" stroke="#47832d" d="M-86 -10L-78 -6L-78 -15L-86 -20Z"/><path fill="#5db83a" stroke="#5db83a" d="M9 -34L17 -30L9 -25L1 -30ZM-9 -34L-1 -30L-9 -25L-17 -30Z"/><path fill="#6cc644" stroke="#6cc644" d="M43 -34L51 -30L43 -25L35 -30Z"/><path fill="#5db83a" stroke="#5db83a" d="M-43 -34L-35 -30L-43 -25L-51 -30Z"/><path fill="#a0a2a8" stroke="#a0a2a8" d="M18 -30L26 -26L26 -35L18 -40Z"/><path fill="#c2c5cc" stroke="#c2c5cc" d="M-18 -30L-26 -26L-26 -35L-18 -40Z"/><path fill="#a0a2a8" stroke="#a0a2a8" d="M18 -40L26 -36L26 -45L18 -50Z"/><path fill="#c2c5cc" stroke="#c2c5cc" d="M-18 -40L-26 -36L-26 -45L-18 -50Z"/><path fill="#429339" stroke="#429339" d="M-52 -40L-61 -36L-61 -45L-52 -50Z"/><path fill="#36792f" stroke="#36792f" d="M-69 -40L-61 -36L-61 -45L-69 -50Z"/><path fill="#f3f6ff" stroke="#f3f6ff" d="M26 -64L34 -60L26 -55L18 -60Z"/><path fill="#a0a2a8" stroke="#a0a2a8" d="M18 -50L26 -46L26 -55L18 -60Z"/><path fill="#f3f6ff" stroke="#f3f6ff" d="M-26 -64L-18 -60L-26 -55L-34 -60Z"/><path fill="#c2c5cc" stroke="#c2c5cc" d="M-18 -50L-26 -46L-26 -55L-18 -60Z"/><path fill="#3e9e3a" stroke="#3e9e3a" d="M-61 -64L-52 -60L-61 -55L-69 -60Z"/><path fill="#327e2e" stroke="#327e2e" d="M-52 -50L-61 -46L-61 -55L-52 -60Z"/><path fill="#296826" stroke="#296826" d="M-69 -50L-61 -46L-61 -55L-69 -60Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M43 -74L51 -70L43 -65L35 -70Z"/><path fill="#283c8d" stroke="#283c8d" d="M35 -60L43 -56L43 -65L35 -70Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M-43 -74L-35 -70L-43 -65L-51 -70Z"/><path fill="#3149ab" stroke="#3149ab" d="M-35 -60L-43 -56L-43 -65L-35 -70Z"/><path fill="#2f4bc0" stroke="#2f4bc0" d="M26 -84L34 -80L26 -75L18 -80Z"/><path fill="#1f327f" stroke="#1f327f" d="M18 -70L26 -66L26 -75L18 -80Z"/><path fill="#2f4bc0" stroke="#2f4bc0" d="M-26 -84L-18 -80L-26 -75L-34 -80Z"/><path fill="#263c9a" stroke="#263c9a" d="M-18 -70L-26 -66L-26 -75L-18 -80Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M9 -94L17 -90L9 -85L1 -90ZM-9 -94L-1 -90L-9 -85L-17 -90Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M87 -9L95 -5L87 0L78 -5Z"/><path fill="#6cc644" stroke="#6cc644" d="M-87 -9L-78 -5L-87 0L-95 -5Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M-104 -9L-96 -5L-104 0L-112 -5ZM104 -9L112 -5L104 0L96 -5Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-121 -6L-113 -1L-121 4L-129 -1ZM121 -6L129 -1L121 4L113 -1Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-139 -6L-130 -1L-139 4L-147 -1ZM139 -6L147 -1L139 4L130 -1Z"/><path fill="#6cc644" stroke="#6cc644" d="M69 -19L77 -15L69 -10L61 -15ZM0 -29L8 -25L0 -20L-8 -25Z"/><path fill="#5db83a" stroke="#5db83a" d="M17 -29L25 -25L17 -20L9 -25Z"/><path fill="#6cc644" stroke="#6cc644" d="M-17 -29L-9 -25L-17 -20L-25 -25Z"/><path fill="#5db83a" stroke="#5db83a" d="M-52 -29L-44 -25L-52 -20L-60 -25Z"/><path fill="#3d7926" stroke="#3d7926" d="M-60 -15L-52 -11L-52 -20L-60 -25Z"/><path fill="#6cc644" stroke="#6cc644" d="M52 -29L60 -25L52 -20L44 -25Z"/><path fill="#6f4822" stroke="#6f4822" d="M43 -25L35 -21L35 -30L43 -35Z"/><path fill="#5c3b1c" stroke="#5c3b1c" d="M-43 -25L-35 -21L-35 -30L-43 -35Z"/><path fill="#6f4822" stroke="#6f4822" d="M43 -35L35 -31L35 -40L43 -45Z"/><path fill="#5c3b1c" stroke="#5c3b1c" d="M-43 -35L-35 -31L-35 -40L-43 -45Z"/><path fill="#8b5a2b" stroke="#8b5a2b" d="M35 -59L43 -55L35 -50L27 -55Z"/><path fill="#6f4822" stroke="#6f4822" d="M43 -45L35 -41L35 -50L43 -55Z"/><path fill="#8b5a2b" stroke="#8b5a2b" d="M-35 -59L-27 -55L-35 -50L-43 -55Z"/><path fill="#5c3b1c" stroke="#5c3b1c" d="M-43 -45L-35 -41L-35 -50L-43 -55Z"/><path fill="#3e9e3a" stroke="#3e9e3a" d="M69 -59L77 -55L69 -50L61 -55Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M52 -69L60 -65L52 -60L44 -65Z"/><path fill="#3149ab" stroke="#3149ab" d="M60 -55L52 -51L52 -60L60 -65Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M-52 -69L-44 -65L-52 -60L-60 -65Z"/><path fill="#283c8d" stroke="#283c8d" d="M-60 -55L-52 -51L-52 -60L-60 -65Z"/><path fill="#2f4bc0" stroke="#2f4bc0" d="M35 -79L43 -75L35 -70L27 -75Z"/><path fill="#263c9a" stroke="#263c9a" d="M43 -65L35 -61L35 -70L43 -75Z"/><path fill="#2f4bc0" stroke="#2f4bc0" d="M-35 -79L-27 -75L-35 -70L-43 -75Z"/><path fill="#1f327f" stroke="#1f327f" d="M-43 -65L-35 -61L-35 -70L-43 -75Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M17 -89L25 -85L17 -80L9 -85Z"/><path fill="#3149ab" stroke="#3149ab" d="M25 -75L17 -71L17 -80L25 -85Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M-17 -89L-9 -85L-17 -80L-25 -85Z"/><path fill="#283c8d" stroke="#283c8d" d="M-25 -75L-17 -71L-17 -80L-25 -85Z"/><path fill="#263c9a" stroke="#263c9a" d="M8 -85L0 -81L0 -90L8 -95Z"/><path fill="#1f327f" stroke="#1f327f" d="M-8 -85L0 -81L0 -90L-8 -95Z"/><path fill="#fec404" stroke="#fec404" d="M0 -109L8 -105L0 -100L-8 -105Z"/><path fill="#cb9d03" stroke="#cb9d03" d="M8 -95L0 -91L0 -100L8 -105Z"/><path fill="#a88103" stroke="#a88103" d="M-8 -95L0 -91L0 -100L-8 -105Z"/><path fill="#6cc644" stroke="#6cc644" d="M-95 -4L-87 0L-95 5L-103 0Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M95 -4L103 0L95 5L87 0Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-113 -1L-104 4L-113 9L-121 4ZM113 -1L121 4L113 9L104 4ZM-130 -1L-122 4L-130 9L-138 4Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M130 -1L138 4L130 9L122 4Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-147 -1L-139 4L-147 9L-155 4ZM147 -1L155 4L147 9L139 4Z"/><path fill="#5db83a" stroke="#5db83a" d="M-61 -14L-52 -10L-61 -5L-69 -10Z"/><path fill="#3d7926" stroke="#3d7926" d="M-69 0L-61 4L-61 -5L-69 -10Z"/><path fill="#6cc644" stroke="#6cc644" d="M-78 -14L-70 -10L-78 -5L-86 -10Z"/><path fill="#569e36" stroke="#569e36" d="M-70 0L-78 4L-78 -5L-70 -10Z"/><path fill="#47832d" stroke="#47832d" d="M-86 0L-78 4L-78 -5L-86 -10Z"/><path fill="#5db83a" stroke="#5db83a" d="M78 -14L86 -10L78 -5L70 -10Z"/><path fill="#4a932e" stroke="#4a932e" d="M86 0L78 4L78 -5L86 -10Z"/><path fill="#5db83a" stroke="#5db83a" d="M9 -24L17 -20L9 -15L1 -20ZM-9 -24L-1 -20L-9 -15L-17 -20ZM-43 -24L-35 -20L-43 -15L-51 -20Z"/><path fill="#3d7926" stroke="#3d7926" d="M-51 -10L-43 -6L-43 -15L-51 -20Z"/><path fill="#5db83a" stroke="#5db83a" d="M43 -24L51 -20L43 -15L35 -20Z"/><path fill="#c2c5cc" stroke="#c2c5cc" d="M34 -20L26 -16L26 -25L34 -30ZM-18 -20L-26 -16L-26 -25L-18 -30Z"/><path fill="#a0a2a8" stroke="#a0a2a8" d="M-34 -20L-26 -16L-26 -25L-34 -30Z"/><path fill="#c2c5cc" stroke="#c2c5cc" d="M34 -30L26 -26L26 -35L34 -40Z"/><path fill="#59bfc4" stroke="#59bfc4" d="M-18 -30L-26 -26L-26 -35L-18 -40Z"/><path fill="#499ea2" stroke="#499ea2" d="M-34 -30L-26 -26L-26 -35L-34 -40Z"/><path fill="#f3f6ff" stroke="#f3f6ff" d="M26 -54L34 -50L26 -45L18 -50Z"/><path fill="#c2c5cc" stroke="#c2c5cc" d="M34 -40L26 -36L26 -45L34 -50Z"/><path fill="#f3f6ff" stroke="#f3f6ff" d="M-26 -54L-18 -50L-26 -45L-34 -50Z"/><path fill="#a0a2a8" stroke="#a0a2a8" d="M-34 -40L-26 -36L-26 -45L-34 -50Z"/><path fill="#52b847" stroke="#52b847" d="M61 -54L69 -50L61 -45L52 -50ZM78 -54L86 -50L78 -45L70 -50Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M43 -64L51 -60L43 -55L35 -60Z"/><path fill="#3149ab" stroke="#3149ab" d="M51 -50L43 -46L43 -55L51 -60Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M-43 -64L-35 -60L-43 -55L-51 -60Z"/><path fill="#283c8d" stroke="#283c8d" d="M-51 -50L-43 -46L-43 -55L-51 -60Z"/><path fill="#2f4bc0" stroke="#2f4bc0" d="M26 -74L34 -70L26 -65L18 -70Z"/><path fill="#263c9a" stroke="#263c9a" d="M34 -60L26 -56L26 -65L34 -70Z"/><path fill="#2f4bc0" stroke="#2f4bc0" d="M-26 -74L-18 -70L-26 -65L-34 -70Z"/><path fill="#1f327f" stroke="#1f327f" d="M-34 -60L-26 -56L-26 -65L-34 -70Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M9 -84L17 -80L9 -75L1 -80Z"/><path fill="#3149ab" stroke="#3149ab" d="M17 -70L9 -66L9 -75L17 -80Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M-9 -84L-1 -80L-9 -75L-17 -80Z"/><path fill="#283c8d" stroke="#283c8d" d="M-17 -70L-9 -66L-9 -75L-17 -80Z"/><path fill="#5db83a" stroke="#5db83a" d="M-69 1L-61 5L-69 10L-77 5Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M87 1L95 5L87 10L78 5ZM-87 1L-78 5L-87 10L-95 5ZM-104 1L-96 5L-104 10L-112 5ZM104 1L112 5L104 10L96 5Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-121 4L-113 9L-121 14L-129 9Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M121 4L129 9L121 14L113 9Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-139 4L-130 9L-139 14L-147 9Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M139 4L147 9L139 14L130 9Z"/><path fill="#5db83a" stroke="#5db83a" d="M-52 -9L-44 -5L-52 0L-60 -5Z"/><path fill="#569e36" stroke="#569e36" d="M77 5L69 9L69 0L77 -5Z"/><path fill="#5db83a" stroke="#5db83a" d="M0 -19L8 -15L0 -10L-8 -15ZM-17 -19L-9 -15L-17 -10L-25 -15ZM-35 -19L-27 -15L-35 -10L-43 -15Z"/><path fill="#6cc644" stroke="#6cc644" d="M35 -19L43 -15L35 -10L27 -15Z"/><path fill="#569e36" stroke="#569e36" d="M60 -5L52 -1L52 -10L60 -15Z"/><path fill="#6f4822" stroke="#6f4822" d="M77 -5L69 -1L69 -10L77 -15Z"/><path fill="#5c3b1c" stroke="#5c3b1c" d="M61 -5L69 -1L69 -10L61 -15Z"/><path fill="#c2c5cc" stroke="#c2c5cc" d="M25 -15L17 -11L17 -20L25 -25Z"/><path fill="#6f4822" stroke="#6f4822" d="M77 -15L69 -11L69 -20L77 -25Z"/><path fill="#5c3b1c" stroke="#5c3b1c" d="M61 -15L69 -11L69 -20L61 -25Z"/><path fill="#59bfc4" stroke="#59bfc4" d="M25 -25L17 -21L17 -30L25 -35Z"/><path fill="#36792f" stroke="#36792f" d="M44 -25L52 -21L52 -30L44 -35Z"/><path fill="#429339" stroke="#429339" d="M95 -25L87 -21L87 -30L95 -35Z"/><path fill="#f3f6ff" stroke="#f3f6ff" d="M17 -49L25 -45L17 -40L9 -45Z"/><path fill="#c2c5cc" stroke="#c2c5cc" d="M25 -35L17 -31L17 -40L25 -45Z"/><path fill="#f3f6ff" stroke="#f3f6ff" d="M-17 -49L-9 -45L-17 -40L-25 -45Z"/><path fill="#a0a2a8" stroke="#a0a2a8" d="M-25 -35L-17 -31L-17 -40L-25 -45Z"/><path fill="#3e9e3a" stroke="#3e9e3a" d="M52 -49L60 -45L52 -40L44 -45Z"/><path fill="#296826" stroke="#296826" d="M44 -35L52 -31L52 -40L44 -45Z"/><path fill="#3e9e3a" stroke="#3e9e3a" d="M87 -49L95 -45L87 -40L78 -45Z"/><path fill="#327e2e" stroke="#327e2e" d="M95 -35L87 -31L87 -40L95 -45Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M35 -59L43 -55L35 -50L27 -55Z"/><path fill="#3149ab" stroke="#3149ab" d="M43 -45L35 -41L35 -50L43 -55Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M-35 -59L-27 -55L-35 -50L-43 -55Z"/><path fill="#283c8d" stroke="#283c8d" d="M-43 -45L-35 -41L-35 -50L-43 -55Z"/><path fill="#52b847" stroke="#52b847" d="M69 -59L77 -55L69 -50L61 -55Z"/><path fill="#429339" stroke="#429339" d="M77 -45L69 -41L69 -50L77 -55Z"/><path fill="#36792f" stroke="#36792f" d="M61 -45L69 -41L69 -50L61 -55Z"/><path fill="#2f4bc0" stroke="#2f4bc0" d="M17 -69L25 -65L17 -60L9 -65Z"/><path fill="#263c9a" stroke="#263c9a" d="M25 -55L17 -51L17 -60L25 -65Z"/><path fill="#2f4bc0" stroke="#2f4bc0" d="M-17 -69L-9 -65L-17 -60L-25 -65Z"/><path fill="#1f327f" stroke="#1f327f" d="M-25 -55L-17 -51L-17 -60L-25 -65Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M0 -79L8 -75L0 -70L-8 -75Z"/><path fill="#3149ab" stroke="#3149ab" d="M8 -65L0 -61L0 -70L8 -75Z"/><path fill="#283c8d" stroke="#283c8d" d="M-8 -65L0 -61L0 -70L-8 -75Z"/><path fill="#5db83a" stroke="#5db83a" d="M-78 6L-70 10L-78 15L-86 10ZM78 6L86 10L78 15L70 10Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M-95 6L-87 10L-95 15L-103 10Z"/><path fill="#6cc644" stroke="#6cc644" d="M95 6L103 10L95 15L87 10Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M113 6L121 10L113 15L104 10Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-113 9L-104 14L-113 19L-121 14ZM-130 9L-122 14L-130 19L-138 14ZM130 9L138 14L130 19L122 14Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-147 9L-139 14L-147 19L-155 14Z"/><path fill="#6cc644" stroke="#6cc644" d="M61 -4L69 0L61 5L52 0ZM26 -14L34 -10L26 -5L18 -10Z"/><path fill="#d8c08c" stroke="#d8c08c" d="M-26 -14L-18 -10L-26 -5L-34 -10Z"/><path fill="#6cc644" stroke="#6cc644" d="M-43 -14L-35 -10L-43 -5L-51 -10Z"/><path fill="#47832d" stroke="#47832d" d="M-51 0L-43 4L-43 -5L-51 -10Z"/><path fill="#6cc644" stroke="#6cc644" d="M43 -14L51 -10L43 -5L35 -10Z"/><path fill="#569e36" stroke="#569e36" d="M51 0L43 4L43 -5L51 -10Z"/><path fill="#c2c5cc" stroke="#c2c5cc" d="M17 -10L9 -6L9 -15L17 -20Z"/><path fill="#a0a2a8" stroke="#a0a2a8" d="M-17 -10L-9 -6L-9 -15L-17 -20Z"/><path fill="#c2c5cc" stroke="#c2c5cc" d="M17 -20L9 -16L9 -25L17 -30Z"/><path fill="#499ea2" stroke="#499ea2" d="M-17 -20L-9 -16L-9 -25L-17 -30Z"/><path fill="#296826" stroke="#296826" d="M52 -20L61 -16L61 -25L52 -30Z"/><path fill="#327e2e" stroke="#327e2e" d="M86 -20L78 -16L78 -25L86 -30Z"/><path fill="#f3f6ff" stroke="#f3f6ff" d="M9 -44L17 -40L9 -35L1 -40Z"/><path fill="#c2c5cc" stroke="#c2c5cc" d="M17 -30L9 -26L9 -35L17 -40Z"/><path fill="#f3f6ff" stroke="#f3f6ff" d="M-9 -44L-1 -40L-9 -35L-17 -40Z"/><path fill="#a0a2a8" stroke="#a0a2a8" d="M-17 -30L-9 -26L-9 -35L-17 -40Z"/><path fill="#52b847" stroke="#52b847" d="M61 -44L69 -40L61 -35L52 -40Z"/><path fill="#36792f" stroke="#36792f" d="M52 -30L61 -26L61 -35L52 -40Z"/><path fill="#52b847" stroke="#52b847" d="M78 -44L86 -40L78 -35L70 -40Z"/><path fill="#429339" stroke="#429339" d="M86 -30L78 -26L78 -35L86 -40Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M26 -54L34 -50L26 -45L18 -50Z"/><path fill="#3149ab" stroke="#3149ab" d="M34 -40L26 -36L26 -45L34 -50Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M-26 -54L-18 -50L-26 -45L-34 -50Z"/><path fill="#283c8d" stroke="#283c8d" d="M-34 -40L-26 -36L-26 -45L-34 -50Z"/><path fill="#2f4bc0" stroke="#2f4bc0" d="M9 -64L17 -60L9 -55L1 -60Z"/><path fill="#263c9a" stroke="#263c9a" d="M17 -50L9 -46L9 -55L17 -60Z"/><path fill="#2f4bc0" stroke="#2f4bc0" d="M-9 -64L-1 -60L-9 -55L-17 -60Z"/><path fill="#1f327f" stroke="#1f327f" d="M-17 -50L-9 -46L-9 -55L-17 -60Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M87 11L95 15L87 20L78 15Z"/><path fill="#6cc644" stroke="#6cc644" d="M-87 11L-78 15L-87 20L-95 15Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M104 11L112 15L104 20L96 15ZM-104 11L-96 15L-104 20L-112 15Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-121 14L-113 19L-121 24L-129 19Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M121 14L129 19L121 24L113 19ZM139 14L147 19L139 24L130 19ZM156 14L164 19L156 24L148 19Z"/><path fill="#5db83a" stroke="#5db83a" d="M52 1L60 5L52 10L44 5Z"/><path fill="#6cc644" stroke="#6cc644" d="M-52 1L-44 5L-52 10L-60 5ZM69 1L77 5L69 10L61 5Z"/><path fill="#569e36" stroke="#569e36" d="M77 15L69 19L69 10L77 5Z"/><path fill="#47832d" stroke="#47832d" d="M-77 15L-69 19L-69 10L-77 5Z"/><path fill="#5db83a" stroke="#5db83a" d="M17 -9L25 -5L17 0L9 -5Z"/><path fill="#4a932e" stroke="#4a932e" d="M25 5L17 9L17 0L25 -5Z"/><path fill="#6cc644" stroke="#6cc644" d="M-17 -9L-9 -5L-17 0L-25 -5Z"/><path fill="#569e36" stroke="#569e36" d="M43 5L35 9L35 0L43 -5Z"/><path fill="#47832d" stroke="#47832d" d="M27 5L35 9L35 0L27 -5Z"/><path fill="#d8c08c" stroke="#d8c08c" d="M-35 -9L-27 -5L-35 0L-43 -5Z"/><path fill="#8f7f5c" stroke="#8f7f5c" d="M-43 5L-35 9L-35 0L-43 -5Z"/><path fill="#6f4822" stroke="#6f4822" d="M8 -5L0 -1L0 -10L8 -15Z"/><path fill="#5c3b1c" stroke="#5c3b1c" d="M-8 -5L0 -1L0 -10L-8 -15Z"/><path fill="#6f4822" stroke="#6f4822" d="M8 -15L0 -11L0 -20L8 -25Z"/><path fill="#5c3b1c" stroke="#5c3b1c" d="M-8 -15L0 -11L0 -20L-8 -25Z"/><path fill="#429339" stroke="#429339" d="M77 -15L69 -11L69 -20L77 -25Z"/><path fill="#36792f" stroke="#36792f" d="M61 -15L69 -11L69 -20L61 -25Z"/><path fill="#8b5a2b" stroke="#8b5a2b" d="M0 -39L8 -35L0 -30L-8 -35Z"/><path fill="#6f4822" stroke="#6f4822" d="M8 -25L0 -21L0 -30L8 -35Z"/><path fill="#5c3b1c" stroke="#5c3b1c" d="M-8 -25L0 -21L0 -30L-8 -35Z"/><path fill="#3e9e3a" stroke="#3e9e3a" d="M69 -39L77 -35L69 -30L61 -35Z"/><path fill="#327e2e" stroke="#327e2e" d="M77 -25L69 -21L69 -30L77 -35Z"/><path fill="#296826" stroke="#296826" d="M61 -25L69 -21L69 -30L61 -35Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M17 -49L25 -45L17 -40L9 -45Z"/><path fill="#3149ab" stroke="#3149ab" d="M25 -35L17 -31L17 -40L25 -45Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M-17 -49L-9 -45L-17 -40L-25 -45Z"/><path fill="#283c8d" stroke="#283c8d" d="M-25 -35L-17 -31L-17 -40L-25 -45Z"/><path fill="#2f4bc0" stroke="#2f4bc0" d="M0 -59L8 -55L0 -50L-8 -55Z"/><path fill="#263c9a" stroke="#263c9a" d="M8 -45L0 -41L0 -50L8 -55Z"/><path fill="#1f327f" stroke="#1f327f" d="M-8 -45L0 -41L0 -50L-8 -55Z"/><path fill="#6cc644" stroke="#6cc644" d="M-78 16L-70 20L-78 25L-86 20ZM78 16L86 20L78 25L70 20Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M95 16L103 20L95 25L87 20ZM-95 16L-87 20L-95 25L-103 20Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-113 19L-104 24L-113 29L-121 24ZM113 19L121 24L113 29L104 24Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-130 19L-122 24L-130 29L-138 24ZM130 19L138 24L130 29L122 24Z"/><path fill="#5db83a" stroke="#5db83a" d="M26 6L34 10L26 15L18 10Z"/><path fill="#6cc644" stroke="#6cc644" d="M43 6L51 10L43 15L35 10Z"/><path fill="#569e36" stroke="#569e36" d="M51 20L43 24L43 15L51 10Z"/><path fill="#d8c08c" stroke="#d8c08c" d="M-43 6L-35 10L-43 15L-51 10Z"/><path fill="#3d7926" stroke="#3d7926" d="M-69 20L-61 24L-61 15L-69 10Z"/><path fill="#569e36" stroke="#569e36" d="M69 20L61 24L61 15L69 10Z"/><path fill="#47832d" stroke="#47832d" d="M52 20L61 24L61 15L52 10Z"/><path fill="#6cc644" stroke="#6cc644" d="M9 -4L17 0L9 5L1 0Z"/><path fill="#569e36" stroke="#569e36" d="M17 10L9 14L9 5L17 0Z"/><path fill="#5db83a" stroke="#5db83a" d="M-9 -4L-1 0L-9 5L-17 0Z"/><path fill="#6cc644" stroke="#6cc644" d="M-26 -4L-18 0L-26 5L-34 0Z"/><path fill="#47832d" stroke="#47832d" d="M-34 10L-26 14L-26 5L-34 0Z"/><path fill="#8f8f8f" stroke="#8f8f8f" d="M-52 10L-61 14L-61 5L-52 0Z"/><path fill="#767676" stroke="#767676" d="M-69 10L-61 14L-61 5L-69 0Z"/><path fill="#8f8f8f" stroke="#8f8f8f" d="M-52 0L-61 4L-61 -5L-52 -10Z"/><path fill="#767676" stroke="#767676" d="M-69 0L-61 4L-61 -5L-69 -10Z"/><path fill="#7d7d7d" stroke="#7d7d7d" d="M-52 -10L-61 -6L-61 -15L-52 -20Z"/><path fill="#676767" stroke="#676767" d="M-69 -10L-61 -6L-61 -15L-69 -20Z"/><path fill="#fec404" stroke="#fec404" d="M-61 -34L-52 -30L-61 -25L-69 -30Z"/><path fill="#a88103" stroke="#a88103" d="M-69 -20L-61 -16L-61 -25L-69 -30Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M9 -44L17 -40L9 -35L1 -40Z"/><path fill="#3149ab" stroke="#3149ab" d="M17 -30L9 -26L9 -35L17 -40Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M-9 -44L-1 -40L-9 -35L-17 -40Z"/><path fill="#283c8d" stroke="#283c8d" d="M-17 -30L-9 -26L-9 -35L-17 -40Z"/><path fill="#5db83a" stroke="#5db83a" d="M52 21L60 25L52 30L44 25ZM-69 21L-61 25L-69 30L-77 25ZM69 21L77 25L69 30L61 25Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M-87 21L-78 25L-87 30L-95 25ZM87 21L95 25L87 30L78 25ZM-104 21L-96 25L-104 30L-112 25Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M104 24L112 29L104 34L96 29Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-121 24L-113 29L-121 34L-129 29ZM121 24L129 29L121 34L113 29ZM-139 24L-130 29L-139 34L-147 29ZM139 24L147 29L139 34L130 29Z"/><path fill="#6cc644" stroke="#6cc644" d="M17 11L25 15L17 20L9 15ZM-35 11L-27 15L-35 20L-43 15ZM35 11L43 15L35 20L27 15Z"/><path fill="#d8c08c" stroke="#d8c08c" d="M-52 11L-44 15L-52 20L-60 15Z"/><path fill="#8f7f5c" stroke="#8f7f5c" d="M-60 25L-52 29L-52 20L-60 15Z"/><path fill="#6cc644" stroke="#6cc644" d="M0 1L8 5L0 10L-8 5Z"/><path fill="#569e36" stroke="#569e36" d="M8 15L0 19L0 10L8 5Z"/><path fill="#47832d" stroke="#47832d" d="M-8 15L0 19L0 10L-8 5Z"/><path fill="#6cc644" stroke="#6cc644" d="M-17 1L-9 5L-17 10L-25 5Z"/><path fill="#569e36" stroke="#569e36" d="M-9 15L-17 19L-17 10L-9 5Z"/><path fill="#47832d" stroke="#47832d" d="M-25 15L-17 19L-17 10L-25 5Z"/><path fill="#fec404" stroke="#fec404" d="M-52 -29L-44 -25L-52 -20L-60 -25Z"/><path fill="#a88103" stroke="#a88103" d="M-60 -15L-52 -11L-52 -20L-60 -25Z"/><path fill="#3d5bd6" stroke="#3d5bd6" d="M0 -39L8 -35L0 -30L-8 -35Z"/><path fill="#3149ab" stroke="#3149ab" d="M8 -25L0 -21L0 -30L8 -35Z"/><path fill="#283c8d" stroke="#283c8d" d="M-8 -25L0 -21L0 -30L-8 -35Z"/><path fill="#d8c08c" stroke="#d8c08c" d="M-61 26L-52 30L-61 35L-69 30Z"/><path fill="#6cc644" stroke="#6cc644" d="M61 26L69 30L61 35L52 30Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M78 26L86 30L78 35L70 30ZM-78 26L-70 30L-78 35L-86 30Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-95 29L-87 34L-95 39L-103 34ZM95 29L103 34L95 39L87 34ZM-113 29L-104 34L-113 39L-121 34Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M113 29L121 34L113 39L104 34Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-130 29L-122 34L-130 39L-138 34Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M130 29L138 34L130 39L122 34ZM-147 29L-139 34L-147 39L-155 34Z"/><path fill="#6cc644" stroke="#6cc644" d="M-9 16L-1 20L-9 25L-17 20ZM9 16L17 20L9 25L1 20ZM26 16L34 20L26 25L18 20Z"/><path fill="#569e36" stroke="#569e36" d="M34 30L26 34L26 25L34 20Z"/><path fill="#6cc644" stroke="#6cc644" d="M-26 16L-18 20L-26 25L-34 20Z"/><path fill="#3d7926" stroke="#3d7926" d="M-51 30L-43 34L-43 25L-51 20Z"/><path fill="#6cc644" stroke="#6cc644" d="M43 16L51 20L43 25L35 20Z"/><path fill="#569e36" stroke="#569e36" d="M51 30L43 34L43 25L51 20Z"/><path fill="#47832d" stroke="#47832d" d="M35 30L43 34L43 25L35 20Z"/><path fill="#8f8f8f" stroke="#8f8f8f" d="M-35 20L-43 24L-43 15L-35 10Z"/><path fill="#767676" stroke="#767676" d="M-51 20L-43 24L-43 15L-51 10Z"/><path fill="#8f8f8f" stroke="#8f8f8f" d="M-35 10L-43 14L-43 5L-35 0Z"/><path fill="#767676" stroke="#767676" d="M-51 10L-43 14L-43 5L-51 0Z"/><path fill="#7d7d7d" stroke="#7d7d7d" d="M-35 0L-43 4L-43 -5L-35 -10Z"/><path fill="#676767" stroke="#676767" d="M-51 0L-43 4L-43 -5L-51 -10Z"/><path fill="#fec404" stroke="#fec404" d="M-43 -24L-35 -20L-43 -15L-51 -20Z"/><path fill="#cb9d03" stroke="#cb9d03" d="M-35 -10L-43 -6L-43 -15L-35 -20Z"/><path fill="#a88103" stroke="#a88103" d="M-51 -10L-43 -6L-43 -15L-51 -20Z"/><path fill="#52b847" stroke="#52b847" d="M-9 -24L-1 -20L-9 -15L-17 -20ZM9 -24L17 -20L9 -15L1 -20Z"/><path fill="#5db83a" stroke="#5db83a" d="M35 31L43 35L35 40L27 35Z"/><path fill="#6cc644" stroke="#6cc644" d="M52 31L60 35L52 40L44 35Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M-52 31L-44 35L-52 40L-60 35ZM69 31L77 35L69 40L61 35Z"/><path fill="#d8c08c" stroke="#d8c08c" d="M-69 31L-61 35L-69 40L-77 35Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M87 31L95 35L87 40L78 35ZM-87 31L-78 35L-87 40L-95 35Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-104 34L-96 39L-104 44L-112 39Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M104 34L112 39L104 44L96 39Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-121 34L-113 39L-121 44L-129 39Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M121 34L129 39L121 44L113 39Z"/><path fill="#6cc644" stroke="#6cc644" d="M-17 21L-9 25L-17 30L-25 25Z"/><path fill="#5db83a" stroke="#5db83a" d="M17 21L25 25L17 30L9 25Z"/><path fill="#4a932e" stroke="#4a932e" d="M25 35L17 39L17 30L25 25Z"/><path fill="#5db83a" stroke="#5db83a" d="M-35 21L-27 25L-35 30L-43 25Z"/><path fill="#3d7926" stroke="#3d7926" d="M-43 35L-35 39L-35 30L-43 25Z"/><path fill="#6f4822" stroke="#6f4822" d="M8 25L0 29L0 20L8 15ZM8 15L0 19L0 10L8 5Z"/><path fill="#5c3b1c" stroke="#5c3b1c" d="M-8 15L0 19L0 10L-8 5Z"/><path fill="#36792f" stroke="#36792f" d="M-25 5L-17 9L-17 0L-25 -5Z"/><path fill="#429339" stroke="#429339" d="M25 5L17 9L17 0L25 -5Z"/><path fill="#3e9e3a" stroke="#3e9e3a" d="M-17 -19L-9 -15L-17 -10L-25 -15Z"/><path fill="#296826" stroke="#296826" d="M-25 -5L-17 -1L-17 -10L-25 -15Z"/><path fill="#3e9e3a" stroke="#3e9e3a" d="M17 -19L25 -15L17 -10L9 -15Z"/><path fill="#327e2e" stroke="#327e2e" d="M25 -5L17 -1L17 -10L25 -15Z"/><path fill="#52b847" stroke="#52b847" d="M0 -29L8 -25L0 -20L-8 -25Z"/><path fill="#429339" stroke="#429339" d="M8 -15L0 -11L0 -20L8 -25Z"/><path fill="#36792f" stroke="#36792f" d="M-8 -15L0 -11L0 -20L-8 -25Z"/><path fill="#5db83a" stroke="#5db83a" d="M26 36L34 40L26 45L18 40Z"/><path fill="#6cc644" stroke="#6cc644" d="M-43 36L-35 40L-43 45L-51 40Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M43 36L51 40L43 45L35 40ZM-61 36L-52 40L-61 45L-69 40ZM61 36L69 40L61 45L52 40Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-78 39L-70 44L-78 49L-86 44ZM78 39L86 44L78 49L70 44ZM-95 39L-87 44L-95 49L-103 44ZM95 39L103 44L95 49L87 44ZM-113 39L-104 44L-113 49L-121 44Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M113 39L121 44L113 49L104 44ZM-130 39L-122 44L-130 49L-138 44Z"/><path fill="#6cc644" stroke="#6cc644" d="M9 26L17 30L9 35L1 30Z"/><path fill="#569e36" stroke="#569e36" d="M17 40L9 44L9 35L17 30Z"/><path fill="#47832d" stroke="#47832d" d="M1 40L9 44L9 35L1 30Z"/><path fill="#569e36" stroke="#569e36" d="M-1 40L-9 44L-9 35L-1 30Z"/><path fill="#47832d" stroke="#47832d" d="M-17 40L-9 44L-9 35L-17 30Z"/><path fill="#6cc644" stroke="#6cc644" d="M-26 26L-18 30L-26 35L-34 30Z"/><path fill="#569e36" stroke="#569e36" d="M-18 40L-26 44L-26 35L-18 30Z"/><path fill="#47832d" stroke="#47832d" d="M-34 40L-26 44L-26 35L-34 30Z"/><path fill="#296826" stroke="#296826" d="M-17 10L-9 14L-9 5L-17 0Z"/><path fill="#327e2e" stroke="#327e2e" d="M17 10L9 14L9 5L17 0Z"/><path fill="#52b847" stroke="#52b847" d="M-9 -14L-1 -10L-9 -5L-17 -10Z"/><path fill="#36792f" stroke="#36792f" d="M-17 0L-9 4L-9 -5L-17 -10Z"/><path fill="#52b847" stroke="#52b847" d="M9 -14L17 -10L9 -5L1 -10Z"/><path fill="#429339" stroke="#429339" d="M17 0L9 4L9 -5L17 -10Z"/><path fill="#6cc644" stroke="#6cc644" d="M-17 41L-9 45L-17 50L-25 45Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M17 41L25 45L17 50L9 45ZM0 41L8 45L0 50L-8 45Z"/><path fill="#6cc644" stroke="#6cc644" d="M-35 41L-27 45L-35 50L-43 45Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M35 41L43 45L35 50L27 45ZM-52 41L-44 45L-52 50L-60 45ZM52 41L60 45L52 50L44 45ZM69 41L77 45L69 50L61 45Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-69 44L-61 49L-69 54L-77 49ZM-87 44L-78 49L-87 54L-95 49ZM87 44L95 49L87 54L78 49Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-104 44L-96 49L-104 54L-112 49ZM104 44L112 49L104 54L96 49Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-121 44L-113 49L-121 54L-129 49Z"/><path fill="#429339" stroke="#429339" d="M8 15L0 19L0 10L8 5Z"/><path fill="#36792f" stroke="#36792f" d="M-8 15L0 19L0 10L-8 5Z"/><path fill="#3e9e3a" stroke="#3e9e3a" d="M0 -9L8 -5L0 0L-8 -5Z"/><path fill="#327e2e" stroke="#327e2e" d="M8 5L0 9L0 0L8 -5Z"/><path fill="#296826" stroke="#296826" d="M-8 5L0 9L0 0L-8 -5Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M-9 46L-1 50L-9 55L-17 50Z"/><path fill="#6cc644" stroke="#6cc644" d="M26 46L34 50L26 55L18 50ZM9 46L17 50L9 55L1 50Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M-26 46L-18 50L-26 55L-34 50ZM-43 46L-35 50L-43 55L-51 50ZM43 46L51 50L43 55L35 50ZM-61 46L-52 50L-61 55L-69 50Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M61 49L69 54L61 59L52 54ZM-78 49L-70 54L-78 59L-86 54Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M78 49L86 54L78 59L70 54ZM-95 49L-87 54L-95 59L-103 54ZM95 49L103 54L95 59L87 54ZM-113 49L-104 54L-113 59L-121 54ZM113 49L121 54L113 59L104 54Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M0 51L8 55L0 60L-8 55ZM17 51L25 55L17 60L9 55ZM-35 51L-27 55L-35 60L-43 55ZM52 51L60 55L52 60L44 55Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-17 54L-9 59L-17 64L-25 59ZM35 54L43 59L35 64L27 59ZM-52 54L-44 59L-52 64L-60 59Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-69 54L-61 59L-69 64L-77 59ZM69 54L77 59L69 64L61 59Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-87 54L-78 59L-87 64L-95 59Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M87 54L95 59L87 64L78 59ZM-104 54L-96 59L-104 64L-112 59Z"/><path fill="#ebd49a" stroke="#ebd49a" d="M26 56L34 60L26 65L18 60Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-9 59L-1 64L-9 69L-17 64Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M9 59L17 64L9 69L1 64ZM-26 59L-18 64L-26 69L-34 64ZM-43 59L-35 64L-43 69L-51 64ZM43 59L51 64L43 69L35 64Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M-61 59L-52 64L-61 69L-69 64Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M61 59L69 64L61 69L52 64ZM-78 59L-70 64L-78 69L-86 64ZM78 59L86 64L78 69L70 64ZM-95 59L-87 64L-95 69L-103 64Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M95 59L103 64L95 69L87 64Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M0 64L8 69L0 74L-8 69ZM-17 64L-9 69L-17 74L-25 69Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M17 64L25 69L17 74L9 69ZM-35 64L-27 69L-35 74L-43 69Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M35 64L43 69L35 74L27 69ZM-52 64L-44 69L-52 74L-60 69Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M52 64L60 69L52 74L44 69ZM-69 64L-61 69L-69 74L-77 69ZM69 64L77 69L69 74L61 69Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-87 64L-78 69L-87 74L-95 69Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M87 64L95 69L87 74L78 69ZM-9 69L-1 74L-9 79L-17 74ZM9 69L17 74L9 79L1 74Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-26 69L-18 74L-26 79L-34 74ZM26 69L34 74L26 79L18 74ZM-43 69L-35 74L-43 79L-51 74ZM43 69L51 74L43 79L35 74ZM-61 69L-52 74L-61 79L-69 74ZM61 69L69 74L61 79L52 74ZM0 74L8 79L0 84L-8 79ZM-17 74L-9 79L-17 84L-25 79Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M17 74L25 79L17 84L9 79Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-35 74L-27 79L-35 84L-43 79Z"/><path fill="#5db2ee" stroke="#5db2ee" d="M35 74L43 79L35 84L27 79Z"/><path fill="#4fa3e6" stroke="#4fa3e6" d="M-52 74L-44 79L-52 84L-60 79ZM52 74L60 79L52 84L44 79ZM-9 79L-1 84L-9 89L-17 84ZM9 79L17 84L9 89L1 84ZM26 79L34 84L26 89L18 84ZM-43 79L-35 84L-43 89L-51 84ZM43 79L51 84L43 89L35 84ZM0 84L8 89L0 94L-8 89ZM35 84L43 89L35 94L27 89Z"/></svg><!--POSTER:end--></div>
+    <canvas id="island" aria-label="Interaktyvi 3D kubelių sala, kuri statosi slenkant. Palieskite salą, kad padėtumėte bloką." role="img"></canvas>
+    <span class="chip meter" id="meter" aria-hidden="true">0 blokų</span>
+    <div class="stage-ui">
+      <p class="chip legend" id="legend"><span class="dot" aria-hidden="true"></span><span><b>Geltonas kubelis</b> tik siūlo kitą bloką. Ką statyti, sprendžia vaikas.<span class="gl-only" id="tap-hint"> Palieskite salą: padėkite savo bloką.</span></span></p>
+      <button type="button" class="chip sound" id="sound" aria-pressed="false" aria-label="Garsas: išjungtas" data-track="sound-toggle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="w" d="M16 9.5a3.5 3.5 0 0 1 0 5" opacity=".25"/><path class="w" d="M18.5 7a7 7 0 0 1 0 10" opacity=".25"/></svg>
+        <span id="sound-txt">Garsas</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="story-body">
+    <header class="top">
+      <div class="wrap nav">
+        <a class="brand" href="https://robotikosakademija.lt/" rel="noopener" data-track="logo-ra">
+          <img src="../v2/assets/ra-logo-white.svg" alt="Robotikos akademija" width="616" height="171">
+          <span class="lab">Žaidimų kūrėjai · 1–6 klasė</span>
+        </a>
+        <a class="tel" href="tel:+37052525713" data-cta="tel-header">+370 5 25 25 713</a>
+        <a class="btn btn-yellow" href="#sarasas" data-cta="nav">Užsirašyti</a>
+      </div>
+    </header>
+
+    <section class="hero" aria-labelledby="h1" data-section="hero">
+      <div class="wrap">
+        <div class="hero-copy">
+          <p class="eyebrow"><i aria-hidden="true"></i>Robotikos akademijos būrelis · 1–6 klasė</p>
+          <h1 id="h1">Iš žaidėjo į <span class="hl">žaidimų kūrėją</span></h1>
+          <p class="sub"><b>DI ir žaidimų kūrimas 6–12 metų vaikams.</b> Vaikai Minecraft Education pasaulyje kuria mokomuosius žaidimus draugams<span class="m-hide">: skaičiuoja, skaito ir pristato</span>. DI valdo tik mentorius.</p>
+          <ul class="facts" aria-label="Pagrindiniai faktai">
+            <li><b>45&nbsp;min</b> kartą per savaitę</li>
+            <li>nuo <b>25&nbsp;€</b>/mėn.</li>
+            <li>mokykla / Tech Zity</li>
+          </ul>
+          <div class="cta-row">
+            <a class="btn btn-yellow" href="#sarasas" data-cta="hero">Užsirašyti į laukiančiųjų sąrašą<span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
+            <a class="ghost-link" href="#mokykloms" data-cta="hero-org">Pakvieskite į savo mokyklą</a>
+          </div>
+          <p class="micro">Užtruks apie minutę. Parašysime, kai jūsų mokykloje ar centre susirinks grupė.</p>
+          <p class="legal-line">Nėra oficiali Minecraft Education paslauga. Nesusijusi su Mojang ar Microsoft.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="chap" aria-labelledby="c1" data-section="chap1" data-chap="1">
+      <div class="wrap">
+        <article class="chap-card">
+          <p class="step"><i style="background:var(--grass)" aria-hidden="true">1</i>Mokomės mokytis</p>
+          <h2 id="c1">Suplanuok</h2>
+          <p>Pamoka prasideda trumpu klausimu „Ką prisimeni?“. Skaičius ir formas pirmiausia dėliojame iš popierinių kubelių ant stalo, tada statome ekrane.</p>
+          <div class="age"><span><b>1–3&nbsp;kl.</b> Statybos planą sudarome kartu su mentoriumi.</span><span><b>4–6&nbsp;kl.</b> Komanda pati suskaido užduotį į etapus.</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="chap" aria-labelledby="c2" data-section="chap2" data-chap="2">
+      <div class="wrap">
+        <article class="chap-card">
+          <p class="step"><i style="background:var(--dirt);color:#fff" aria-hidden="true">2</i>Ekranas, prie kurio vaikas kuria</p>
+          <h2 id="c2">Pastatyk</h2>
+          <p>Kiekvienas vaikas dirba prie savo ekrano, todėl niekas neužgožia kito. Bazę stato visi kartu: jaunesni greta, vyresni pasiskirsto vaidmenis.</p>
+          <p>Skaičiai čia turi prasmę: vartai atsidaro tik tada, kai blokų skaičius teisingas.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="chap" aria-labelledby="c3" data-section="chap3" data-chap="3">
+      <div class="wrap">
+        <article class="chap-card">
+          <p class="step"><i style="background:var(--stone)" aria-hidden="true">3</i>Žaidimą išbando draugai</p>
+          <h2 id="c3">Išbandyk</h2>
+          <p>Komandos keičiasi vietomis ir žaidžia vieni kitų žaidimus. Vaikas žodžiu paaiškina, kaip žaisti.</p>
+          <div class="ai-note"><span class="dot" aria-hidden="true"></span><span><b>DI valdo tik mentorius.</b> Vaikas aprašo idėją, mentorius ją paleidžia su DI, o vaikai išbando ir ieško, kur DI suklydo.</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="chap" aria-labelledby="c4" data-section="chap4" data-chap="4">
+      <div class="wrap">
+        <article class="chap-card">
+          <p class="step"><i style="background:var(--yellow)" aria-hidden="true">4</i>Pristatyti, ką išmokai</p>
+          <h2 id="c4">Pataisyk ir parodyk</h2>
+          <p>Pabaigoje viena minutė pokalbiui: kas buvo sunkiausia ir ką kitą kartą darysime kitaip. Pusmečio pabaigoje vaikas parodo savo žaidimą ir jums.</p>
+          <a class="btn btn-yellow" href="#sarasas" data-cta="story-end">Užsirašyti į laukiančiųjų sąrašą</a>
+        </article>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ===================== 10 SEKUNDŽIŲ FAKTAI ===================== -->
+<section class="on-paper" id="faktai" aria-labelledby="h-facts" data-section="facts">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="h-facts">Viskas, ką norite žinoti per 10 sekundžių</h2></div>
+    <div class="grid-4">
+      <div class="tile"><small>Kam</small><b>1–6 klasė · 6–12 metų</b><span>dvi grupės: 1–3 kl. (6–9 m.) ir 4–6 kl. (10–12 m.)</span></div>
+      <div class="tile"><small>Kiek</small><b>45&nbsp;min × 4 per mėn.</b><span>kartą per savaitę, po pamokų · komandos po 2–3</span></div>
+      <div class="tile"><small>Kur</small><b>Mokykloje arba Tech Zity</b><span>Tech Zity: Panerių g. 43, Vilnius · mokykloje, kai ji mus pakviečia</span></div>
+      <div class="tile"><small>Kaina</small><b><span class="nb">25&nbsp;€</span> arba <span class="nb">39&nbsp;€</span>/mėn.</b><span>25&nbsp;€ mokykloje · 39&nbsp;€ Tech Zity centre</span></div>
+    </div>
+    <ul class="trust" aria-label="Robotikos akademija skaičiais">
+      <li><b>13+</b> metų patirties</li>
+      <li><b>10&nbsp;000+</b> vaikų per metus</li>
+      <li><b>9&nbsp;iš&nbsp;10</b> klientų rekomenduoja</li>
+      <li><a href="#apie" data-track="trust-more">Apie Robotikos akademiją</a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== GRUPĖS ===================== -->
+<section class="on-paper-2" id="grupes" aria-labelledby="h-groups" data-section="groups">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="h-groups">Dvi grupės pagal amžių</h2><p>Jaunesni ir vyresni mokosi atskirai. DI įrankius visada valdo mentorius.</p></div>
+    <div class="cards-2">
+      <article class="card"><h3>1–3 klasė · 6–9 metų</h3><p>Stato Minecraft Education pasaulius ir sugalvoja paprastus DI pagalbininkus bei personažus: vaikas aprašo idėją, mentorius ją paleidžia su DI, o vaikai išbando ir ieško, kur DI suklydo.</p></article>
+      <article class="card"><h3>4–6 klasė · 10–12 metų</h3><p>Kuria žaidimo logiką su kodo blokais (Code Builder) ir DI personažus su dialogais: vaikas rašo personažo aprašymą ir užklausą, mentorius ją paleidžia, komanda tikrina ir taiso.</p><p class="foot">Programą 4–6 klasėms dar rengiame. Pirmąsias temas atsiųsime laukiančiųjų sąrašui.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PAMOKA ===================== -->
+<section class="on-paper" id="pamoka" aria-labelledby="h-lesson" data-section="lesson">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="h-lesson">Viena pamoka, minutė po minutės</h2><p>Pavyzdys jaunesnei grupei (1–3 kl.): „Daugybos tvirtovė“. Tai pamokos plano pavyzdys, ne įrašas iš vykusios pamokos.</p></div>
+    <ol class="timeline">
+      <li><span class="t">0–3 min</span><div><b>Ką prisimeni?</b><span>Trumpas klausimas apie praėjusią pamoką ir šios dienos istorija: audra sugriovė Marso bazės sieną, komanda gauna blokų normą.</span></div></li>
+      <li><span class="t">3–8 min</span><div><b>Pirma rankomis</b><span>3 eilės po 4 = 12. Stačiakampis iš popierinių kubelių ant stalo, dar be ekrano.</span></div></li>
+      <li><span class="t">11–26 min</span><div><b>Statymas komandose</b><span>Kiekviena siena turi kortelę: 4×6, 5×5, 3×8. Vartai atsidaro tik tada, kai blokų skaičius teisingas.</span></div></li>
+    </ol>
+    <details class="more" data-track="lesson-more">
+      <summary>Rodyti visas 8 dalis</summary>
+      <ol class="timeline" style="margin-top:10px">
+        <li><span class="t">8–11 min</span><div><b>Prisijungimas</b><span>Pasaulis jau paruoštas. Mentorius patikrina, kad visi mato tą patį žemėlapį.</span></div></li>
+        <li><span class="t">26–36 min</span><div><b>Kurk žaidimą draugui</b><span>Komanda pastato savo vartus ir užrašo klausimą ant ženklo. Tai ir rašymo pratimas.</span></div></li>
+        <li><span class="t">36–41 min</span><div><b>Žaidžiam vieni kitų žaidimus</b><span>Komandos keičiasi vietomis ir sprendžia svetimas sienas.</span></div></li>
+        <li><span class="t">41–44 min</span><div><b>Parodyk ir paaiškink</b><span>Kiekviena komanda parodo savo vartus ir atsako: „Kur gyvenime matai eiles × stulpelius?“ Kiaušinių dėklas, langai, šokolado plytelė.</span></div></li>
+        <li><span class="t">44–45 min</span><div><b>Viena minutė pokalbiui</b><span>Kas buvo sunkiausia ir ką kitą kartą darysime kitaip. Visi atsijungia, įranga lieka būrelyje.</span></div></li>
+      </ol>
+    </details>
+    <p class="note">Keturių pamokų ciklas: trys Minecraft Education pasaulyje, ketvirta žaidimo kūrimas su DI.</p>
+  </div>
+</section>
+
+<!-- ===================== MINECRAFT EDUCATION ===================== -->
+<section class="on-paper-2" id="minecraft-education" aria-labelledby="h-mce" data-section="mce">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="h-mce">Minecraft Education: kas tai</h2><p>Trumpai tėvams: kuo skiriasi nuo žaidimo namie ir kuo naudinga.</p></div>
+    <div class="cards-2">
+      <article class="card"><h3>Kas yra Minecraft Education?</h3><p>Atskira Minecraft versija mokykloms ir būreliams. Microsoft duomenimis, joje daugiau nei 600 pamokų, kodavimo įrankis Code Builder ir mokytojo valdymas.</p></article>
+      <article class="card"><h3>Kuo skiriasi nuo žaidimo namie?</h3><p>Vaikui nereikia savo Microsoft paskyros: prisijungimą suteikia būrelis. Mentorius valdo pasaulį: gali sustabdyti, perkelti ar surinkti visus vaikus vienu mygtuku.</p></article>
+      <article class="card"><h3>Kuo naudinga vaikui?</h3><p>Vaikas atlieka misiją: skaičiuoja, planuoja, rašo, programuoja ir dirba komandoje. Atvirai: tyrimai apie Minecraft mokymąsi dar nėra tvirti, todėl pažymių pokyčio nežadame. Žadame tai, ką matysite: ką vaikas sukūrė ir kaip jis tai paaiškina.</p></article>
+      <article class="card"><h3>Tikras vaizdas: oficialūs video</h3><p><a href="https://www.youtube.com/watch?v=QLDY_HKzoOc" rel="noopener" target="_blank" data-cta="yt-agent">Robotas Agent ir programavimas blokais</a> (4:41, anglų k.)</p><p><a href="https://www.youtube.com/watch?v=qoh2DTp8Qjg" rel="noopener" target="_blank" data-cta="yt-ai">Kaip Minecraft Education moko apie DI</a> (anglų k.)</p><p class="foot">Atsidaro YouTube, Microsoft video.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SAUGUMAS ===================== -->
+<section class="on-paper" id="saugumas" aria-labelledby="h-safe" data-section="safety">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="h-safe">Saugu: be paskyrų, DI tik per mentorių</h2><p>Taisyklės, kurių laikomės kiekvienoje pamokoje.</p></div>
+    <div class="safe">
+      <article class="card"><img src="../v2/assets/v1/ico-shield.svg" alt="" loading="lazy"><div><h3>Vaikas neturi asmeninės paskyros</h3><p>Vaikui nereikia savo Microsoft paskyros: prisijungimą suteikia būrelis.</p></div></article>
+      <article class="card"><img src="../v2/assets/v1/ico-chip.svg" alt="" loading="lazy"><div><h3>DI valdo tik mentorius</h3><p>Vaikai neturi ChatGPT ar kitų DI paskyrų. Jokio vaiko vardo, nuotraukos ar balso į DI įrankius.</p></div></article>
+      <article class="card"><img src="../v2/assets/v1/ico-heart.svg" alt="" loading="lazy"><div><h3>Vaiko vardo neprašome</h3><p>Renkame tik tai, ko reikia grupei suburti: kontaktą, vaiko klasę, vietą ir patogias dienas. Seansų įrašai įsijungia tik jums leidus.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MENTORIAI + SKAIČIAI ===================== -->
+<section class="on-blue" id="apie" aria-labelledby="h-proof" data-section="proof">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="h-proof">Mentorius klausia, vaikai aiškina</h2><p>Programą kuria Robotikos akademijos ugdymo turinio komanda. Pamokas veda mūsų mentoriai, praėję Minecraft Education mokymus. Visas programas tobuliname pagal 13 metų būrelių patirtį, mentorių ataskaitas po kiekvienos pamokos ir tėvų nuomonę.</p></div>
+    <div class="nums">
+      <div class="num"><b>13+</b><span>metų patirties</span></div>
+      <div class="num"><b>10&nbsp;000+</b><span>vaikų per metus</span></div>
+      <div class="num"><b>110+</b><span>mentorių</span></div>
+      <div class="num"><b>650+</b><span>vietų Lietuvoje</span></div>
+    </div>
+    <p class="proof-line"><b>9&nbsp;iš&nbsp;10</b> klientų rekomenduoja · Tėvai mūsų stovyklų mentorius įvertino <b>9,8 iš 10</b>*</p>
+    <p class="proof-line" style="font-size:.85rem;margin-top:4px">* Robotikos akademijos tėvų apklausa, 2025 m. vasaros stovyklos · Vaikų technologinio ugdymo organizacija, įregistruota 2013 m. · <a href="https://robotikosakademija.lt/" rel="noopener" data-track="proof-ra">robotikosakademija.lt</a></p>
+    <!-- ⚠️ STEM.org akreditacija galioja iki 2026-10-31 (v2/config.js trust.stemOrg.validUntil). Patikrinti pratęsimą prieš paleidžiant. -->
+    <a class="stem" href="https://blockchain.stem.org/6e43c2b3-e72b-4a8c-9707-ecb45a6cc024" rel="noopener" target="_blank" data-track="stem-verify"><img src="../v2/assets/stem-org-accredited-badge-200.png" alt="" width="48" height="48" loading="lazy">STEM.org Accredited™ akredituota organizacija · Patikrinti akreditaciją</a>
+  </div>
+</section>
+
+<!-- ===================== KAINA ===================== -->
+<section class="on-paper" id="kaina" aria-labelledby="h-price" data-section="price">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="h-price">Kaina ir kas įskaičiuota</h2><p>Kaina už 4 pamokas po 45 min per mėnesį. Vieta priklauso nuo to, kur susirenka grupė.</p></div>
+    <!-- ⚠️ „Pirmoji pamoka nemokama“ (v1) čia sąmoningai NERODOMA: v2 config firstLessonFree:false. Under review (Kris + Džiugas). -->
+    <div class="prices">
+      <article class="price best"><small>Mokykloje</small><p class="amt">25&nbsp;€ <span>/ mėn.</span></p><p class="per">apie 6,25&nbsp;€ už pamoką</p><p>Vaiko mokykloje po pamokų, vežioti nereikia. Grupė atsiranda, kai mokykla mus pakviečia.</p></article>
+      <article class="price"><small>Tech Zity centre</small><p class="amt">39&nbsp;€ <span>/ mėn.</span></p><p class="per">apie 9,75&nbsp;€ už pamoką</p><p>Tech Zity centre, Panerių g. 43, Vilnius.</p></article>
+    </div>
+    <ul class="incl" aria-label="Kas įskaičiuota">
+      <li><img src="../v2/assets/v1/ico-check-navy.svg" alt=""><span>4 pamokos per mėnesį po 45 min</span></li>
+      <li><img src="../v2/assets/v1/ico-check-navy.svg" alt=""><span>įranga vietoje: mokykloje mokyklos kompiuteriai, centre mūsų planšetės ar kompiuteriai</span></li>
+      <li><img src="../v2/assets/v1/ico-check-navy.svg" alt=""><span>programa ir paruošti pasauliai</span></li>
+      <li><img src="../v2/assets/v1/ico-check-navy.svg" alt=""><span>prisijungimas per būrelį, be vaiko paskyros</span></li>
+      <li><img src="../v2/assets/v1/ico-check-navy.svg" alt=""><span>Robotikos akademijos mentorius</span></li>
+    </ul>
+    <p class="note"><b>Startas.</b> Grupės startuoja, kai susirenka pakankamai vaikų. Laukiančiųjų sąraše esantiems pranešime pirmiesiems. Sutartį, tvarkaraštį ir mokėjimo sąlygas atsiųsime prieš registraciją. Sąrašas niekuo neįpareigoja. Popietėmis po pamokų, kartą per savaitę. Dieną renkatės formoje, laiką derinsime pagal daugumą.</p>
+    <div class="cta-block">
+      <a class="btn btn-yellow" href="#sarasas" data-cta="price">Užsirašyti į laukiančiųjų sąrašą</a>
+      <a class="btn btn-back" href="#mokykloms" data-cta="price-org">Pakvieskite į savo mokyklą</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MOKYKLOMS ===================== -->
+<section class="on-paper-2" id="mokykloms-info" aria-labelledby="h-school" data-section="school">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="h-school">Mokykloms: būrelis jūsų mokykloje po pamokų</h2><p>Mokyklos vadovams, pavaduotojams ugdymui ir būrelių koordinatoriams. Tėvams tai patogiausia vieta: vaikas lieka mokykloje, vežioti nereikia.</p></div>
+    <ul class="school-tiles" style="padding:0">
+      <li>Mentorius, programa, pasauliai ir prisijungimai: mūsų</li>
+      <li>Mokykla duoda klasę su kompiuteriais po pamokų</li>
+      <li>Mokyklai nekainuoja: tėvams 25&nbsp;€/mėn.</li>
+      <li>Registraciją ir mokėjimus tvarkome mes</li>
+    </ul>
+    <p class="note">Grupės dydį ir pradžios datą suderiname su mokykla. Robotikos akademijos būreliai jau vyksta daugiau nei 650 vietų Lietuvoje. Minecraft Education veikia Windows, macOS, ChromeOS (Chromebook) ir iPad įrenginiuose; įdiegimą ir prisijungimus suderiname su mokyklos IT.</p>
+    <div class="cta-block"><a class="btn btn-navy" href="#mokykloms" data-cta="school-block">Pakvieskite į savo mokyklą</a></div>
+  </div>
+</section>
+
+<!-- ===================== DUK ===================== -->
+<section class="on-paper faq" id="duk" aria-labelledby="h-faq" data-section="faq">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="h-faq">Tėvų klausimai</h2><p>Atsakome tiesiai, įskaitant tai, ko dar nežinome.</p></div>
+    <details data-faq="kaina"><summary>Kiek kainuoja ir kas įskaičiuota?</summary><p>Mokykloje 25&nbsp;€, Tech Zity centre 39&nbsp;€ per mėnesį už 4 pamokas po 45 min. Įskaičiuota: įranga vietoje (mokykloje mokyklos kompiuteriai, centre mūsų planšetės ar kompiuteriai), programa, paruošti pasauliai ir mentorius. Sutartį ir mokėjimo sąlygas atsiųsime prieš registraciją.</p></details>
+    <details data-faq="kada"><summary>Kada ir kur vyksta?</summary><p>Popietėmis po pamokų, 45 min, kartą per savaitę. Pirmoji grupė renkama Tech Zity centre Vilniuje ir mokyklose, kurios mus pakviečia. Formoje pažymite, kurios dienos jums tinka, o dieną ir laiką derinsime pagal daugumą.</p></details>
+    <details data-faq="apsigalvoti"><summary>O jei vaikui nepatiks arba apsigalvosiu?</summary><p>Laukiančiųjų sąrašas niekuo neįpareigoja. Prieš registraciją gausite sutartį, tvarkaraštį ir mokėjimo sąlygas, ir tik tada nuspręsite.</p></details>
+    <details data-faq="zaidzia"><summary>Vaikas ir taip daug žaidžia. Kodėl dar Minecraft?</summary><p>Čia jis kuria žaidimą su užduotimi: skaičiuoja, skaito ir aiškina kitiems. 45 minutės per savaitę su mentoriumi ir komanda, paruošti pasauliai su mokymosi užduotimis. Namie vaikas dažniausiai stato vienas.</p></details>
+    <details data-faq="drovus"><summary>Mano vaikas drovus. Ar jis ten pritaps?</summary><p>Dirbame komandomis po 2–3, mentorius suskirsto pats. Pirmą pamoką vaikas gali tik stebėti ir prisijungti, kai pats norės. Kiekvienas vaikas dirba prie savo ekrano.</p></details>
+    <details data-faq="di"><summary>Ar vaikas naudos ChatGPT ar kitą DI?</summary><p>Ne pats. DI įrankius valdo tik mentorius savo ekrane. Vaikai neturi paskyrų ir jokių savo duomenų į DI nesuveda. Vaikas mokosi aprašyti idėją žodžiais ir pastebėti, kur DI suklydo.</p></details>
+    <details data-faq="pazymiai"><summary>Ar pagerės matematikos ar skaitymo pažymiai?</summary><p>To nežadame. Didelis Minecraft Education tyrimas su kontroline grupe erdvinio mąstymo pagerėjimo nerado, o tyrimų apžvalga rodo, kad skaitymui programavimas padeda mažiausiai. Žadame tai, ką matysite: ką vaikas sukūrė ir kaip tai paaiškina.</p></details>
+    <details data-faq="saugu"><summary>Ar saugu? Kokius duomenis renkate?</summary><p>Vaikui nereikia savo Microsoft paskyros: prisijungimą suteikia būrelis. DI įrankius valdo tik mentorius savo ekrane. Renkame tik tai, ko reikia grupei suburti: kontaktą, vaiko klasę, vietą ir patogias dienas. Vaiko vardo neprašome. Seansų įrašai įsijungia tik jums leidus.</p></details>
+    <details data-faq="iranga"><summary>Kokia įranga? Ar vaikui reikia savo kompiuterio?</summary><p>Ne. Kiekvienas vaikas prie savo ekrano: mokykloje prie mokyklos kompiuterio, Tech Zity centre prie mūsų planšetės ar kompiuterio. Be vaiko paskyros, DI tik per mentorių. Minecraft Education veikia Windows, macOS, ChromeOS (Chromebook) ir iPad įrenginiuose.</p></details>
+    <details data-faq="patirtis"><summary>Mano vaikas niekada nežaidė Minecraft. Arba atvirkščiai, jis ekspertas.</summary><p>Abu tinka. Pirmoji pamoka moko valdymo, o mentorius turi pradžiamokslį kiekvienam įrenginiui. Ekspertai gauna sunkesnes užduotis, pavyzdžiui, grandines ar kodą, ir padeda kitiems. Paaiškinti kitam irgi yra įgūdis.</p></details>
+    <details data-faq="oficialus"><summary>Ar tai oficialus Minecraft būrelis?</summary><p>Ne. Tai Robotikos akademijos būrelis, kuriame naudojama Minecraft Education. Su Mojang ar Microsoft nesusijęs.</p></details>
+  </div>
+</section>
+
+<!-- ===================== FORMA ===================== -->
+<!-- ⚠️ PROTOTIPAS: forma IDENTIŠKA v2 (tie patys laukai, tas pats Supabase endpoint ra_waitlist ir publishable raktas).
+     Skiriasi tik page_version: 'v3-3d' (v2: 'v2'). ⚠️ Patikrinti, ar Supabase stulpelis page_version priima šią reikšmę, prieš leidžiant srautą.
+     Neuron šios formos niekada nesiuntė: QA naudojo perimtą (netikrą) atsakymą. -->
+<section class="join" id="sarasas" aria-labelledby="h-join" data-section="join">
+  <div class="wrap grid">
+    <div class="aside" data-aside="tevai">
+      <h2 id="h-join">Užsirašykite į laukiančiųjų sąrašą</h2>
+      <p class="lead">Keturi žingsniai, apie minutę. Parašysime, kai jūsų mokykloje ar Tech Zity centre susirinks grupė.</p>
+      <ul>
+        <li><img src="../v2/assets/v1/ico-check.svg" alt=""><span>Be įsipareigojimų ir be mokėjimo. Sutartį ir sąlygas gausite prieš registraciją.</span></li>
+        <li><img src="../v2/assets/v1/ico-check.svg" alt=""><span>Vaiko vardo neprašome: tik klasė, vieta, patogios dienos ir jūsų kontaktas.</span></li>
+        <li><img src="../v2/assets/v1/ico-check.svg" alt=""><span>Dirbate mokykloje? Pasirinkite „Mokyklai“ ir pakvieskite mus.</span></li>
+        <li><img src="../v2/assets/v1/ico-check.svg" alt=""><span>Klausimai? <a href="tel:+37052525713" data-cta="tel-form">+370 5 25 25 713</a></span></li>
+      </ul>
+      <img class="robot-join" src="../v2/assets/robot/robotukas-point.svg" alt="" width="520" height="460" loading="lazy">
+    </div>
+    <div class="aside" data-aside="istaiga" hidden>
+      <h2>Pakvieskite būrelį į savo mokyklą</h2>
+      <p class="lead">Vienas žingsnis. Susisieksime ir aptarsime, kada ir kaip būrelis galėtų vykti jūsų mokykloje.</p>
+      <ul>
+        <li><img src="../v2/assets/v1/ico-check.svg" alt=""><span>Mokyklai tai nekainuoja: programą, mentorių, registraciją ir mokėjimus tvarko Robotikos akademija.</span></li>
+        <li><img src="../v2/assets/v1/ico-check.svg" alt=""><span>Reikia tik klasės po pamokų su mokyklos kompiuteriais (Windows, macOS, ChromeOS ar iPad).</span></li>
+        <li><img src="../v2/assets/v1/ico-check.svg" alt=""><span>Grupės dydį ir pradžios datą suderiname kartu.</span></li>
+        <li><img src="../v2/assets/v1/ico-check.svg" alt=""><span>Klausimai? <a href="tel:+37052525713" data-cta="tel-org">+370 5 25 25 713</a></span></li>
+      </ul>
+      <img class="robot-join" src="../v2/assets/robot/robotukas-point.svg" alt="" width="520" height="460" loading="lazy">
+    </div>
+    <div>
+      <div class="tabs" role="group" aria-label="Kam pildote formą">
+        <button type="button" data-tab="tevai" aria-pressed="true" aria-controls="waitlist">Tėvams</button>
+        <button type="button" data-tab="istaiga" aria-pressed="false" aria-controls="orgform" id="mokykloms">Mokyklai</button>
+      </div>
+
+      <form class="form" id="waitlist" novalidate aria-labelledby="f-count">
+        <div class="progress" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+        <p class="hint" id="f-count" aria-live="polite">1 iš 4 · Vaikas</p>
+
+        <div class="fstep is-on" data-step="1">
+          <h3 tabindex="-1">Kurioje klasėje vaikas?</h3>
+          <p class="hint">Pagal klasę parinksime grupę: 1–3 arba 4–6 klasė. Priešmokyklinukams pranešime apie grupes nuo 1 klasės.</p>
+          <div class="field">
+            <div class="opts" role="radiogroup" aria-label="Klasė" aria-describedby="e-child_age">
+              <label class="opt"><input type="radio" name="child_age" value="pm"><span>Priešmokyklinė</span></label>
+              <label class="opt"><input type="radio" name="child_age" value="kl1"><span>1&nbsp;kl.</span></label>
+              <label class="opt"><input type="radio" name="child_age" value="kl2"><span>2&nbsp;kl.</span></label>
+              <label class="opt"><input type="radio" name="child_age" value="kl3"><span>3&nbsp;kl.</span></label>
+              <label class="opt"><input type="radio" name="child_age" value="kl4"><span>4&nbsp;kl.</span></label>
+              <label class="opt"><input type="radio" name="child_age" value="kl5"><span>5&nbsp;kl.</span></label>
+              <label class="opt"><input type="radio" name="child_age" value="kl6"><span>6&nbsp;kl.</span></label>
+            </div>
+            <p class="err" id="e-child_age" data-err="child_age" role="alert">Pasirinkite klasę.</p>
+          </div>
+          <div class="fnav"><button type="button" class="btn btn-yellow" data-next>Toliau</button></div>
+        </div>
+
+        <div class="fstep" data-step="2">
+          <h3 tabindex="-1">Kur būtų patogiausia?</h3>
+          <p class="hint">Grupės renkasi Tech Zity centre Vilniuje ir mokyklose, kurios mus pakviečia. Kiti miestai atsiranda pagal paklausą.</p>
+          <div class="field">
+            <span class="lbl">Vieta</span>
+            <div class="opts" role="radiogroup" aria-label="Vieta" aria-describedby="e-location_pref">
+              <label class="opt"><input type="radio" name="location_pref" value="techzity"><span>Tech Zity, Vilnius</span></label>
+              <label class="opt"><input type="radio" name="location_pref" value="mokykla"><span>Vaiko mokykloje</span></label>
+              <label class="opt"><input type="radio" name="location_pref" value="nezinau"><span>Dar nežinau</span></label>
+            </div>
+            <p class="err" id="e-location_pref" data-err="location_pref" role="alert">Pasirinkite vieną variantą.</p>
+            <div class="sub-field" id="school-field"><label for="kindergarten_name">Vaiko mokykla</label><input type="text" id="kindergarten_name" name="kindergarten_name" maxlength="120" autocomplete="organization" placeholder="pvz. Vilniaus Žvėryno gimnazija" aria-describedby="e-kindergarten_name" enterkeyhint="next"><p class="err" id="e-kindergarten_name" data-err="kindergarten_name" role="alert">Įrašykite vaiko mokyklą: grupė atsiranda, kai mokykla mus pakviečia.</p></div>
+          </div>
+          <div class="field">
+            <span class="lbl">Miestas</span>
+            <div class="opts" role="radiogroup" aria-label="Miestas" aria-describedby="e-city">
+              <label class="opt"><input type="radio" name="city_pick" value="Vilnius"><span>Vilnius</span></label>
+              <label class="opt"><input type="radio" name="city_pick" value="Kaunas"><span>Kaunas</span></label>
+              <label class="opt"><input type="radio" name="city_pick" value="Klaipėda"><span>Klaipėda</span></label>
+              <label class="opt"><input type="radio" name="city_pick" value="Šiauliai"><span>Šiauliai</span></label>
+              <label class="opt"><input type="radio" name="city_pick" value="Panevėžys"><span>Panevėžys</span></label>
+              <label class="opt"><input type="radio" name="city_pick" value="kitas"><span>Kitas miestas</span></label>
+            </div>
+            <div class="sub-field" id="city-other"><label for="city">Jūsų miestas <small>(pranešime, kai grupė atsiras)</small></label><input type="text" id="city" name="city" maxlength="120" autocomplete="address-level2" placeholder="pvz. Tauragė" enterkeyhint="next"></div>
+            <p class="err" id="e-city" data-err="city" role="alert">Pasirinkite arba įrašykite miestą.</p>
+          </div>
+          <div class="field">
+            <span class="lbl">Kurios dienos tinka? <small>(nebūtina, galite kelias)</small></span>
+            <div class="opts" role="group" aria-label="Dienos">
+              <label class="opt"><input type="checkbox" name="preferred_day" value="Pr"><span>Pr</span></label>
+              <label class="opt"><input type="checkbox" name="preferred_day" value="An"><span>An</span></label>
+              <label class="opt"><input type="checkbox" name="preferred_day" value="Tr"><span>Tr</span></label>
+              <label class="opt"><input type="checkbox" name="preferred_day" value="Kt"><span>Kt</span></label>
+              <label class="opt"><input type="checkbox" name="preferred_day" value="Pn"><span>Pn</span></label>
+            </div>
+          </div>
+          <div class="fnav"><button type="button" class="btn btn-back" data-back>Atgal</button><button type="button" class="btn btn-yellow" data-next>Toliau</button></div>
+        </div>
+
+        <div class="fstep" data-step="3">
+          <h3 tabindex="-1">Kaip su jumis susisiekti?</h3>
+          <p class="hint">Rašysime tik dėl šio būrelio.</p>
+          <div class="field">
+            <label for="parent_name">Jūsų vardas <small>(nebūtina)</small></label>
+            <input type="text" id="parent_name" name="parent_name" maxlength="80" autocomplete="given-name" placeholder="pvz. Rūta" enterkeyhint="next">
+          </div>
+          <div class="field">
+            <label for="email">El. paštas</label>
+            <input type="email" id="email" name="email" maxlength="160" autocomplete="email" inputmode="email" placeholder="vardas@pastas.lt" required aria-describedby="e-email" enterkeyhint="next">
+            <p class="err" id="e-email" data-err="email" role="alert">Įrašykite veikiantį el. paštą, pvz. vardas@pastas.lt.</p>
+          </div>
+          <div class="field">
+            <label for="phone">Telefonas <small>(nebūtina, bet taip greičiau)</small></label>
+            <input type="tel" id="phone" name="phone" maxlength="30" autocomplete="tel" inputmode="tel" placeholder="+370 6xx xxxxx" aria-describedby="e-phone" enterkeyhint="next">
+            <p class="err" id="e-phone" data-err="phone" role="alert">Įrašykite veikiantį telefoną (8–16 skaitmenų) arba palikite tuščią.</p>
+          </div>
+          <div class="field">
+            <span class="lbl">Kokia mėnesio kaina jums tiktų? <small>(nebūtina, padeda mums spręsti)</small></span>
+            <div class="opts" role="radiogroup" aria-label="Kaina">
+              <label class="opt"><input type="radio" name="price_pref" value="tinka mokykla"><span>25&nbsp;€ mokykloje tinka</span></label>
+              <label class="opt"><input type="radio" name="price_pref" value="tinka centras"><span>39&nbsp;€ centre tinka</span></label>
+              <label class="opt"><input type="radio" name="price_pref" value="tinka abi"><span>Abi tinka</span></label>
+              <label class="opt"><input type="radio" name="price_pref" value="per brangu"><span>Per brangu</span></label>
+              <label class="opt"><input type="radio" name="price_pref" value="tik su NVŠ"><span>Tik su NVŠ krepšeliu</span></label>
+            </div>
+            <p class="hint nvs-note">NVŠ krepšelio šiam būreliui dar nėra: šiuo atsakymu tik matuojame poreikį.</p>
+          </div>
+          <div class="field">
+            <span class="lbl">Ar vaikas jau žaidžia Minecraft? <small>(nebūtina)</small></span>
+            <div class="opts" role="radiogroup" aria-label="Patirtis">
+              <label class="opt"><input type="radio" name="interest" value="jau žaidžia"><span>Jau žaidžia</span></label>
+              <label class="opt"><input type="radio" name="interest" value="dar nežaidė"><span>Dar nežaidė</span></label>
+              <label class="opt"><input type="radio" name="interest" value="labiausiai domina DI"><span>Labiausiai domina DI</span></label>
+            </div>
+          </div>
+          <label class="hp" aria-hidden="true" inert>Svetainė <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+          <div class="fnav"><button type="button" class="btn btn-back" data-back>Atgal</button><button type="button" class="btn btn-yellow" data-next>Toliau</button></div>
+        </div>
+
+        <div class="fstep" data-step="4">
+          <h3 tabindex="-1">Paskutinis blokas</h3>
+          <p class="hint">Patvirtinkite, kad galime parašyti.</p>
+          <div class="field">
+            <label class="consent-box"><input type="checkbox" name="consent_contact" value="v2" required aria-describedby="e-consent_contact"><span>Sutinku, kad Robotikos akademija susisiektų su manimi el. paštu arba telefonu dėl šio būrelio. Sutikimą galiu bet kada atšaukti paskambinusi ar paskambinęs +370 5 25 25 713. Duomenis tvarko VšĮ „Robotikos akademija“ pagal <a href="https://robotikosakademija.lt/privatumo-politika/" rel="noopener" data-track="privacy-form">privatumo politiką</a>. <a href="#privatumas" data-track="privacy-note-form">Kaip tvarkome duomenis</a>.</span></label>
+            <p class="err" id="e-consent_contact" data-err="consent_contact" role="alert">Be sutikimo negalėsime parašyti.</p>
+          </div>
+          <p class="err" data-err="submit" role="alert">Nepavyko išsiųsti. Pabandykite dar kartą arba paskambinkite +370 5 25 25 713.</p>
+          <div class="fnav"><button type="button" class="btn btn-back" data-back>Atgal</button><button type="submit" class="btn btn-yellow" id="submit-btn" enterkeyhint="send">Įrašyti į sąrašą</button></div>
+        </div>
+
+        <div class="fstep thanks" data-step="done">
+          <img src="../v2/assets/robot/robotukas-celebrate.svg" alt="" width="520" height="460">
+          <h3 tabindex="-1">Ačiū! Jūs sąraše.</h3>
+          <ol>
+            <li>Įrašėme jūsų vaiką į laukiančiųjų sąrašą.</li>
+            <li>Kai jūsų mokykloje arba Tech Zity centre susirinks grupė, parašysime el. paštu arba paskambinsime.</li>
+            <li>Prieš registraciją atsiųsime tvarkaraštį, sutartį ir mokėjimo sąlygas.</li>
+            <li>Nuspręsite jūs: sąrašas niekuo neįpareigoja.</li>
+          </ol>
+          <button type="button" class="btn btn-navy" id="share-btn">Pasidalinkite su kitais tėvais ar mokytojais</button>
+        </div>
+      </form>
+
+      <form class="form" id="orgform" novalidate hidden aria-labelledby="org-h">
+        <div class="fstep is-on" data-step="org">
+          <h3 id="org-h" tabindex="-1">Pakvieskite būrelį į savo mokyklą</h3>
+          <p class="hint">Dirbate mokykloje arba norite, kad būrelis vyktų jūsų vaiko mokykloje? Palikite kontaktą, ir susisieksime.</p>
+          <details class="org-needs-wrap" open>
+            <summary>Ko reikia mokyklai ir ką darome mes</summary>
+            <ul class="org-what" id="org-needs" aria-label="Ko reikia mokyklai">
+              <li><img src="../v2/assets/v1/ico-check-navy.svg" alt=""><span>Klasė po pamokų ir mokyklos kompiuteriai (Windows, macOS, ChromeOS ar iPad). Jei įrangos trūksta, aptarsime variantus.</span></li>
+              <li><img src="../v2/assets/v1/ico-check-navy.svg" alt=""><span>Minecraft Education įdiegimą ir prisijungimus suderiname su mokyklos IT. Vaikams savo paskyrų nereikia: prisijungimą suteikia būrelis.</span></li>
+              <li><img src="../v2/assets/v1/ico-check-navy.svg" alt=""><span>Mokyklai tai nekainuoja: programą, mentorių, registraciją ir mokėjimus tvarko Robotikos akademija.</span></li>
+              <li><img src="../v2/assets/v1/ico-check-navy.svg" alt=""><span>Grupė startuoja, kai susirenka pakankamai vaikų. Skaičių ir pradžios datą suderiname su mokykla.</span></li>
+              <li><img src="../v2/assets/v1/ico-check-navy.svg" alt=""><span>Tėvams 25&nbsp;€/mėn. už 4 pamokas po 45 min.</span></li>
+              <li><img src="../v2/assets/v1/ico-check-navy.svg" alt=""><span>Pamokas veda Robotikos akademijos mentoriai, praėję Minecraft Education mokymus.</span></li>
+            </ul>
+          </details>
+          <div class="field">
+            <label for="org_role">Jūsų vaidmuo</label>
+            <select id="org_role" name="org_role" aria-describedby="e-org_role">
+              <option value="">Pasirinkite</option>
+              <option value="mokyklos vadovas">Mokyklos vadovas ar pavaduotojas</option>
+              <option value="mokytojas">Mokytojas ar būrelių koordinatorius</option>
+              <option value="tėvai">Tėvai, norintys būrelio savo mokykloje</option>
+              <option value="kita">Kita</option>
+            </select>
+            <p class="err" id="e-org_role" data-err="org_role" role="alert">Pasirinkite vaidmenį.</p>
+          </div>
+          <div class="field">
+            <label for="org_name">Mokykla</label>
+            <input type="text" id="org_name" name="org_name" maxlength="160" autocomplete="organization" placeholder="pvz. Vilniaus Žvėryno gimnazija" aria-describedby="e-org_name" enterkeyhint="next">
+            <p class="err" id="e-org_name" data-err="org_name" role="alert">Įrašykite mokyklos pavadinimą.</p>
+          </div>
+          <div class="field">
+            <label for="org_city">Miestas</label>
+            <input type="text" id="org_city" name="org_city" maxlength="120" autocomplete="address-level2" placeholder="pvz. Vilnius" aria-describedby="e-org_city" enterkeyhint="next">
+            <p class="err" id="e-org_city" data-err="org_city" role="alert">Įrašykite miestą.</p>
+          </div>
+          <div class="field">
+            <span class="lbl">Kiek 1–6 klasių mokinių? <small>(apytiksliai)</small></span>
+            <div class="opts" role="radiogroup" aria-label="Mokinių skaičius">
+              <label class="opt"><input type="radio" name="org_size" value="iki 50"><span>iki 50</span></label>
+              <label class="opt"><input type="radio" name="org_size" value="50–150"><span>50–150</span></label>
+              <label class="opt"><input type="radio" name="org_size" value="150+"><span>150+</span></label>
+              <label class="opt"><input type="radio" name="org_size" value="nežinau"><span>Nežinau</span></label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="org_contact_name">Jūsų vardas <small>(nebūtina)</small></label>
+            <input type="text" id="org_contact_name" name="org_contact_name" maxlength="80" autocomplete="name" placeholder="pvz. Jurga" enterkeyhint="next">
+          </div>
+          <div class="field">
+            <label for="org_email">El. paštas</label>
+            <input type="email" id="org_email" name="org_email" maxlength="160" autocomplete="email" inputmode="email" placeholder="vardas@mokykla.lt" required aria-describedby="e-org_email" enterkeyhint="next">
+            <p class="err" id="e-org_email" data-err="org_email" role="alert">Įrašykite veikiantį el. paštą, pvz. vardas@mokykla.lt.</p>
+          </div>
+          <div class="field">
+            <label for="org_phone">Telefonas <small>(nebūtina, bet taip greičiau)</small></label>
+            <input type="tel" id="org_phone" name="org_phone" maxlength="30" autocomplete="tel" inputmode="tel" placeholder="+370 6xx xxxxx" aria-describedby="e-org_phone" enterkeyhint="send">
+            <p class="err" id="e-org_phone" data-err="org_phone" role="alert">Įrašykite veikiantį telefoną (8–16 skaitmenų) arba palikite tuščią.</p>
+          </div>
+          <div class="field">
+            <label class="consent-box"><input type="checkbox" name="org_consent" value="v2" aria-describedby="e-org_consent"><span>Sutinku, kad Robotikos akademija susisiektų su manimi dėl būrelio mokykloje. Duomenis tvarko VšĮ „Robotikos akademija“ pagal <a href="https://robotikosakademija.lt/privatumo-politika/" rel="noopener" data-track="privacy-org">privatumo politiką</a>. <a href="#privatumas" data-track="privacy-note-org">Kaip tvarkome duomenis</a>.</span></label>
+            <p class="err" id="e-org_consent" data-err="org_consent" role="alert">Be sutikimo negalėsime susisiekti.</p>
+          </div>
+          <label class="hp" aria-hidden="true" inert>Svetainė <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+          <p class="err" data-err="org_submit" role="alert">Nepavyko išsiųsti. Pabandykite dar kartą arba paskambinkite +370 5 25 25 713.</p>
+          <div class="fnav"><button type="submit" class="btn btn-yellow" id="org-submit">Pakviesti į mokyklą</button></div>
+        </div>
+        <div class="fstep thanks" data-step="done">
+          <img src="../v2/assets/robot/robotukas-celebrate.svg" alt="" width="520" height="460">
+          <h3 tabindex="-1">Ačiū! Gavome kvietimą.</h3>
+          <ol>
+            <li>Susisieksime su jumis ir aptarsime, kada ir kaip būrelis galėtų vykti jūsų mokykloje.</li>
+            <li>Mokyklai reikia tik klasės su kompiuteriais po pamokų. Programą, mentorių, prisijungimus ir registraciją tvarko Robotikos akademija.</li>
+            <li>Kai susirinks grupė, tėvai gaus tvarkaraštį, sutartį ir mokėjimo sąlygas.</li>
+          </ol>
+          <button type="button" class="btn btn-navy" id="org-share-btn">Pasidalinkite su kolegomis</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <img class="flogo" src="../v2/assets/ra-logo-white.svg" alt="Robotikos akademija" width="616" height="171" loading="lazy">
+        <p>Vaikų technologinio ugdymo organizacija nuo 2013 m. 110+ mentorių, 650+ vietų Lietuvoje.</p>
+        <p><a href="https://robotikosakademija.lt/" rel="noopener" data-track="footer-ra">robotikosakademija.lt</a></p>
+      </div>
+      <div>
+        <h4>Kontaktai</h4>
+        <p><a href="tel:+37052525713" data-cta="tel-footer">+370 5 25 25 713</a></p>
+        <p>Panerių g. 43, LT-03202 Vilnius</p>
+        <p><a href="https://robotikosakademija.lt/privatumo-politika/" rel="noopener" data-track="privacy-footer">Privatumo politika</a></p>
+        <p><button type="button" class="link" data-cookie-settings>Slapukų nustatymai</button></p>
+      </div>
+      <div>
+        <h4>Būrelis</h4>
+        <p><a href="#pamoka" data-track="nav-pamoka">Kaip vyksta pamoka</a></p>
+        <p><a href="#kaina" data-track="nav-kaina">Kaina</a></p>
+        <p><a href="#mokykloms-info" data-track="nav-mokykloms">Mokykloms</a></p>
+        <p><a href="#duk" data-track="nav-duk">Tėvų klausimai</a></p>
+        <p><a href="#sarasas" data-track="nav-sarasas">Laukiančiųjų sąrašas</a></p>
+      </div>
+    </div>
+    <details class="privacy-note" id="privatumas">
+      <summary>Kaip tvarkome duomenis</summary>
+      <p>Formos duomenys saugomi Supabase duomenų bazėje ir naudojami tik grupei suburti. Lankomumo statistika: Umami, be slapukų. Microsoft Clarity seansų įrašai (įvestys paslėptos) įsijungia tik paspaudus „Leisti“. Tvarkytojas VšĮ „Robotikos akademija“, <a href="https://robotikosakademija.lt/privatumo-politika/" rel="noopener" data-track="privacy-note-link">privatumo politika</a>. Pasirinkimą keisite per <button type="button" class="link" data-cookie-settings>Slapukų nustatymus</button>.</p>
+    </details>
+    <div class="legal">
+      <b>NĖRA OFICIALI MINECRAFT EDUCATION PASLAUGA. NEPATVIRTINTA MOJANG AR MICROSOFT IR SU JOMIS NESUSIJUSI.</b>
+      <b>NOT AN OFFICIAL MINECRAFT EDUCATION SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</b>
+      <p>Už būrelį atsako VšĮ „Robotikos akademija“, Panerių g. 43, LT-03202 Vilnius, įm. k. 303015010, tel. +370 5 25 25 713. Minecraft yra Microsoft įmonių grupės prekės ženklas. Visi kiti prekių ženklai priklauso jų savininkams.</p>
+      <p>3D sala ir kubelių grafika: originalus Robotikos akademijos piešinys, ne žaidimo vaizdas.</p>
+      <p>© 2026 Robotikos akademija.</p>
+    </div>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky" aria-hidden="true">
+  <div class="in">
+    <div class="txt"><b>Žaidimų kūrėjai · 1–6 klasė</b><span>45&nbsp;min kartą per savaitę · nuo 25&nbsp;€/mėn.</span></div>
+    <a class="btn btn-yellow" href="#sarasas" data-cta="sticky">Užsirašyti</a>
+    <a class="btn btn-white" href="#mokykloms" data-cta="sticky-org">Mokyklai</a>
+  </div>
+</div>
+
+<!-- ===== consent.js (v2, nepakeistas): Clarity TIK po „Leisti“, Umami be slapukų visada ===== -->
+<script>
+(function () {
+  'use strict';
+  var CFG = window.RA_CFG || {};
+  var me = document.currentScript;
+  var CLARITY_ID = (me && me.getAttribute('data-clarity')) || CFG.clarityId || '';
+  var KEY = 'ra_mc_v2_consent';
+  var PRIVACY = CFG.privacyUrl || 'https://robotikosakademija.lt/privatumo-politika/';
+  var SRC = window.RA_SRC || 'direct';
+  var CSS = '.consent{position:fixed;left:0;right:0;bottom:0;z-index:60;background:#fff;color:#152039;padding:8px 12px calc(8px + env(safe-area-inset-bottom));box-shadow:0 -10px 30px rgba(10,20,60,.25);font:400 14px/1.35 Poppins,system-ui,sans-serif;display:grid;grid-template-columns:1fr auto;gap:8px 10px;align-items:center;transition:opacity .25s,transform .3s}' +
+    '.consent p{margin:0}.consent a{color:#152039;font-weight:600;display:inline-block;padding:10px 0;margin:-10px 0}.consent .long{display:none}.consent.is-gone{opacity:0;transform:translateY(12px)}' +
+    '.consent-actions{display:flex;gap:6px}.consent-actions button{min-height:44px;padding:8px 12px;border-radius:999px;border:2px solid #152039;background:#fff;color:#152039;font:600 14px/1.2 Poppins,system-ui,sans-serif;cursor:pointer;white-space:nowrap}.consent-actions button:hover{background:#F3F6FF}.consent-actions button:focus-visible{outline:3px solid #3D5BD6;outline-offset:2px}' +
+    '@media (min-width:860px){.consent{left:auto;right:20px;bottom:20px;width:420px;border-radius:22px;padding:16px 18px;grid-template-columns:1fr;gap:10px;font-size:15px}.consent .long{display:inline}.consent-actions{justify-content:stretch}.consent-actions button{flex:1;font-size:15px}}' +
+    '@media (max-width:859px){html.consent-open .sticky{visibility:hidden!important}.consent .note{display:none}}' +
+    '@media print{.consent{display:none!important}}';
+
+  function track(n, p) { if (window.bt) { try { window.bt(n, Object.assign({ version: 'v3-3d', src: SRC }, p || {})); } catch (e) {} } }
+  function read() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function save(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+  function clear() { try { localStorage.removeItem(KEY); } catch (e) {} }
+
+  function loadClarity() {
+    if (!CLARITY_ID) return;
+    if (!window.clarity) {
+      (function (c, l, a, r, i, t, y) {
+        c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+        t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
+        y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+      })(window, document, 'clarity', 'script', CLARITY_ID);
+    }
+    try { window.clarity('consentv2', { ad_Storage: 'denied', analytics_Storage: 'granted' }); } catch (e) {}
+  }
+
+  function expireCookie(name) {
+    var exp = '; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+    var host = location.hostname, parts = host.split('.');
+    document.cookie = name + '=' + exp;
+    document.cookie = name + '=' + exp + '; domain=' + host;
+    if (parts.length > 2) document.cookie = name + '=' + exp + '; domain=.' + parts.slice(-2).join('.');
+    document.cookie = name + '=' + exp + '; domain=.' + host;
+  }
+  function hasClarityCookies() { return /(^|;\s*)_cl(ck|sk)=/.test(document.cookie); }
+  function withdraw() {
+    var running = !!window.clarity || hasClarityCookies();
+    if (window.clarity) {
+      try { window.clarity('consentv2', { ad_Storage: 'denied', analytics_Storage: 'denied' }); } catch (e) {}
+      try { window.clarity('consent', false); } catch (e) {}
+      try { window.clarity('stop'); } catch (e) {}
+    }
+    ['_clck', '_clsk', 'CLID', 'ANONCHK', 'MR', 'MUID', 'SM'].forEach(expireCookie);
+    if (running) setTimeout(function () { location.reload(); }, 150);
+  }
+
+  var el = null, armed = false;
+  function setPad() {
+    var h = el && !el.classList.contains('is-gone') ? el.offsetHeight : 0;
+    document.documentElement.style.setProperty('--consent-h', h + 'px');
+    document.documentElement.classList.toggle('consent-open', h > 0);
+  }
+  function css() {
+    if (document.getElementById('consent-css')) return;
+    var s = document.createElement('style'); s.id = 'consent-css'; s.textContent = CSS;
+    document.head.appendChild(s);
+  }
+  function banner() {
+    if (el) return;
+    css();
+    el = document.createElement('div');
+    el.className = 'consent';
+    el.setAttribute('role', 'region');
+    el.setAttribute('aria-label', 'Slapukų pasirinkimas');
+    var note = document.getElementById('privatumas') ? '<span class="note"> · <a href="#privatumas" data-track="privacy-note-consent">Kaip tvarkome duomenis</a></span>' : '';
+    el.innerHTML =
+      '<p>Seansų įrašai (Microsoft Clarity<span class="long">, įvestys paslėptos</span>) tik jums leidus.<span class="long"> Be sutikimo: tik anoniminė statistika be slapukų.</span> ' +
+      '<a href="' + PRIVACY + '" rel="noopener" data-track="privacy-consent">Privatumas</a>' + note + '</p>' +
+      '<div class="consent-actions">' +
+      '<button type="button" data-c="necessary">Tik būtini</button>' +
+      '<button type="button" data-c="all">Leisti</button>' +
+      '</div>';
+    el.addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-c]');
+      if (!b) return;
+      var c = b.getAttribute('data-c');
+      save(c);
+      track('consent', { state: c });
+      if (c === 'all') loadClarity(); else withdraw();
+      el.classList.add('is-gone');
+      setPad();
+      setTimeout(function () { if (el) { el.remove(); el = null; } setPad(); }, 300);
+    });
+    document.body.insertBefore(el, document.body.firstChild);
+    setPad();
+    if (window.ResizeObserver) new ResizeObserver(setPad).observe(el);
+  }
+  function arm() {
+    if (armed) return; armed = true;
+    var t = setTimeout(show, 6000);
+    function show() { clearTimeout(t); removeEventListener('scroll', onScroll); if (!read()) banner(); }
+    function onScroll() { if (scrollY > 60) show(); }
+    addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  function init() {
+    var c = read();
+    if (c === 'all') { loadClarity(); return; }
+    if (c === 'necessary') return;
+    arm();
+  }
+  window.raConsentReopen = function () { clear(); track('consent', { state: 'reopen' }); if (!el) banner(); };
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-cookie-settings]');
+    if (b) { e.preventDefault(); window.raConsentReopen(); }
+  });
+  window.addEventListener('resize', setPad);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+</script>
+
+<!-- ===== puslapio logika: formos (kopija iš v2/app.js), lipni juosta, DUK sekimas ===== -->
+<script>
+(function () {
+  'use strict';
+  var CFG = window.RA_CFG || {};
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var SRC = window.RA_SRC || 'direct';
+  var RM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var CONSENT_VERSION = 'v2'; /* sutikimo tekstas identiškas v2 */
+  var PAGE_VERSION = 'v3-3d'; /* ⚠️ v2 siuntė 'v2'; patikrinti Supabase stulpelį prieš paleidimą */
+
+  /* cta = mygtukas link formos/telefono · engage = TIK lankytojo veiksmas · view = automatinis · value = užklausa išsiųsta */
+  function track(n, p) {
+    if (!window.bt) return;
+    try { window.bt(n, Object.assign({ version: 'v3-3d', src: SRC }, p || {})); } catch (e) {}
+  }
+  window.raTrack = track;
+
+  /* DUK: kurį klausimą atidarė */
+  $$('#duk details').forEach(function (d) { d.addEventListener('toggle', function () { if (d.open) track('engage', { faq: d.getAttribute('data-faq') }); }); });
+
+  /* skyriai ekrane (view, automatinis) */
+  if ('IntersectionObserver' in window) {
+    var seenSec = {};
+    var so = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { var s = e.target.getAttribute('data-section'); if (e.isIntersecting && !seenSec[s]) { seenSec[s] = 1; track('view', { section: s }); } });
+    }, { threshold: .4 });
+    $$('[data-section]').forEach(function (s) { so.observe(s); });
+  }
+
+  /* ---------- lipni juosta: po hero, paslėpta prie formos ---------- */
+  var sticky = $('#sticky'), hero = $('.hero'), join = $('#sarasas'), pastHero = false, atForm = false;
+  function sync() {
+    var on = pastHero && !atForm;
+    sticky.classList.toggle('is-on', on); sticky.setAttribute('aria-hidden', on ? 'false' : 'true'); sticky.inert = !on;
+    document.body.classList.toggle('has-sticky', on);
+  }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { pastHero = !es[0].isIntersecting && es[0].boundingClientRect.top < 0; sync(); }, { threshold: 0, rootMargin: '0px 0px -60% 0px' }).observe(hero);
+    new IntersectionObserver(function (es) { atForm = es[0].isIntersecting; sync(); }, { threshold: .15 }).observe(join);
+  }
+  sync();
+
+  /* ---------- formų skirtukai: Tėvams / Mokyklai ---------- */
+  var wl = $('#waitlist'), org = $('#orgform');
+  function showTab(t, viaHash) {
+    $$('.tabs button').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-tab') === t ? 'true' : 'false'); });
+    wl.hidden = t !== 'tevai'; org.hidden = t !== 'istaiga';
+    $$('[data-aside]').forEach(function (a) { a.hidden = a.getAttribute('data-aside') !== t; });
+    if (!viaHash) track('engage', { tab: t });
+  }
+  $$('.tabs button').forEach(function (b) { b.addEventListener('click', function () { showTab(b.getAttribute('data-tab')); }); });
+  function hashTab() { if (location.hash === '#mokykloms') showTab('istaiga', true); else if (location.hash === '#sarasas') showTab('tevai', true); }
+  window.addEventListener('hashchange', hashTab); hashTab();
+  $$('a[href="#mokykloms"]').forEach(function (a) { a.addEventListener('click', function () { showTab('istaiga', true); }); });
+  $$('a[href="#sarasas"]').forEach(function (a) { a.addEventListener('click', function () { showTab('tevai', true); }); });
+
+  /* ---------- bendri formų įrankiai (v2) ---------- */
+  function err(form, name, on, focusEl) {
+    var e = form.querySelector('[data-err="' + name + '"]'); if (e) e.classList.toggle('is-on', !!on);
+    if (on) track('engage', { form_error: name, form: form.id });
+    if (on && focusEl) focusEl.focus();
+  }
+  function val(form, name) {
+    var els = form.querySelectorAll('[name="' + name + '"]'); if (!els.length) return '';
+    if (els[0].type === 'radio') { var c = form.querySelector('[name="' + name + '"]:checked'); return c ? c.value : ''; }
+    if (els[0].type === 'checkbox') return $$('[name="' + name + '"]:checked', form).map(function (x) { return x.value; }).join(',');
+    return els[0].value.trim();
+  }
+  var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  function phoneOk(p) { var d = p.replace(/[^\d+]/g, ''); return d.length >= 8 && d.length <= 16; }
+  function post(payload) {
+    return fetch(CFG.supabase.url, {
+      method: 'POST',
+      headers: { 'apikey': CFG.supabase.key, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body: JSON.stringify(payload)
+    });
+  }
+  function done(form, label) {
+    $$('.fstep', form).forEach(function (s) { s.classList.toggle('is-on', s.getAttribute('data-step') === 'done'); });
+    $$('.progress span', form).forEach(function (s) { s.classList.add('done'); });
+    var c = form.querySelector('[aria-live]'); if (c) c.textContent = label;
+    var h = form.querySelector('.thanks h3'); if (h) { h.focus(); }
+    form.scrollIntoView({ block: 'start', behavior: RM ? 'auto' : 'smooth' });
+    if (window.raIslandCelebrate) window.raIslandCelebrate();
+  }
+  function shareInit(btn, text) {
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var url = (CFG.siteUrl || location.href.split('#')[0].split('?')[0]) + '?src=share';
+      if (navigator.share) { navigator.share({ title: document.title, text: text, url: url }).catch(function () {}); return; }
+      track('share', { how: 'copy' });
+      if (navigator.clipboard) { navigator.clipboard.writeText(url).then(function () { btn.textContent = 'Nuoroda nukopijuota'; }).catch(function () {}); }
+    });
+  }
+
+  /* ---------- tėvų forma: 4 žingsniai ---------- */
+  var steps = $$('.fstep', wl), pslots = $$('.progress span', wl), count = $('#f-count'), cur = 1, stepsSeen = {};
+  var names = { 1: 'Vaikas', 2: 'Vieta', 3: 'Kontaktai', 4: 'Sutikimas' };
+  function clearErrs(form) { $$('.err.is-on', form).forEach(function (e) { e.classList.remove('is-on'); }); $$('[aria-invalid="true"]', form).forEach(function (i) { i.setAttribute('aria-invalid', 'false'); }); }
+  function show(n, fromHistory) {
+    clearErrs(wl);
+    steps.forEach(function (s) { s.classList.toggle('is-on', s.getAttribute('data-step') === String(n)); });
+    pslots.forEach(function (s, i) { s.classList.toggle('done', i < n - 1); });
+    count.textContent = n + ' iš 4 · ' + names[n];
+    cur = n;
+    if (!fromHistory && history.pushState) { try { history.pushState({ raStep: n }, '', '#sarasas'); } catch (e) {} }
+    var top = wl.getBoundingClientRect().top;
+    if (top < 70 || top > innerHeight * .5) wl.scrollIntoView({ block: 'start', behavior: RM ? 'auto' : 'smooth' });
+    var h = $('.fstep.is-on h3', wl); if (h) h.focus({ preventScroll: true });
+  }
+  window.addEventListener('popstate', function (e) {
+    var s = e.state && e.state.raStep;
+    if (s && s !== cur && steps.length) show(s, true);
+    else if (!s && cur > 1 && !wl.hidden) show(1, true);
+  });
+  function city() { var p = val(wl, 'city_pick'); return p === 'kitas' ? val(wl, 'city') : p; }
+  var cityOther = $('#city-other'), schoolField = $('#school-field');
+  $$('[name="city_pick"]', wl).forEach(function (r) { r.addEventListener('change', function () { cityOther.classList.toggle('is-on', r.value === 'kitas'); if (r.value === 'kitas') $('#city').focus(); }); });
+  $$('[name="location_pref"]', wl).forEach(function (r) {
+    r.addEventListener('change', function () {
+      schoolField.classList.toggle('is-on', r.value === 'mokykla');
+      var cityRadios = $$('[name="city_pick"]', wl);
+      if (r.value === 'techzity') { cityRadios.forEach(function (c) { c.checked = c.value === 'Vilnius'; c.disabled = c.value !== 'Vilnius'; }); cityOther.classList.remove('is-on'); }
+      else cityRadios.forEach(function (c) { c.disabled = false; });
+    });
+  });
+  function validate(n) {
+    var ok = true;
+    if (n === 1) { if (!val(wl, 'child_age')) { err(wl, 'child_age', 1, $('[name="child_age"]', wl)); ok = false; } else err(wl, 'child_age', 0); }
+    if (n === 2) {
+      if (!val(wl, 'location_pref')) { err(wl, 'location_pref', 1, $('[name="location_pref"]', wl)); ok = false; } else err(wl, 'location_pref', 0);
+      var needSchool = val(wl, 'location_pref') === 'mokykla', sEl = $('#kindergarten_name');
+      if (needSchool && !val(wl, 'kindergarten_name')) { sEl.setAttribute('aria-invalid', 'true'); err(wl, 'kindergarten_name', 1, ok ? sEl : null); ok = false; }
+      else { sEl.setAttribute('aria-invalid', 'false'); err(wl, 'kindergarten_name', 0); }
+      if (!city()) { err(wl, 'city', 1, ok ? $('[name="city_pick"]', wl) : null); ok = false; } else err(wl, 'city', 0);
+    }
+    if (n === 3) {
+      var em = val(wl, 'email'), eEl = $('#email'); var good = EMAIL.test(em) && em.length <= 160;
+      eEl.setAttribute('aria-invalid', good ? 'false' : 'true'); err(wl, 'email', !good, good ? null : eEl); if (!good) ok = false;
+      var ph = val(wl, 'phone'), pEl = $('#phone'); var pgood = !ph || phoneOk(ph);
+      pEl.setAttribute('aria-invalid', pgood ? 'false' : 'true'); err(wl, 'phone', !pgood, (good && !pgood) ? pEl : null); if (!pgood) ok = false;
+    }
+    if (n === 4) { if (!val(wl, 'consent_contact')) { err(wl, 'consent_contact', 1, $('[name="consent_contact"]', wl)); ok = false; } else err(wl, 'consent_contact', 0); }
+    return ok;
+  }
+  function next() { if (validate(cur)) { if (!stepsSeen[cur]) { stepsSeen[cur] = 1; track('engage', { form_step: cur }); } show(cur + 1); if (window.raIslandStep) window.raIslandStep(cur); } }
+  wl.addEventListener('click', function (e) {
+    if (e.target.closest('[data-next]')) next();
+    if (e.target.closest('[data-back]')) { track('engage', { form_back: cur }); show(cur - 1); }
+  });
+  wl.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter') return;
+    var t = e.target;
+    if (t.closest('.hp')) { e.preventDefault(); return; }
+    if (t.tagName === 'INPUT' && t.type !== 'checkbox' && t.type !== 'radio' && cur !== 4) {
+      e.preventDefault();
+      var step = t.closest('.fstep');
+      var inputs = $$('input[type=text],input[type=email],input[type=tel]', step).filter(function (i) { return i.offsetParent !== null && !i.closest('.hp'); });
+      var i = inputs.indexOf(t);
+      if (i >= 0 && i < inputs.length - 1) inputs[i + 1].focus(); else next();
+    }
+  });
+  wl.addEventListener('change', function () { if (!stepsSeen.start) { stepsSeen.start = 1; track('engage', { form_start: 1 }); } });
+  wl.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (cur !== 4) { next(); return; }
+    if (!validate(4)) return;
+    var btn = $('#submit-btn'); btn.disabled = true; btn.textContent = 'Siunčiama…'; err(wl, 'submit', 0);
+    if (val(wl, 'website')) { done(wl, 'Ačiū! Įrašyta'); return; }
+    var payload = {
+      product: 'minecraft', lead_type: 'tevai', page_version: PAGE_VERSION,
+      parent_name: (val(wl, 'parent_name') || '').slice(0, 80) || null,
+      email: val(wl, 'email').toLowerCase(),
+      phone: (val(wl, 'phone') || '').slice(0, 30) || null,
+      child_age: val(wl, 'child_age'),
+      city: city().slice(0, 120),
+      location_pref: val(wl, 'location_pref'),
+      kindergarten_name: (val(wl, 'kindergarten_name') || '').slice(0, 120) || null,
+      interest: val(wl, 'interest') || null,
+      price_pref: val(wl, 'price_pref') || null,
+      preferred_day: val(wl, 'preferred_day') || null,
+      src: SRC, consent_contact: true, consent_text_version: CONSENT_VERSION
+    };
+    post(payload).then(function (r) {
+      if (r.status === 201) {
+        var fixed = ['Vilnius', 'Kaunas', 'Klaipėda', 'Šiauliai', 'Panevėžys'];
+        track('value', { step: 'waitlist_submit', klase: payload.child_age, vieta: payload.location_pref, miestas: fixed.indexOf(payload.city) >= 0 ? payload.city : 'kitas' });
+        done(wl, 'Ačiū! Įrašyta');
+      } else { throw new Error('status ' + r.status); }
+    }).catch(function (ex) {
+      track('error', { where: 'waitlist', msg: String(ex && ex.message || ex).slice(0, 60) });
+      err(wl, 'submit', 1); btn.disabled = false; btn.textContent = 'Įrašyti į sąrašą';
+    });
+  });
+  shareInit($('#share-btn'), 'Robotikos akademijos būrelis 1–6 klasei: Žaidimų kūrėjai, DI ir žaidimų kūrimas 6–12 metų vaikams.');
+
+  /* ---------- mokyklos forma: 1 žingsnis ---------- */
+  var orgSeen = false;
+  org.addEventListener('change', function () { if (!orgSeen) { orgSeen = true; track('engage', { org_form_start: 1 }); } });
+  org.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter') return;
+    var t = e.target;
+    if (t.closest('.hp')) { e.preventDefault(); return; }
+    if (t.tagName === 'INPUT' && t.type !== 'checkbox' && t.type !== 'radio') {
+      e.preventDefault();
+      var inputs = $$('input[type=text],input[type=email],input[type=tel],select', org).filter(function (i) { return i.offsetParent !== null && !i.closest('.hp'); });
+      var i = inputs.indexOf(t);
+      if (i >= 0 && i < inputs.length - 1) inputs[i + 1].focus();
+      else if (org.requestSubmit) org.requestSubmit(); else $('#org-submit').click();
+    }
+  });
+  org.addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearErrs(org);
+    var ok = true, first = null;
+    function bad(name, el) { err(org, name, 1); if (el) { el.setAttribute('aria-invalid', 'true'); if (!first) first = el; } ok = false; }
+    if (!val(org, 'org_role')) bad('org_role', $('#org_role'));
+    if (!val(org, 'org_name')) bad('org_name', $('#org_name'));
+    if (!val(org, 'org_city')) bad('org_city', $('#org_city'));
+    var em = val(org, 'org_email'), ph = val(org, 'org_phone');
+    if (!(em && EMAIL.test(em) && em.length <= 160)) bad('org_email', $('#org_email'));
+    if (ph && !phoneOk(ph)) bad('org_phone', $('#org_phone'));
+    if (!val(org, 'org_consent')) bad('org_consent', $('[name="org_consent"]', org));
+    if (!ok) { if (first) first.focus(); return; }
+    var btn = $('#org-submit'); btn.disabled = true; btn.textContent = 'Siunčiama…'; err(org, 'org_submit', 0);
+    if (val(org, 'website')) { done(org, 'Ačiū'); return; }
+    var payload = {
+      product: 'minecraft', lead_type: 'istaiga', page_version: PAGE_VERSION,
+      org_role: val(org, 'org_role').slice(0, 60),
+      org_name: val(org, 'org_name').slice(0, 160),
+      org_size: val(org, 'org_size') || null,
+      city: val(org, 'org_city').slice(0, 120),
+      location_pref: 'mokykla',
+      parent_name: (val(org, 'org_contact_name') || '').slice(0, 80) || null,
+      email: em.toLowerCase(),
+      phone: ph ? ph.slice(0, 30) : null,
+      src: SRC, consent_contact: true, consent_text_version: CONSENT_VERSION
+    };
+    post(payload).then(function (r) {
+      if (r.status === 201) { track('value', { step: 'org_submit', role: payload.org_role, size: payload.org_size || 'nenurodė' }); done(org, 'Ačiū'); }
+      else throw new Error('status ' + r.status);
+    }).catch(function (ex) {
+      track('error', { where: 'orgform', msg: String(ex && ex.message || ex).slice(0, 60) });
+      err(org, 'org_submit', 1); btn.disabled = false; btn.textContent = 'Pakviesti į mokyklą';
+    });
+  });
+  shareInit($('#org-share-btn'), 'Robotikos akademijos būrelis mokyklai: Žaidimų kūrėjai su Minecraft Education ir DI, 1–6 klasei.');
+})();
+</script>
+
+<!-- ===== salos pasaulis: vienas šaltinis 3D ir statiniam SVG plakatui (tools: build-poster) ===== -->
+<script id="worldgen">
+function raWorld() {
+  var R = 9;
+  var C = { grass: 0x6CC644, grass2: 0x5DB83A, dirt: 0xA0703F, dirt2: 0x8E6236, sand: 0xEBD49A, stone: 0xB3B3B3, stone2: 0x9C9C9C,
+    water: 0x4FA3E6, water2: 0x5DB2EE, wood: 0x8B5A2B, leaf: 0x3E9E3A, leaf2: 0x52B847, wall: 0xF3F6FF, roof: 0x3D5BD6, roof2: 0x2F4BC0,
+    door: 0x152039, win: 0x6FEFF5, yellow: 0xFEC404, path: 0xD8C08C, mars: 0xE0734A, white: 0xFFFFFF };
+  function hash(x, z) { var h = (Math.imul(x, 374761393) + Math.imul(z, 668265263)) | 0; h = Math.imul(h ^ (h >>> 13), 1274126177); h ^= h >>> 16; return (h >>> 0) / 4294967296; }
+  var blocks = [], occ = {}, top = {};
+  function put(x, y, z, c, ph, o) {
+    var k = x + ',' + y + ',' + z; if (occ[k]) return; occ[k] = 1;
+    blocks.push({ x: x, y: y, z: z, c: c, ph: ph, sy: (o && o.sy) || 1, s: (o && o.s) || 1, oy: (o && o.oy) || 0, d: Math.sqrt(x * x + z * z), j: hash(x * 7 + y, z * 3 - y) });
+  }
+  var x, y, z, n, d, h;
+  for (x = -13; x <= 13; x++) for (z = -13; z <= 13; z++) {
+    n = hash(x, z); d = Math.sqrt(x * x + z * z) + (n - .5) * 1.8;
+    var plateau = Math.abs(x) <= 3 && Math.abs(z) <= 3;
+    if (d < R || plateau) {
+      h = (plateau || d < R * .42) ? 3 : d < R * .74 ? 2 : 1; top[x + ',' + z] = h;
+      for (y = 0; y < h; y++) {
+        var isTop = y === h - 1, c;
+        if (isTop) c = (x === 0 && z >= 3) ? C.path : (h === 1 && d > R - 1.6) ? C.sand : (n < .5 ? C.grass : C.grass2);
+        else c = (y === 0 && n > .72) ? C.stone : (n < .5 ? C.dirt : C.dirt2);
+        put(x, y, z, c, 0);
+      }
+    } else if (d < R + 3.4) put(x, 0, z, n < .5 ? C.water : C.water2, 1, { sy: .6, oy: -.2 });
+  }
+  /* namelis (2) */
+  for (y = 3; y <= 5; y++) for (x = -2; x <= 2; x++) for (z = -2; z <= 2; z++) {
+    if (Math.abs(x) !== 2 && Math.abs(z) !== 2) continue;
+    if (x === 0 && z === 2 && y <= 4) continue;
+    var cw = (Math.abs(x) === 2 && Math.abs(z) === 2) ? C.wood : (y === 4 && ((Math.abs(x) === 2 && z === 0) || (z === 2 && Math.abs(x) === 1))) ? C.win : C.wall;
+    put(x, y, z, cw, 2);
+  }
+  for (var L = 0; L <= 3; L++) { var e = 3 - L; for (x = -e; x <= e; x++) for (z = -e; z <= e; z++) { if (L < 2 && Math.abs(x) !== e && Math.abs(z) !== e) continue; put(x, 6 + L, z, L % 2 ? C.roof2 : C.roof, 2, { s: 1.064 }); } }
+  /* vartai (3): atsidaro, kai skaičius teisingas */
+  var gz = 6, gTop = Math.max(top['-1,' + gz] || 1, top['1,' + gz] || 1) + 2;
+  [-1, 1].forEach(function (gx) { for (y = (top[gx + ',' + gz] || 1); y <= gTop; y++) put(gx, y, gz, y === gTop ? C.stone2 : C.stone, 3); });
+  put(-1, gTop + 1, gz, C.yellow, 3); put(0, gTop + 1, gz, C.yellow, 3); put(1, gTop + 1, gz, C.yellow, 3);
+  /* medžiai (3) */
+  [[5, -3], [-5, 2], [-3, -5], [4, 4], [-6, -2]].forEach(function (p) {
+    var t = top[p[0] + ',' + p[1]]; if (!t) return;
+    for (y = t; y < t + 3; y++) put(p[0], y, p[1], C.wood, 3);
+    for (y = t + 2; y <= t + 3; y++) for (x = -1; x <= 1; x++) for (z = -1; z <= 1; z++) put(p[0] + x, y, p[1] + z, (x + z + y) % 2 ? C.leaf : C.leaf2, 3);
+    put(p[0], t + 4, p[1], C.leaf2, 3);
+  });
+  /* gėlės + švyturys (4) */
+  var fl = [C.yellow, C.white, C.mars], fi = 0;
+  Object.keys(top).forEach(function (k) {
+    var p = k.split(','), fx = +p[0], fz = +p[1], t = top[k];
+    if (t < 2 || (Math.abs(fx) <= 3 && Math.abs(fz) <= 3) || fx === 0 || hash(fx * 3, fz * 5) < .9) return;
+    put(fx, t, fz, fl[fi++ % 3], 4, { s: .38, oy: -.31 });
+  });
+  put(0, 10, 0, C.yellow, 4);
+  var order = { 0: function (a, b) { return a.y - b.y || (a.d + a.j * .8) - (b.d + b.j * .8); }, 1: function (a, b) { return a.d - b.d; },
+    2: function (a, b) { return a.y - b.y || Math.atan2(a.z, a.x) - Math.atan2(b.z, b.x); }, 3: function (a, b) { return a.y - b.y; }, 4: function (a, b) { return a.j - b.j; } };
+  blocks.sort(function (a, b) { return a.ph - b.ph || order[a.ph](a, b); });
+  var cum = [0, 0, 0, 0, 0, 0]; blocks.forEach(function (b) { cum[b.ph + 1]++; }); for (var i = 1; i < 6; i++) cum[i] += cum[i - 1];
+  return { blocks: blocks, occ: occ, top: top, cum: cum, C: C };
+}
+if (typeof window !== 'undefined') window.raWorld = raWorld;
+</script>
+
+<!-- ===== 3D sala (three.js r170, tik po pirmo piešimo; be WebGL lieka SVG plakatas) ===== -->
+<script type="module">
+const THREE_URL = 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js';
+const stage = document.getElementById('stage');
+const canvas = document.getElementById('island');
+const story = document.getElementById('story');
+const meter = document.getElementById('meter');
+const hint = document.getElementById('tap-hint');
+const soundBtn = document.getElementById('sound');
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const track = (n, p) => { try { window.raTrack && window.raTrack(n, p); } catch (e) {} };
+
+function hasGL() { try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) { return false; } }
+function idle(cb) { ('requestIdleCallback' in window) ? requestIdleCallback(cb, { timeout: 1200 }) : setTimeout(cb, 150); }
+function fallback(why) { stage.classList.add('no-gl'); track('view', { island: 'fallback', why }); }
+
+/* ---- garsas: tik įjungus (numatyta išjungta), švelnus „pop“ ---- */
+let audio = null, soundOn = false;
+soundBtn.addEventListener('click', () => {
+  soundOn = !soundOn;
+  soundBtn.setAttribute('aria-pressed', String(soundOn));
+  soundBtn.setAttribute('aria-label', soundOn ? 'Garsas: įjungtas' : 'Garsas: išjungtas');
+  soundBtn.querySelectorAll('.w').forEach(p => p.setAttribute('opacity', soundOn ? '1' : '.25'));
+  if (soundOn && !audio) { try { audio = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} }
+  if (soundOn) pop(1.2);
+  track('engage', { sound: soundOn ? 'on' : 'off' });
+});
+function pop(pitch = 1) {
+  if (!soundOn || !audio) return;
+  const t = audio.currentTime, o = audio.createOscillator(), g = audio.createGain();
+  o.type = 'triangle'; o.frequency.setValueAtTime(420 * pitch, t); o.frequency.exponentialRampToValueAtTime(160 * pitch, t + .09);
+  g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(.14, t + .01); g.gain.exponentialRampToValueAtTime(.0001, t + .12);
+  o.connect(g).connect(audio.destination); o.start(t); o.stop(t + .14);
+}
+
+function lite() {
+  const c = navigator.connection || {};
+  return !!(c.saveData || /(^|-)2g$/.test(c.effectiveType || '') || (navigator.deviceMemory && navigator.deviceMemory <= 2));
+}
+function start() {
+  if (!hasGL()) return fallback('no-webgl');
+  if (lite()) return fallback('lite');
+  let late = false;
+  const timer = setTimeout(() => { late = true; fallback('slow'); }, 10000);
+  import(THREE_URL).then(T => { clearTimeout(timer); if (!late) boot(T); }).catch(e => { clearTimeout(timer); console.warn('island', e); fallback('load'); });
+}
+const go = () => idle(start);
+if (document.readyState === 'complete') go(); else addEventListener('load', go, { once: true });
+
+function boot(T) {
+  const W = window.raWorld();
+  const B = W.blocks, N = B.length;
+  const mobile = innerWidth < 760;
+  let renderer;
+  try { renderer = new T.WebGLRenderer({ canvas, antialias: (devicePixelRatio || 1) < 2, alpha: true, powerPreference: mobile ? 'default' : 'high-performance' }); }
+  catch (e) { return fallback('context'); }
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, mobile ? 1.5 : 1.75));
+  const scene = new T.Scene();
+  const HAZE = 0x8EA4EE;
+  scene.fog = new T.Fog(HAZE, 30, 80);
+  const camera = new T.PerspectiveCamera(30, 1, .5, 400);
+  scene.add(new T.HemisphereLight(0xEEF3FF, 0x6B8A4A, 1.7));
+  const sun = new T.DirectionalLight(0xFFF1D2, 2.3); sun.position.set(9, 16, 6); scene.add(sun);
+
+  /* toon: 3 tonai */
+  const grad = new T.DataTexture(new Uint8Array([110, 185, 255]), 3, 1, T.RedFormat);
+  grad.minFilter = grad.magFilter = T.NearestFilter; grad.needsUpdate = true;
+  const mat = new T.MeshToonMaterial({ color: 0xffffff, gradientMap: grad });
+  const geo = new T.BoxGeometry(.94, .94, .94);
+
+  const world = new T.InstancedMesh(geo, mat, N);
+  world.instanceMatrix.setUsage(T.DynamicDrawUsage);
+  world.frustumCulled = false;
+  world.boundingSphere = new T.Sphere(new T.Vector3(0, 3, 0), 22);
+  const col = new T.Color();
+  B.forEach((b, i) => { col.setHex(b.c); col.offsetHSL(0, 0, (b.j - .5) * .05); world.setColorAt(i, col); });
+  world.count = 0;
+  scene.add(world);
+
+  /* lankytojo blokai */
+  const UMAX = 150, USER_COL = [0xFEC404, 0x3D5BD6, 0xFFFFFF, 0x6CC644, 0xE0734A, 0x6FEFF5];
+  const user = new T.InstancedMesh(geo, mat, UMAX);
+  user.count = 0; user.frustumCulled = false; user.boundingSphere = world.boundingSphere;
+  user.instanceMatrix.setUsage(T.DynamicDrawUsage);
+  scene.add(user);
+  const users = [];
+
+  /* DI pagalbininkas: geltonas kubelis su akutėmis + švytėjimas + „pasiūlymo“ rėmelis */
+  const ai = new T.Group();
+  const aiBody = new T.Mesh(new T.BoxGeometry(.7, .7, .7), new T.MeshBasicMaterial({ color: 0xFEC404 }));
+  ai.add(aiBody);
+  const eyeM = new T.MeshBasicMaterial({ color: 0x152039 });
+  [-.15, .15].forEach(ex => { const e = new T.Mesh(new T.BoxGeometry(.1, .14, .02), eyeM); e.position.set(ex, .06, .36); ai.add(e); });
+  const gc = document.createElement('canvas'); gc.width = gc.height = 64;
+  const gx = gc.getContext('2d'); const rg = gx.createRadialGradient(32, 32, 0, 32, 32, 32);
+  rg.addColorStop(0, 'rgba(255,230,120,.9)'); rg.addColorStop(.4, 'rgba(255,214,60,.35)'); rg.addColorStop(1, 'rgba(255,214,60,0)');
+  gx.fillStyle = rg; gx.fillRect(0, 0, 64, 64);
+  const glow = new T.Sprite(new T.SpriteMaterial({ map: new T.CanvasTexture(gc), transparent: true, depthWrite: false, blending: T.AdditiveBlending, fog: false }));
+  glow.scale.set(2.8, 2.8, 1); ai.add(glow);
+  scene.add(ai);
+  const ghost = new T.LineSegments(new T.EdgesGeometry(new T.BoxGeometry(1.02, 1.02, 1.02)), new T.LineBasicMaterial({ color: 0xFEC404, transparent: true, opacity: .95, fog: false }));
+  scene.add(ghost);
+  const beamGeo = new T.BufferGeometry().setFromPoints([new T.Vector3(), new T.Vector3()]);
+  const beam = new T.Line(beamGeo, new T.LineBasicMaterial({ color: 0xFFE27A, transparent: true, opacity: .7, fog: false }));
+  scene.add(beam);
+
+  /* matricos */
+  const m4 = new T.Matrix4(), q = new T.Quaternion(), sv = new T.Vector3(), pv = new T.Vector3();
+  const AN = 9;
+  const backOut = t => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); };
+  function setM(mesh, i, b, t) {
+    const e = t >= 1 ? 1 : Math.max(.001, backOut(t)), s = b.s * e;
+    sv.set(s, s * b.sy, s); pv.set(b.x, b.y + b.oy + (1 - Math.min(1, t)) * 1.8, b.z);
+    m4.compose(pv, q, sv); mesh.setMatrixAt(i, m4);
+  }
+
+  /* slinkimo progresas → kiek blokų matoma */
+  const cum = W.cum; // [0, terrain, +water, +house, +gate/trees, +flowers]
+  const KEYS = [[0, cum[1] * .45], [.24, cum[2]], [.5, cum[3]], [.72, cum[4]], [.9, N]];
+  function targetFor(p) {
+    for (let i = 1; i < KEYS.length; i++) if (p <= KEYS[i][0]) { const a = KEYS[i - 1], b = KEYS[i], f = (p - a[0]) / (b[0] - a[0]); return a[1] + (b[1] - a[1]) * f; }
+    return N;
+  }
+  let prog = 0;
+  function readProg() { const r = story.getBoundingClientRect(); const span = r.height - innerHeight; prog = span > 0 ? Math.min(1, Math.max(0, -r.top / span)) : 0; }
+  readProg();
+
+  /* kamera */
+  let radius = 40, fullAz = 0, dragAz = 0, dragEl = 0, wide = false;
+  const target = new T.Vector3(0, 2.6, 0);
+  let SW = 1, SH = 1;
+  function frame() {
+    SW = stage.clientWidth; SH = stage.clientHeight;
+    renderer.setSize(SW, SH, false);
+    wide = SW >= 900;
+  }
+  /* kadravimas: plačiame ekrane sala dešinėje; telefone hero metu maža ir žemai (po tekstu), skyriuose pakyla ir priartėja */
+  function lay(p) {
+    const w = SW, h = SH, k = Math.min(1, p / .2);
+    let fullW, fullH, offY = 0, need;
+    if (wide) { fullW = w * 1.42; fullH = h; need = 36 - k * 4; }
+    else { fullW = w; fullH = h * 1.6; const c = (RM ? .86 : .80) - (RM ? .21 : .15) * k; /* RM: sala jau pilna (aukštesnė), todėl hero metu žemiau */ offY = fullH / 2 - c * h; need = 13.5 - 1.5 * k; }
+    camera.aspect = fullW / fullH;
+    camera.setViewOffset(fullW, fullH, 0, offY, w, h);
+    const vf = camera.fov * Math.PI / 180, hf = 2 * Math.atan(Math.tan(vf / 2) * camera.aspect);
+    radius = Math.max(need / Math.tan(hf / 2), (wide ? 10.5 : 10) / Math.tan(vf / 2));
+    scene.fog.near = radius - 6; scene.fog.far = radius + 34;
+    camera.far = radius + 120;
+    camera.updateProjectionMatrix();
+  }
+  function placeCam(p) {
+    lay(p);
+    const az = Math.PI / 4 + (RM ? 0 : p * .9) + dragAz, el = Math.min(.95, Math.max(.28, .55 + dragEl));
+    camera.position.set(target.x + radius * Math.cos(el) * Math.sin(az), target.y + radius * Math.sin(el), target.z + radius * Math.cos(el) * Math.cos(az));
+    camera.lookAt(target);
+  }
+
+  /* būsena */
+  let shown = RM ? N : 0, lastShown = 0, t0 = performance.now();
+  const aiPos = new T.Vector3(3, 8, 3), ghostPos = new T.Vector3(0, 4, 4);
+  let suggest = null, suggestAt = 0;
+  function freeSpot() {
+    for (let k = 0; k < 40; k++) {
+      const keys = Object.keys(W.top), key = keys[(Math.random() * keys.length) | 0], p = key.split(',');
+      const x = +p[0], z = +p[1], y = W.top[key];
+      if (Math.abs(x) <= 2 && Math.abs(z) <= 2) continue;
+      if (!W.occ[x + ',' + y + ',' + z]) return new T.Vector3(x, y, z);
+    }
+    return new T.Vector3(4, 3, 4);
+  }
+
+  function applyAll() {
+    world.count = Math.ceil(shown);
+    for (let i = 0; i < world.count; i++) setM(world, i, B[i], 1);
+    world.instanceMatrix.needsUpdate = true;
+    if (world.instanceColor) world.instanceColor.needsUpdate = true;
+  }
+
+  function update(dt, now) {
+    if (!RM) {
+      const tgt = targetFor(prog);
+      const diff = tgt - shown;
+      shown += Math.max(-Math.max(260, -diff * 3) * dt, Math.min(Math.max(95, diff * 2.2) * dt, diff));
+      shown = Math.max(0, Math.min(N, shown));
+      const cnt = Math.ceil(shown);
+      const lo = Math.max(0, Math.floor(Math.min(lastShown, shown)) - AN - 1), hi = cnt;
+      for (let i = lo; i < hi; i++) setM(world, i, B[i], Math.min(1, (shown - i) / AN));
+      if (Math.floor(shown / 6) !== Math.floor(lastShown / 6) && shown > lastShown) pop(.8 + (shown % 30) / 60);
+      world.count = cnt; world.instanceMatrix.needsUpdate = true;
+      lastShown = shown;
+    }
+    /* lankytojo blokų „pop“ */
+    let uDirty = false;
+    users.forEach((u, i) => { const t = Math.min(1, (now - u.at) / 350); if (t < 1 || !u.done) { setM(user, i, u, RM ? 1 : t); uDirty = true; if (t >= 1) u.done = true; } });
+    if (uDirty) user.instanceMatrix.needsUpdate = true;
+
+    /* DI kubelis: skrenda virš kito bloko ir jį „pasiūlo“ */
+    const built = shown >= N - .5;
+    let goal;
+    if (!built) { const nb = B[Math.min(N - 1, Math.floor(shown))]; ghostPos.set(nb.x, nb.y + nb.oy, nb.z); goal = new T.Vector3(nb.x + .6, nb.y + 2.4, nb.z + .6); }
+    else {
+      if (!suggest || now - suggestAt > 2600) { suggest = freeSpot(); suggestAt = now; }
+      ghostPos.copy(suggest); goal = new T.Vector3(suggest.x + .8, suggest.y + 2.6, suggest.z + .8);
+    }
+    const k = RM ? 1 : Math.min(1, dt * 4);
+    aiPos.lerp(goal, k);
+    const bob = RM ? 0 : Math.sin(now / 420) * .14;
+    ai.position.set(aiPos.x, aiPos.y + bob, aiPos.z);
+    ai.rotation.y = RM ? .6 : now / 1400;
+    ghost.position.lerp(ghostPos, RM ? 1 : Math.min(1, dt * 10));
+    ghost.material.opacity = RM ? .95 : .55 + .4 * Math.abs(Math.sin(now / 300));
+    const bp = beamGeo.attributes.position; bp.setXYZ(0, ai.position.x, ai.position.y - .35, ai.position.z); bp.setXYZ(1, ghost.position.x, ghost.position.y + .5, ghost.position.z); bp.needsUpdate = true;
+    meter.textContent = Math.round(shown) + ' / ' + N + ' blokų' + (users.length ? ' · jūsų: ' + users.length : '');
+    placeCam(prog);
+  }
+
+  /* ciklas: tik kai matoma */
+  let running = false, last = 0, inView = true, frameReq = 0;
+  function render() { renderer.render(scene, camera); }
+  function tick(now) {
+    if (!running) return;
+    frameReq = requestAnimationFrame(tick);
+    const dt = Math.min(.1, (now - last) / 1000 || .016); last = now;
+    update(dt, now); render();
+  }
+  function play() { if (RM || running || !inView || document.hidden) return; running = true; last = performance.now(); frameReq = requestAnimationFrame(tick); }
+  function pause() { running = false; cancelAnimationFrame(frameReq); }
+  function once() { update(0, performance.now()); render(); }
+  window.__island = { get running() { return running; }, get shown() { return shown; }, N, get users() { return users.length; } };
+
+  new IntersectionObserver(es => { inView = es[0].isIntersecting; inView ? play() : pause(); }, { threshold: 0 }).observe(story);
+  document.addEventListener('visibilitychange', () => document.hidden ? pause() : play());
+  let rmReq = 0;
+  addEventListener('scroll', () => { readProg(); if (RM && inView && !rmReq) rmReq = requestAnimationFrame(() => { rmReq = 0; once(); }); }, { passive: true });
+  new ResizeObserver(() => { frame(); if (!running) once(); }).observe(stage);
+  canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); pause(); fallback('lost'); });
+
+  /* sąveika: vilkti = švelniai pasukti; paliesti = padėti bloką */
+  const ray = new T.Raycaster(), ndc = new T.Vector2();
+  let down = null, dragged = false;
+  canvas.addEventListener('pointerdown', e => { down = { x: e.clientX, y: e.clientY, t: performance.now(), moved: 0, type: e.pointerType }; });
+  canvas.addEventListener('pointermove', e => {
+    if (!down) return;
+    const dx = e.movementX || 0, dy = e.movementY || 0;
+    down.moved += Math.abs(dx) + Math.abs(dy);
+    if (down.moved > 6) {
+      dragAz = Math.max(-1.1, Math.min(1.1, dragAz - dx * .007));
+      if (down.type === 'mouse') dragEl = Math.max(-.25, Math.min(.35, dragEl + dy * .004));
+      if (!dragged) { dragged = true; track('engage', { island: 'orbit' }); }
+      if (!running) once();
+    }
+  });
+  canvas.addEventListener('pointercancel', () => { down = null; });
+  canvas.addEventListener('pointerup', e => {
+    if (!down) return;
+    const isTap = down.moved < 8 && performance.now() - down.t < 600; down = null;
+    if (isTap) place(e);
+  });
+  function place(e) {
+    if (users.length >= UMAX) return;
+    const r = canvas.getBoundingClientRect();
+    ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    const hit = ray.intersectObjects([world, user], false)[0];
+    if (!hit || hit.instanceId == null || !hit.face) return;
+    const src = hit.object === world ? B[hit.instanceId] : users[hit.instanceId];
+    const n = hit.face.normal;
+    const x = Math.round(src.x + n.x), y = Math.round(src.y + n.y), z = Math.round(src.z + n.z);
+    if (y < 0 || y > 14 || Math.abs(x) > 14 || Math.abs(z) > 14) return;
+    const key = x + ',' + y + ',' + z; if (W.occ[key]) return;
+    W.occ[key] = 1;
+    const u = { x, y, z, s: 1, sy: 1, oy: 0, at: performance.now(), done: false };
+    users.push(u); user.count = users.length;
+    col.setHex(USER_COL[(users.length - 1) % USER_COL.length]); user.setColorAt(users.length - 1, col); user.instanceColor.needsUpdate = true;
+    if (RM) { setM(user, users.length - 1, u, 1); user.instanceMatrix.needsUpdate = true; u.done = true; }
+    pop(1.3);
+    suggest = null;
+    hint.textContent = ' Puiku! Jūsų blokų: ' + users.length + '.';
+    if (users.length === 1 || users.length % 10 === 0) track('engage', { island: 'place', n: users.length });
+    if (!running) once();
+  }
+
+  /* formos sąsaja: kiekvienas žingsnis ir „ačiū“ = šventė saloje (jei matoma) */
+  window.raIslandStep = () => {};
+  window.raIslandCelebrate = () => { pop(1.6); };
+
+  frame();
+  if (RM) { applyAll(); once(); }
+  else { readProg(); play(); }
+  requestAnimationFrame(() => { stage.classList.add('gl-on'); });
+  track('view', { island: RM ? 'static' : 'gl' });
+}
+</script>
+</body>
+</html>
